@@ -12,10 +12,11 @@ import java.sql.Timestamp;
  */
 public class Stories extends ContentCreation {
 
-    public Stories(int contentId, int authorId, String content) {
-        super(contentId, authorId, content);
+    public Stories(int contentId, int authorId, Content content, Timestamp createdtime) {
+        super(contentId, authorId, content, createdtime);
     }
 
+  
     public boolean isExpired() {
         Timestamp nowtime = new Timestamp(System.currentTimeMillis());
         return getCreatedtime().before(nowtime);

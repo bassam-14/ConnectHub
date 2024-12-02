@@ -14,18 +14,42 @@ public abstract class ContentCreation {
 
     private int contentId;
     private int authorId;
-    private String content;
+    private Content content;
     private final Timestamp createdtime;
 
-    public ContentCreation(int contentId, int authorId, String content) {
+    public ContentCreation(int contentId, int authorId, Content content, Timestamp createdtime) {
         this.contentId = contentId;
         this.authorId = authorId;
         this.content = content;
-        this.createdtime = Timestamp.valueOf("2024-12-01 18:30:00");
+        this.createdtime = createdtime;
     }
 
     public Timestamp getCreatedtime() {
         return createdtime;
+    }
+
+    public int getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(int contentId) {
+        this.contentId = contentId;
+    }
+
+    public int getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
+    }
+
+    public Content getContent() {
+        return content;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
     }
 
 }
