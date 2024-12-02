@@ -5,8 +5,8 @@
  */
 package lab9;
 
-import contentcreation.Posts;
-import contentcreation.Stories;
+
+import contentcreation.*;
 import java.util.HashMap;
 import java.util.Map;
 
