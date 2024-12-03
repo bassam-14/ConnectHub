@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  */
 public class Posts extends ContentCreation {
 
-    public Posts(int contentId, int authorId, Content content, Timestamp createdtime) {
+    public Posts(String contentId,String authorId, Content content, Timestamp createdtime) {
         super(contentId, authorId, content, createdtime);
     }
 }

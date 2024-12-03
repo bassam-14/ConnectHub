@@ -5,34 +5,29 @@
 package lab9;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.util.List;
+import java.util.*;
 import contentcreation.*;
-import java.util.ArrayList;
 
 /**
  *
  * @author bassam
  */
 public class ContentDatabase extends FileHandling<ContentCreation> {
-
-    private final List<ContentCreation> contents;
-
-    public ContentDatabase() {
-        super("content.json", new TypeReference<List<ContentCreation>>() {
-        });
-        contents = readData();
+    public ContentDatabase(){
+       super("content.json",new TypeReference<List<ContentCreation>>(){});
     }
-
-    public void addContent(ContentCreation content) {
-        contents.add(content);
-        writeData(contents);
+    @Override
+    public ContentCreation getRecord(String contentId){
+    for(ContentCreation c:records){
+        if(c.getContentId().equals(contentId))
+            return c;
     }
-
-    public List<Stories> getActiveStories() {
+    return null;
+}
+     public List<Stories> getActiveStories() {
         List<Stories> activeStories = new ArrayList<>();
-        for (ContentCreation content : contents) {
-            if (content instanceof Stories) {
-                Stories story = (Stories) content;
+        for (ContentCreation content :records) {
+            if (content instanceof Stories story) {
                 if (!story.isExpired()) {
                     activeStories.add(story);
                 }
@@ -40,33 +35,13 @@ public class ContentDatabase extends FileHandling<ContentCreation> {
         }
         return activeStories;
     }
-
     public List<Posts> getPosts() {
         List<Posts> postsList = new ArrayList<>();
-        for (ContentCreation content : contents) {
-            if (content instanceof Posts) {
-                Posts post = (Posts) content;
+        for (ContentCreation content :records) {
+            if (content instanceof Posts post) {
                 postsList.add(post);
             }
         }
         return postsList;
-    }
-
-    public void removeExpiredStories() {
-        List<ContentCreation> updatedContents = new ArrayList<>();
-
-        for (ContentCreation content : contents) {
-            if (content instanceof Stories) {
-                Stories story = (Stories) content;
-                if (!story.isExpired()) {
-                    updatedContents.add(story);
-                }
-            } else {
-                updatedContents.add(content);
-            }
-        }
-        contents.clear();
-        contents.addAll(updatedContents);
-        writeData(contents);
     }
 }

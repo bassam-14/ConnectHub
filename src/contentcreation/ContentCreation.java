@@ -12,12 +12,12 @@ import java.sql.Timestamp;
  */
 public abstract class ContentCreation {
 
-    private int contentId;
-    private int authorId;
+    private String contentId;
+    private String authorId;
     private Content content;
     private final Timestamp createdtime;
 
-    public ContentCreation(int contentId, int authorId, Content content, Timestamp createdtime) {
+    public ContentCreation(String contentId,String authorId, Content content, Timestamp createdtime) {
         this.contentId = contentId;
         this.authorId = authorId;
         this.content = content;
@@ -28,19 +28,19 @@ public abstract class ContentCreation {
         return createdtime;
     }
 
-    public int getContentId() {
+    public String getContentId() {
         return contentId;
     }
 
-    public void setContentId(int contentId) {
+    public void setContentId(String contentId) {
         this.contentId = contentId;
     }
 
-    public int getAuthorId() {
+    public String getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(int authorId) {
+    public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
 
