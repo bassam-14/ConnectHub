@@ -13,8 +13,14 @@ import contentcreation.*;
  * @author bassam
  */
 public class ContentDatabase extends FileHandling<ContentCreation> {
-    public ContentDatabase(){
+    private static ContentDatabase instance;
+    private ContentDatabase(){
        super("content.json",new TypeReference<List<ContentCreation>>(){});
+    }
+    public static ContentDatabase getInstance(){
+        if(instance==null)
+            instance=new ContentDatabase();
+        return instance;
     }
     @Override
     public ContentCreation getRecord(String contentId){

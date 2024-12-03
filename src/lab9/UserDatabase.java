@@ -10,8 +10,14 @@ import java.util.*;
  * @author bassam
  */
 public class UserDatabase extends FileHandling<User> {
-    public UserDatabase(){
+    private static UserDatabase instance;
+    private UserDatabase(){
         super("users.json",new TypeReference<List<User>>(){});
+    }
+     public static UserDatabase getInstance(){
+        if(instance==null)
+            instance=new UserDatabase();
+        return instance;
     }
     @Override
     public User getRecord(String userId){
