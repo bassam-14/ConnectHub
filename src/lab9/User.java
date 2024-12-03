@@ -16,6 +16,26 @@ public class User {
     private String password;
     private LocalDate dateOfBirth;
     private String status;
+    private Profile profile;
+
+    public User(String userId, String email, String username, String password, LocalDate dateOfBirth, String status, Profile profile) {
+        this.userId = userId;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+        this.status = status;
+        this.profile=profile;
+    }
+    
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
 
     public String getUserId() {
         return userId;

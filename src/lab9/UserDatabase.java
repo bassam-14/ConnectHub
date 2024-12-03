@@ -10,17 +10,12 @@ import java.util.*;
  * @author bassam
  */
 public class UserDatabase extends FileHandling<User> {
-    private final List<User>users;
     public UserDatabase(){
         super("users.json",new TypeReference<List<User>>(){});
-        users=readData();
     }
-    public void addUser(User user){
-        users.add(user);
-        writeData(users);
-    }
-    public User findUser(String userId){
-        for(User u:users){
+    @Override
+    public User getRecord(String userId){
+        for(User u:records){
             if(u.getUserId().equals(userId))
                 return u;
         }
