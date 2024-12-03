@@ -4,10 +4,7 @@
  */
 package lab9;
 import java.time.LocalDate;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 /**
  *
  * @author bassam
