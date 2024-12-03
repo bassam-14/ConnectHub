@@ -19,6 +19,7 @@ public class User {
     private String password;
     private LocalDate dateOfBirth;
     private String status;
+    private int n;
 
     public String getUserId() {
         return userId;
