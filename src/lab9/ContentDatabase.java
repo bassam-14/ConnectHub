@@ -44,4 +44,12 @@ public class ContentDatabase extends FileHandling<ContentCreation> {
         }
         return postsList;
     }
+    public List<ContentCreation> getRecordsByAuthor(String authorId){
+      List<ContentCreation>content=new ArrayList<>();
+        for(ContentCreation c:records){
+        if(c.getAuthorId().equals(authorId))
+            content.add(c);
+    }
+    return content;
+    }
 }
