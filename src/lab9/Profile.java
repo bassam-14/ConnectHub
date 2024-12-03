@@ -16,39 +16,17 @@ public class Profile {
     private String pfpPath;
     private String cpPath;
     private String bio;
-    private String password;
-    private int userId;
-    private ArrayList<Posts> posts;
-    private ArrayList<Stories> stories;
+    private ArrayList<ContentCreation> content;
 
-    public Profile(String pfpPath, String cpPath, String bio, String password, int userId,ArrayList<Posts> posts,ArrayList<Stories> stories) {
+    public Profile(String pfpPath, String cpPath, String bio, ArrayList<ContentCreation> content) {
         this.pfpPath = pfpPath;
         this.cpPath = cpPath;
         this.bio = bio;
-        this.password = password;
-        this.userId = userId;
-        this.posts=posts;
-        this.stories=stories;
+        this.content = content;
     }
 
     public String getPfpPath() {
         return pfpPath;
-    }
-
-    public ArrayList<Posts> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(ArrayList<Posts> posts) {
-        this.posts = posts;
-    }
-
-    public ArrayList<Stories> getStories() {
-        return stories;
-    }
-
-    public void setStories(ArrayList<Stories> stories) {
-        this.stories = stories;
     }
 
     public void setPfpPath(String pfpPath) {
@@ -71,21 +49,15 @@ public class Profile {
         this.bio = bio;
     }
 
-    public String getPassword() {
-        return password;
+    public ArrayList<ContentCreation> getContent() {
+        return content;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setContent(ArrayList<ContentCreation> content) {
+        this.content = content;
     }
 
-    public int getUserId() {
-        return userId;
-    }
+   
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-    
     
 }

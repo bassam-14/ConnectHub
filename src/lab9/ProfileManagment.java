@@ -5,7 +5,6 @@
  */
 package lab9;
 
-
 import contentcreation.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,94 +14,39 @@ import java.util.Map;
  * @author Zeina
  */
 public class ProfileManagment {
+    
+    private User user;
 
-    private Map<Integer, Profile> profiles = new HashMap<>();
-
-    public void updateBio(int userId, String newBio) {
-        Profile profile = profiles.get(userId);
-        if (profile != null) {
-            profile.setBio(newBio);
-            profiles.put(userId, profile);
-        } else {
-            throw new IllegalArgumentException("Profile not found for userId: " + userId);
-        }
+    public ProfileManagment(Profile profile) {
+        this.user = profile;
     }
-
-    public void updatePfp(int userId, String newpfpPath) {
-        Profile profile = profiles.get(userId);
-        if (profile != null) {
-            profile.setPfpPath(newpfpPath);
-            profiles.put(userId, profile);
-        } else {
-            throw new IllegalArgumentException("Profile not found for userId: " + userId);
-        }
+    
+    public void updateBio(String newBio) {
+        user.setBio(newBio);
     }
-
-    public void updatecpPath(int userId, String newcpPath) {
-        Profile profile = profiles.get(userId);
-        if (profile != null) {
-            profile.setPfpPath(newcpPath);
-            profiles.put(userId, profile);
-        } else {
-            throw new IllegalArgumentException("Profile not found for userId: " + userId);
-        }
+    
+    public void updatePfp(String newpfpPath) {
+            user.setPfpPath(newpfpPath);
     }
-
-    public void addPost(int userId, Posts post) {
-        Profile profile = profiles.get(userId);
-        if (profile != null) {
-            profile.getPosts().add(post);
-            profiles.put(userId, profile);
-        } else {
-            throw new IllegalArgumentException("Profile not found for userId: " + userId);
-        }
+    
+    public void updatecpPath(String newcpPath) {
+            user.setCpPath(newcpPath);
     }
-
-    public void addStory(int userId, Stories story) {
-        Profile profile = profiles.get(userId);
-        if (profile != null) {
-            profile.getStories().add(story);
-            profiles.put(userId, profile);
-        } else {
-            throw new IllegalArgumentException("Profile not found for userId: " + userId);
-        }
+    
+    public void addPost(Posts post) {
+            user.getContent().add(post);
     }
-
+    
+    public void addStory(Stories story) {
+            user.getContent().add(story);
+    }
+    
     public void removePost(int userId, Posts post) {
-        Profile profile = profiles.get(userId);
-        if (profile != null) {
-            for (int i = 0; i < profile.getPosts().size(); i++) {
-                if (profile.getPosts().get(i).equals(post)) {
-                    profile.getPosts().remove(post);
-                }
-            }
-            profiles.put(userId, profile);
-        } else {
-            throw new IllegalArgumentException("Profile not found for userId: " + userId);
-        }
+                    user.getContent().remove(post);
     }
-
+    
     public void removeStory(int userId, Stories story) {
-        Profile profile = profiles.get(userId);
-        if (profile != null) {
-            for (int i = 0; i < profile.getStories().size(); i++) {
-                if (profile.getStories().get(i).equals(story)) {
-                    profile.getPosts().remove(story);
-                }
-            }
-            profiles.put(userId, profile);
-        } else {
-            throw new IllegalArgumentException("Profile not found for userId: " + userId);
-        }
-    }
-    public void updatePassword(int userId,String Password){
-    Profile profile = profiles.get(userId);
-        if (profile != null) {
-            profile.setPassword(Password);
-            profiles.put(userId, profile);
-        } else {
-            throw new IllegalArgumentException("Profile not found for userId: " + userId);
-        }
+                    user.getContent().remove(story);
     }
 
 }
