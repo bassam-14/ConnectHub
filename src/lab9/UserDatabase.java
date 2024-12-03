@@ -27,4 +27,11 @@ public class UserDatabase extends FileHandling<User> {
         }
         return null;
     }
+    public User getRecordByEmail(String email){
+        for(User u:records){
+            if(u.getEmail().equals(email))
+                return u;
+        }
+        return null;
+    }
 }
