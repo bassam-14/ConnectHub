@@ -17,7 +17,6 @@ public class User {
     private LocalDate dateOfBirth;
     private String status;
     private Profile profile;
-    private int x;
 
     public User(String userId, String email, String username, String password, LocalDate dateOfBirth, String status, Profile profile) {
         this.userId = userId;
