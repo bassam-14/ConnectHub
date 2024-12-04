@@ -14,18 +14,26 @@ import java.util.List;
  */
 public class FriendManagment {
 
+    private static FriendManagment instance;
     private String userId;
     private ArrayList<String> friends;
     private UserDatabase userDatabase;
     private ArrayList<FriendRequest> sentRequests;
     private ArrayList<FriendRequest> receivedRequests;
     private ArrayList<String> blockedUsers;
+
     // TODO:- populate fields from FriendsDatabase
-    // TODO:- covert constructor into a singleton thread safe initiaizer
-    public FriendManagment(String userId, UserDatabase userDatabase, ArrayList<FriendRequest> requests) {
+    private FriendManagment(String userId, UserDatabase userDatabase) {
         this.userId = userId;
         this.userDatabase = userDatabase;
-        this.sentRequests = requests;
+
+    }
+
+    public static synchronized FriendManagment getInstance(String userId, UserDatabase userDatabase, ArrayList<FriendRequest> sentRequests, ArrayList<FriendRequest> receivedRequests, ArrayList<String> blockedUsers) {
+        if (instance == null) {
+            instance = new FriendManagment(userId, userDatabase);
+        }
+        return instance;
     }
 
     public String getUserId() {
@@ -80,13 +88,13 @@ public class FriendManagment {
         sentRequests.add(request);
     }
 
-    private void acceptReques(FriendRequest request) {
+    private void acceptRequest(FriendRequest request) {
         if (request.getRecieverID() != userId || !request.getStatus().equals("Pending")) {
             return;
         }
         friends.add(request.getSenderID());
         request.setStatus("Accepted");
-        // todo remove from received requests
+        receivedRequests.remove(request);
     }
 
     private void declineRequesr(FriendRequest request) {
@@ -94,7 +102,7 @@ public class FriendManagment {
             return;
         }
         request.setStatus("Declined");
-        // todo remove from received requests
+        receivedRequests.remove(request);
     }
 
     private void removeFriend(String friendId) {
@@ -125,10 +133,17 @@ public class FriendManagment {
         for (int i = 0; i < this.blockedUsers.size(); i++) {
             blockedUsers1.add(getUserById(blockedUsers.get(i), this.userDatabase));
         }
+        ArrayList<User> sentRequests1 = new ArrayList<>();
+        for (int i = 0; i < this.sentRequests.size(); i++) {
+            sentRequests1.add(getUserById(sentRequests.get(i).getRecieverID(), this.userDatabase));
+        }
+        ArrayList<User> receivedRequests1 = new ArrayList<>();
+        for (int i = 0; i < this.sentRequests.size(); i++) {
+            receivedRequests1.add(getUserById(receivedRequests.get(i).getSenderID(), this.userDatabase));
+        }
         ArrayList<User> friendSuggestions = new ArrayList<>();
         for (int i = 0; i < allUsers.size(); i++) {
-            if (allUsers.get(i) != friends1.get(i) && allUsers.get(i) != blockedUsers1.get(i)) {
-                //TODO:- shouldn't be in the received or sent arrays too
+            if (allUsers.get(i) != friends1.get(i) && allUsers.get(i) != blockedUsers1.get(i) && allUsers.get(i) != sentRequests1.get(i) && allUsers.get(i) != receivedRequests1.get(i)) {
                 friendSuggestions.add(allUsers.get(i));
             }
         }
