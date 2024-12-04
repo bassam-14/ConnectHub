@@ -13,8 +13,6 @@ import java.util.List;
  * @author Zeina
  */
 public class FriendManagment {
-
-    private static FriendManagment instance;
     private String userId;
     private ArrayList<String> friends;
     private UserDatabase userDatabase;
@@ -22,20 +20,12 @@ public class FriendManagment {
     private ArrayList<FriendRequest> receivedRequests;
     private ArrayList<String> blockedUsers;
 
-    // TODO:- populate fields from FriendsDatabase
-    private FriendManagment(String userId, UserDatabase userDatabase) {
+
+    public FriendManagment(String userId, UserDatabase userDatabase) {
         this.userId = userId;
         this.userDatabase = userDatabase;
 
     }
-
-    public static synchronized FriendManagment getInstance(String userId, UserDatabase userDatabase, ArrayList<FriendRequest> sentRequests, ArrayList<FriendRequest> receivedRequests, ArrayList<String> blockedUsers) {
-        if (instance == null) {
-            instance = new FriendManagment(userId, userDatabase);
-        }
-        return instance;
-    }
-
     public String getUserId() {
         return userId;
     }
@@ -75,21 +65,17 @@ public class FriendManagment {
     public void setBlockedUsers(ArrayList<String> blockedUsers) {
         this.blockedUsers = blockedUsers;
     }
+    public void sendRequest(String receiverID) {
 
-    private User getUserById(String userId, UserDatabase userDatabase) {
-        return userDatabase.getRecord(userId);
-    }
-
-    private void sendRequest(String receiverID) {
         if (friends.contains(receiverID)) {
             return;
         }
         FriendRequest request = new FriendRequest(userId, receiverID, "Pending");
         sentRequests.add(request);
     }
+    public void acceptRequest(FriendRequest request) {
+        if (!(request.getRecieverID().equals(userId)) || !request.getStatus().equals("Pending")) {
 
-    private void acceptRequest(FriendRequest request) {
-        if (request.getRecieverID() != userId || !request.getStatus().equals("Pending")) {
             return;
         }
         friends.add(request.getSenderID());
@@ -97,49 +83,48 @@ public class FriendManagment {
         receivedRequests.remove(request);
     }
 
-    private void declineRequesr(FriendRequest request) {
-        if (request.getRecieverID() != userId || !request.getStatus().equals("Pending")) {
+    public void declineRequest(FriendRequest request) {
+        if (!request.getRecieverID().equals(userId) || !request.getStatus().equals("Pending")) {
             return;
         }
         request.setStatus("Declined");
         receivedRequests.remove(request);
     }
+    public void removeFriend(String friendId) {
 
-    private void removeFriend(String friendId) {
         if (!friends.contains(friendId)) {
             return;
         }
         friends.remove(friendId);
     }
-
-    private void blockUser(String userId) {
-        if (this.blockedUsers.contains(userId)) {
+    public void blockUser(String userId) {
+        if (blockedUsers.contains(userId)) {
             return;
-        } else if (this.friends.contains(userId)) {
+        } else if (friends.contains(userId)) {
             blockedUsers.add(userId);
             friends.remove(userId);
         } else {
             blockedUsers.add(userId);
         }
     }
-
-    private ArrayList<User> getFriendSuggestions() {
+    public ArrayList<User> getFriendSuggestions() {
         List<User> allUsers = userDatabase.getAllRecords();
         ArrayList<User> friends1 = new ArrayList<>();
         for (int i = 0; i < this.friends.size(); i++) {
-            friends1.add(getUserById(friends.get(i), this.userDatabase));
+            friends1.add(userDatabase.getRecord(friends.get(i)));
         }
         ArrayList<User> blockedUsers1 = new ArrayList<>();
         for (int i = 0; i < this.blockedUsers.size(); i++) {
-            blockedUsers1.add(getUserById(blockedUsers.get(i), this.userDatabase));
+            blockedUsers1.add(userDatabase.getRecord(blockedUsers.get(i)));
         }
         ArrayList<User> sentRequests1 = new ArrayList<>();
         for (int i = 0; i < this.sentRequests.size(); i++) {
-            sentRequests1.add(getUserById(sentRequests.get(i).getRecieverID(), this.userDatabase));
+            sentRequests1.add(userDatabase.getRecord(sentRequests.get(i).getRecieverID()));
         }
         ArrayList<User> receivedRequests1 = new ArrayList<>();
         for (int i = 0; i < this.sentRequests.size(); i++) {
-            receivedRequests1.add(getUserById(receivedRequests.get(i).getSenderID(), this.userDatabase));
+            receivedRequests1.add(userDatabase.getRecord(receivedRequests.get(i).getSenderID()));
+
         }
         ArrayList<User> friendSuggestions = new ArrayList<>();
         for (int i = 0; i < allUsers.size(); i++) {
