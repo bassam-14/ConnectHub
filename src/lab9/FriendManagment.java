@@ -107,31 +107,25 @@ public class FriendManagment {
             blockedUsers.add(userId);
         }
     }
-    public ArrayList<User> getFriendSuggestions() {
-        List<User> allUsers = userDatabase.getAllRecords();
-        ArrayList<User> friends1 = new ArrayList<>();
-        for (int i = 0; i < this.friends.size(); i++) {
-            friends1.add(userDatabase.getRecord(friends.get(i)));
+    public ArrayList<String> getFriendSuggestions() {
+        List<User> allUsersByUser = userDatabase.getAllRecords();
+        List<String>allUsers=new ArrayList<>();
+        for(User user:allUsersByUser){
+            allUsers.add(user.getUserId());
         }
-        ArrayList<User> blockedUsers1 = new ArrayList<>();
-        for (int i = 0; i < this.blockedUsers.size(); i++) {
-            blockedUsers1.add(userDatabase.getRecord(blockedUsers.get(i)));
+        List<String>sentString=new ArrayList<>();
+        List<String>recievedString=new ArrayList<>();
+        for(FriendRequest r:sentRequests){
+            sentString.add(r.getSenderID());
         }
-        ArrayList<User> sentRequests1 = new ArrayList<>();
-        for (int i = 0; i < this.sentRequests.size(); i++) {
-            sentRequests1.add(userDatabase.getRecord(sentRequests.get(i).getRecieverID()));
+        for(FriendRequest r:receivedRequests){
+            recievedString.add(r.getRecieverID());
         }
-        ArrayList<User> receivedRequests1 = new ArrayList<>();
-        for (int i = 0; i < this.sentRequests.size(); i++) {
-            receivedRequests1.add(userDatabase.getRecord(receivedRequests.get(i).getSenderID()));
-
-        }
-        ArrayList<User> friendSuggestions = new ArrayList<>();
-        for (int i = 0; i < allUsers.size(); i++) {
-            if (allUsers.get(i) != friends1.get(i) && allUsers.get(i) != blockedUsers1.get(i) && allUsers.get(i) != sentRequests1.get(i) && allUsers.get(i) != receivedRequests1.get(i)) {
-                friendSuggestions.add(allUsers.get(i));
-            }
-        }
+        ArrayList<String> friendSuggestions = new ArrayList<>(allUsers);
+        friendSuggestions.removeAll(friends);
+        friendSuggestions.removeAll(blockedUsers);
+        friendSuggestions.removeAll(sentString);
+        friendSuggestions.removeAll(recievedString);
         return friendSuggestions;
     }
 
