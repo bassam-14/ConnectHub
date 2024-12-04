@@ -4,7 +4,6 @@
  */
 package contentcreation;
 
-import java.sql.Timestamp;
 
 /**
  *
@@ -12,7 +11,7 @@ import java.sql.Timestamp;
  */
 public class Posts extends ContentCreation {
 
-    public Posts(int contentId, int authorId, Content content, Timestamp createdtime) {
-        super(contentId, authorId, content, createdtime);
+    public Posts(int contentId, int authorId, Content content) {
+        super(contentId, authorId, content);
     }
 }
