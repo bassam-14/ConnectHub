@@ -5,6 +5,7 @@
 package contentcreation;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -15,16 +16,16 @@ public abstract class ContentCreation {
     private String contentId;
     private String authorId;
     private Content content;
-    private final Timestamp createdtime;
+    private final LocalDateTime createdtime;
 
-    public ContentCreation(String contentId,String authorId, Content content, Timestamp createdtime) {
+    public ContentCreation(String contentId, String authorId, Content content) {
         this.contentId = contentId;
         this.authorId = authorId;
         this.content = content;
-        this.createdtime = createdtime;
+        this.createdtime = LocalDateTime.now();
     }
 
-    public Timestamp getCreatedtime() {
+    public LocalDateTime getCreatedtime() {
         return createdtime;
     }
 

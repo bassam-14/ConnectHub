@@ -4,7 +4,7 @@
  */
 package contentcreation;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -12,13 +12,12 @@ import java.sql.Timestamp;
  */
 public class Stories extends ContentCreation {
 
-    public Stories(String contentId,String authorId, Content content, Timestamp createdtime) {
-        super(contentId, authorId, content, createdtime);
+    public Stories(String contentId, String authorId, Content content) {
+        super(contentId, authorId, content);
     }
 
-  
     public boolean isExpired() {
-        Timestamp nowtime = new Timestamp(System.currentTimeMillis());
-        return getCreatedtime().before(nowtime);
+        LocalDateTime nowTime = LocalDateTime.now();
+        return getCreatedtime().isBefore(nowTime);
     }
 }

@@ -4,15 +4,13 @@
  */
 package contentcreation;
 
-import java.sql.Timestamp;
-
 /**
  *
  * @author mazen
  */
 public class Posts extends ContentCreation {
 
-    public Posts(String contentId,String authorId, Content content, Timestamp createdtime) {
-        super(contentId, authorId, content, createdtime);
+    public Posts(String contentId, String authorId, Content content) {
+        super(contentId, authorId, content);
     }
 }
