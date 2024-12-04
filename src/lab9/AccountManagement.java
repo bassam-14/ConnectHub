@@ -40,5 +40,28 @@ public class AccountManagement {
         userDatabase.addRecord(user);
         return true;
     }
-    
+    public boolean login(String email, String password){
+        User user = userDatabase.getRecordByEmail(email);
+        if(user == null){
+            return false;
+        }
+        PasswordHash passhash = new PasswordHash();
+        String hashedPassword = passhash.hashPassword(password);
+        if(!user.getPassword().equals(hashedPassword)){
+            return false;
+        }
+        if("online".equals(user.getStatus())){
+            return false;
+        }
+        user.setStatus("online");
+        return true;
+    }
+    public boolean logout(User user){
+        if(user == null || "offline".equals(user.getStatus())){
+            return false;
+        }
+        user.setStatus("offline");
+        userDatabase.saveData();
+        return true;
+    }
 }
