@@ -49,7 +49,9 @@ public class LogIn extends javax.swing.JFrame {
             }
         });
 
+        logInButton.setBackground(new java.awt.Color(204, 204, 255));
         logInButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        logInButton.setForeground(new java.awt.Color(0, 0, 0));
         logInButton.setText("LogIn");
         logInButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,7 +59,9 @@ public class LogIn extends javax.swing.JFrame {
             }
         });
 
+        backButton.setBackground(new java.awt.Color(204, 204, 255));
         backButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        backButton.setForeground(new java.awt.Color(0, 0, 0));
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

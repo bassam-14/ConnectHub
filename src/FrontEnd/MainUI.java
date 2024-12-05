@@ -34,6 +34,8 @@ public class MainUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        signUpButton.setBackground(new java.awt.Color(204, 204, 255));
+        signUpButton.setForeground(new java.awt.Color(0, 0, 0));
         signUpButton.setText("Sign up");
         signUpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -41,6 +43,8 @@ public class MainUI extends javax.swing.JFrame {
             }
         });
 
+        logInButton.setBackground(new java.awt.Color(204, 204, 255));
+        logInButton.setForeground(new java.awt.Color(0, 0, 0));
         logInButton.setText("Log in");
         logInButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
