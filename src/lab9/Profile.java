@@ -16,13 +16,11 @@ public class Profile {
     private String pfpPath;
     private String cpPath;
     private String bio;
-    private ArrayList<ContentCreation> content;
 
     public Profile(String pfpPath, String cpPath, String bio, ArrayList<ContentCreation> content) {
         this.pfpPath = pfpPath;
         this.cpPath = cpPath;
         this.bio = bio;
-        this.content = content;
     }
 
     public String getPfpPath() {
@@ -47,17 +45,5 @@ public class Profile {
 
     public void setBio(String bio) {
         this.bio = bio;
-    }
-
-    public ArrayList<ContentCreation> getContent() {
-        return content;
-    }
-
-    public void setContent(ArrayList<ContentCreation> content) {
-        this.content = content;
-    }
-
-   
-
-    
+    }  
 }

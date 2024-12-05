@@ -14,16 +14,19 @@ import java.util.List;
  */
 public class FriendManagment {
     private String userId;
-    private ArrayList<String> friends;
-    private UserDatabase userDatabase;
-    private ArrayList<FriendRequest> sentRequests;
-    private ArrayList<FriendRequest> receivedRequests;
-    private ArrayList<String> blockedUsers;
+    private List<String> friends;
+    private final List<FriendRequest> sentRequests;
+    private final List<FriendRequest> receivedRequests;
+    private final List<String> blockedUsers;
+   UserDatabase userDatabase=UserDatabase.getInstance();
+   FriendDatabase friendDatabase=FriendDatabase.getInstance();
 
-
-    public FriendManagment(String userId, UserDatabase userDatabase) {
+    public FriendManagment(String userId) {
         this.userId = userId;
-        this.userDatabase = userDatabase;
+        sentRequests=friendDatabase.getSentRequests(userId);
+        receivedRequests=friendDatabase.getRecievedRequests(userId);
+        friends=friendDatabase.getFriends(userId);
+        blockedUsers=userDatabase.getRecord(userId).getBlockedUsers();
 
     }
     public String getUserId() {
@@ -33,37 +36,12 @@ public class FriendManagment {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-
-    public ArrayList<String> getFriends() {
-        return friends;
-    }
-
     public void setFriends(ArrayList<String> friends) {
         this.friends = friends;
     }
 
     public UserDatabase getUserDatabase() {
         return userDatabase;
-    }
-
-    public void setUserDatabase(UserDatabase userDatabase) {
-        this.userDatabase = userDatabase;
-    }
-
-    public ArrayList<FriendRequest> getSentRequests() {
-        return sentRequests;
-    }
-
-    public void setSentRequests(ArrayList<FriendRequest> sentRequests) {
-        this.sentRequests = sentRequests;
-    }
-
-    public ArrayList<String> getBlockedUsers() {
-        return blockedUsers;
-    }
-
-    public void setBlockedUsers(ArrayList<String> blockedUsers) {
-        this.blockedUsers = blockedUsers;
     }
     public void sendRequest(String receiverID) {
 
@@ -72,6 +50,7 @@ public class FriendManagment {
         }
         FriendRequest request = new FriendRequest(userId, receiverID, "Pending");
         sentRequests.add(request);
+        friendDatabase.addRecord(request);
     }
     public void acceptRequest(FriendRequest request) {
         if (!(request.getRecieverID().equals(userId)) || !request.getStatus().equals("Pending")) {
@@ -96,6 +75,9 @@ public class FriendManagment {
             return;
         }
         friends.remove(friendId);
+        friendDatabase.deleteRecord(friendDatabase.getRecord(friendId+"-"+userId));
+        friendDatabase.deleteRecord(friendDatabase.getRecord(userId+"-"+friendId));
+
     }
     public void blockUser(String userId) {
         if (blockedUsers.contains(userId)) {

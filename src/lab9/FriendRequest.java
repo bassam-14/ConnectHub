@@ -11,8 +11,8 @@ package lab9;
  */
 public class FriendRequest {
 
-    private String recieverID;
-    private String senderID;
+    private final String recieverID;
+    private final String senderID;
     private String status;
 
     public FriendRequest(String recieverID, String senderID, String status) {
@@ -20,7 +20,9 @@ public class FriendRequest {
         this.senderID = senderID;
         this.status = status;
     }
-
+   public String getFriendShipId(){
+       return senderID+"-"+recieverID;
+   }
     public String getRecieverID() {
         return recieverID;
     }
