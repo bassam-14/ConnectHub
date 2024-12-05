@@ -11,7 +11,7 @@ import lab9.*;
 public class MainUI extends javax.swing.JFrame {
   UserDatabase userDatabase=UserDatabase.getInstance();
   ContentDatabase contentDatabase=ContentDatabase.getInstance();
-  FriendDatabase friendDatabase=friendDatabase.getInstance();
+  FriendDatabase friendDatabase=FriendDatabase.getInstance();
     /**
      * Creates new form MainUI
      */
