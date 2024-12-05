@@ -14,6 +14,7 @@ import contentcreation.*;
 public class ProfileManagment {
     
     private final User user;
+    private final ContentDatabase contentDatabase=ContentDatabase.getInstance();
 
     public ProfileManagment(User user) {
         this.user=user;
@@ -32,19 +33,19 @@ public class ProfileManagment {
     }
     
     public void addPost(Posts post) {
-            user.getProfile().getContent().add(post);
+            contentDatabase.addRecord(post);
     }
     
     public void addStory(Stories story) {
-            user.getProfile().getContent().add(story);
+            contentDatabase.addRecord(story);
     }
     
-    public void removePost(int userId, Posts post) {
-                    user.getProfile().getContent().remove(post);
+    public void removePost(Posts post) {
+                 contentDatabase.deleteRecord(post);
     }
     
-    public void removeStory(int userId, Stories story) {
-                    user.getProfile().getContent().remove(story);
+    public void removeStory(Stories story) {
+                 contentDatabase.deleteRecord(story);
     }
 
 }
