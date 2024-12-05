@@ -15,6 +15,7 @@ public class LogIn extends javax.swing.JFrame {
      */
     public LogIn() {
         initComponents();
+        setTitle("Log in!");
     }
 
     /**
