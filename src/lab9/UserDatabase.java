@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class UserDatabase extends FileHandling<User> {
     private static UserDatabase instance;
-    private UserDatabase(){
+    public UserDatabase(){
         super("users.json",new TypeReference<List<User>>(){});
     }
      public static UserDatabase getInstance(){
