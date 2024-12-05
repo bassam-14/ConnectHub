@@ -4,6 +4,7 @@
  */
 package lab9;
 import java.time.LocalDate;
+import java.util.*;
 
 /**
  *
@@ -17,6 +18,7 @@ public class User {
     private LocalDate dateOfBirth;
     private String status;
     private Profile profile;
+    private final List<String>blockedUsers;
 
     public User(String userId, String email, String username, String password, LocalDate dateOfBirth, String status, Profile profile) {
         this.userId = userId;
@@ -26,8 +28,12 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.status = status;
         this.profile=profile;
+        blockedUsers=new ArrayList<>();
     }
-    
+
+    public List<String> getBlockedUsers() {
+        return blockedUsers;
+    }
 
     public Profile getProfile() {
         return profile;

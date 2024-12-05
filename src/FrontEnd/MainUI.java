@@ -3,13 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package FrontEnd;
-
+import lab9.*;
 /**
  *
  * @author belal
  */
 public class MainUI extends javax.swing.JFrame {
-
+  UserDatabase userDatabase=UserDatabase.getInstance();
+  ContentDatabase contentDatabase=ContentDatabase.getInstance();
+  FriendDatabase friendDatabase=friendDatabase.getInstance();
     /**
      * Creates new form MainUI
      */
