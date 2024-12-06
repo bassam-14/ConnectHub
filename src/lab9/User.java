@@ -20,6 +20,14 @@ public class User {
     private Profile profile;
     private final List<String>blockedUsers=new ArrayList<>();
 
+    public User(String email, String username, String password, LocalDate dateOfBirth, Profile profile) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+        this.profile = profile;
+    }
+
     public User(String email,String username,String password,LocalDate dateOfBirth) {
         this.email = email;
         this.username = username;

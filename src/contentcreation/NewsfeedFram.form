@@ -39,7 +39,6 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="userProfile" max="32767" attributes="0"/>
                   <Component id="userName" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jScrollPane6" alignment="1" pref="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel3" min="-2" pref="52" max="-2" attributes="0"/>
@@ -72,9 +71,7 @@
               <Component id="userName" min="-2" pref="27" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
-              <Component id="jScrollPane6" min="-2" pref="166" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="317" max="-2" attributes="0"/>
               <Component id="profile" linkSize="2" min="-2" pref="19" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -104,14 +101,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="profileActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane6">
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="contentcreation.NewsFeedFriendSuggestion" name="newsFeedFriendSuggestion1">
-        </Component>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JButton" name="refresh">
       <Properties>
         <Property name="text" type="java.lang.String" value="Refresh"/>

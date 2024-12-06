@@ -4,17 +4,37 @@
  */
 package contentcreation;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import lab9.*;
 /**
  *
  * @author mazen
  */
 public class NewsFeedFriendSuggestion extends javax.swing.JPanel {
-
+UserDatabase userDatabase=UserDatabase.getInstance();
+private final String friendId;
+private final FriendManagment friendManager;
     /**
      * Creates new form NewsFeedFriendSuggestion
+     * @param friendManager
+     * @param friendId
      */
-    public NewsFeedFriendSuggestion() {
+    public NewsFeedFriendSuggestion(FriendManagment friendManager,String friendId) {
+       this.friendManager=friendManager;
+        this.friendId=friendId;
         initComponents();
+        pfp.setHorizontalAlignment(JLabel.CENTER);
+        pfp.setVerticalAlignment(JLabel.CENTER);
+        ImageIcon pfpIcon = new ImageIcon(userDatabase.getRecord(friendId).getProfile().getPfpPath());
+        //ImageIcon pfpIcon=new ImageIcon("src/resources/default-avatar.png");
+        Image image = pfpIcon.getImage().getScaledInstance(80,80, Image.SCALE_SMOOTH);
+        pfpIcon = new ImageIcon(image);
+        pfp.setIcon(pfpIcon);
+        username.setText(userDatabase.getRecord(friendId).getUsername());
+        //username.setText("bruhh");
+        
     }
 
     /**
@@ -26,44 +46,51 @@ public class NewsFeedFriendSuggestion extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        pfp = new javax.swing.JLabel();
+        username = new javax.swing.JLabel();
         sendRequest = new javax.swing.JButton();
 
-        jLabel1.setText("Friend Suggestion Profile Picture");
-
-        jLabel2.setText("Friend Suggestion Name");
+        username.setText("Friend Suggestion Name");
 
         sendRequest.setText("Send Request");
+        sendRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendRequestActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pfp, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(username)
                     .addComponent(sendRequest))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pfp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(username)
                 .addGap(18, 18, 18)
                 .addComponent(sendRequest)
                 .addContainerGap(34, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void sendRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendRequestActionPerformed
+    friendManager.sendRequest(friendId);
+    }//GEN-LAST:event_sendRequestActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel pfp;
     private javax.swing.JButton sendRequest;
+    private javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
 }
