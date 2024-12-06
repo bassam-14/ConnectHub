@@ -21,6 +21,7 @@ public class AccountManagement {
         if(userDatabase.getRecordByEmail(email)!= null){
             return false;
         }
+        password=password.trim();
                PasswordHash passhash=new PasswordHash();
                password=passhash.hashPassword(password);
         userDatabase.addRecord(new UserBuilder(email,username,password,dateOfBirth).build());
@@ -32,6 +33,7 @@ public class AccountManagement {
             return false;
         }
         PasswordHash passhash = new PasswordHash();
+        password=password.trim();
         String hashedPassword = passhash.hashPassword(password);
         if(!user.getPassword().equals(hashedPassword)){
             return false;
