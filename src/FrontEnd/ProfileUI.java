@@ -19,7 +19,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class ProfileUI extends javax.swing.JFrame {
 
-    Profile profile = new Profile();
+    Profile profile;
 
     FriendManagment friendManager;
     FriendDatabase friendDatabase = FriendDatabase.getInstance();
@@ -36,6 +36,7 @@ public class ProfileUI extends javax.swing.JFrame {
      */
     public ProfileUI(User user) {
         this.user = user;
+        profile=user.getProfile();
         FriendManagment friendmanager = new FriendManagment(user.getUserId());
         initComponents();
         //friendManager=new FriendManagment(user.getUserId());
