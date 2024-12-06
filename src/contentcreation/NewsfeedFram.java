@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
+
 /**
  *
  * @author mazen
@@ -19,9 +21,9 @@ public class NewsfeedFram extends javax.swing.JFrame {
 
     private User currentuser;
     private AccountManagement accmanage;
-    FriendDatabase friendDatabase=FriendDatabase.getInstance();
-    ContentDatabase contentDatabase=ContentDatabase.getInstance();
-    
+    FriendDatabase friendDatabase = FriendDatabase.getInstance();
+    ContentDatabase contentDatabase = ContentDatabase.getInstance();
+    UserDatabase userDatabase = UserDatabase.getInstance();
 
     /**
      * Creates new form NewsfeedFram
@@ -44,41 +46,41 @@ public class NewsfeedFram extends javax.swing.JFrame {
         NewsFeedFriendStatus status = new NewsFeedFriendStatus(user);
         status.setBounds(0, 220, 300, 100);
         add(status);
-        JPanel postsPanel=new JPanel();
-        postsPanel.setLayout(new BoxLayout(postsPanel,BoxLayout.Y_AXIS));
-        List<PostsContentPanel>postsPanels=new ArrayList<>();
-        List<String>friends=friendDatabase.getFriends(user.getUserId());
-        List<Posts>allPosts=new ArrayList<>();
-        for(String friend:friends){
+        JPanel postsPanel = new JPanel();
+        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
+        List<PostsContentPanel> postsPanels = new ArrayList<>();
+        List<String> friends = friendDatabase.getFriends(user.getUserId());
+        List<Posts> allPosts = new ArrayList<>();
+        for (String friend : friends) {
             allPosts.addAll(contentDatabase.getPostsByAuthor(friend));
         }
-        for(Posts post:allPosts){
+        for (Posts post : allPosts) {
             postsPanels.add(new PostsContentPanel(post));
         }
-        for(PostsContentPanel panel:postsPanels){
+        for (PostsContentPanel panel : postsPanels) {
             postsPanel.add(panel);
         }
-        JScrollPane scrollPane=new JScrollPane(postsPanel);
+        JScrollPane scrollPane = new JScrollPane(postsPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBounds(300,20,450,300);
+        scrollPane.setBounds(300, 20, 450, 300);
         add(scrollPane);
-        JPanel storiesPanel=new JPanel();
-        storiesPanel.setLayout(new BoxLayout(storiesPanel,BoxLayout.Y_AXIS));
-        List<NewsFeedPanelStories>storiesPanels=new ArrayList<>();
-        List<String>friends2=friendDatabase.getFriends(user.getUserId());
-        List<Stories>allStories=new ArrayList<>();
-        for(String friend:friends2){
+        JPanel storiesPanel = new JPanel();
+        storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS));
+        List<NewsFeedPanelStories> storiesPanels = new ArrayList<>();
+        List<String> friends2 = friendDatabase.getFriends(user.getUserId());
+        List<Stories> allStories = new ArrayList<>();
+        for (String friend : friends2) {
             allStories.addAll(contentDatabase.getStoriesByAuthor(friend));
         }
-        for(Stories story:allStories){
+        for (Stories story : allStories) {
             storiesPanels.add(new NewsFeedPanelStories(story));
         }
-        for(NewsFeedPanelStories panel:storiesPanels){
+        for (NewsFeedPanelStories panel : storiesPanels) {
             storiesPanel.add(panel);
         }
-        JScrollPane scrollPane2=new JScrollPane(storiesPanel);
+        JScrollPane scrollPane2 = new JScrollPane(storiesPanel);
         scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane2.setBounds(300,330,450,280);
+        scrollPane2.setBounds(300, 330, 450, 280);
         add(scrollPane2);
     }
 
@@ -227,19 +229,55 @@ public class NewsfeedFram extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutActionPerformed
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
-        refreshData();
+        userDatabase.saveData();
+        friendDatabase.saveData();
+        contentDatabase.saveData();
+        NewsfeedFram newframe = new NewsfeedFram(currentuser);
+        newframe.setVisible(true);
+        dispose();
     }//GEN-LAST:event_refreshActionPerformed
 
     private void addPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPostActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select an image");
+        int result = fileChooser.showOpenDialog(null);
+        String path = null;
+        String caption = null;
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            path = selectedFile.getAbsolutePath();
+            if (!path.matches(".*\\.(jpg|jpeg|png|gif)$")) {
+                JOptionPane.showMessageDialog(null, "Please select a valid image file!", "Invalid File", JOptionPane.ERROR_MESSAGE);
+                path = null;
+            }
+        }
+        caption = JOptionPane.showInputDialog(null, "Enter Caption (Optional):", "Add Caption", JOptionPane.PLAIN_MESSAGE);
+        if ((path == null || path.isEmpty()) && (caption == null || caption.trim().isEmpty())) {
+            JOptionPane.showMessageDialog(null, "You must provide either an image or a caption!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        contentDatabase.addRecord(new Posts(currentuser.getUserId(),new Content(caption,path)));
     }//GEN-LAST:event_addPostActionPerformed
 
     private void addStoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStoryActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select an image");
+        int result = fileChooser.showOpenDialog(null);
+        String path=null;
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            path = selectedFile.getAbsolutePath();
+            if (!path.matches(".*\\.(jpg|jpeg|png|gif)$")) {
+                JOptionPane.showMessageDialog(null, "Please select a valid image file!", "Invalid File", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "An image is required!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        contentDatabase.addRecord(new Stories(currentuser.getUserId(),new Content(null,path)));
     }//GEN-LAST:event_addStoryActionPerformed
-    private void refreshData() {
 
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPost;
     private javax.swing.JButton addStory;
