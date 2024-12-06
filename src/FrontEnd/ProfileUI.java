@@ -37,9 +37,8 @@ public class ProfileUI extends javax.swing.JFrame {
     public ProfileUI(User user) {
         this.user = user;
         profile=user.getProfile();
-        FriendManagment friendmanager = new FriendManagment(user.getUserId());
         initComponents();
-        //friendManager=new FriendManagment(user.getUserId());
+        friendManager=new FriendManagment(user.getUserId());
         setTitle("Profile");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -53,16 +52,12 @@ public class ProfileUI extends javax.swing.JFrame {
         Image cpImage = cp.getImage().getScaledInstance(coverPhoto.getWidth(), coverPhoto.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(cpImage);
         coverPhoto.setIcon(scaledIcon);
-        String bio = profile.getBio();
-       // bio1.setText(profile.getBio());
-       bio1.setText("bruhh");
-        //NewsFeedFriendStatus status = new NewsFeedFriendStatus(user);
-        JPanel status=new JPanel();
-        status.setBackground(Color.CYAN);
-        status.setBounds(500,220,200,100);
+        bio1.setText(profile.getBio());
+        NewsFeedFriendStatus status = new NewsFeedFriendStatus(user);
+        status.setBounds(500,210,200,90);
        add(status);
         JPanel postsPanel = new JPanel();
-        /*postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
+        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
         List<PostsContentPanel> postsPanels = new ArrayList<>();
         List<Posts> allPosts = contentDatabase.getPostsByAuthor(user.getUserId());
         for (Posts post : allPosts) {
@@ -70,13 +65,13 @@ public class ProfileUI extends javax.swing.JFrame {
         }
         for (PostsContentPanel panel : postsPanels) {
             postsPanel.add(panel);
-        }*/
+        }
         JScrollPane scrollPane = new JScrollPane(postsPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(0, 250, 230,230);
         add(scrollPane);
         JPanel storiesPanel = new JPanel();
-        /*storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS));
+        storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS));
         List<NewsFeedPanelStories> storiesPanels = new ArrayList<>();
         List<Stories> allStories = contentDatabase.getStoriesByAuthor(user.getUserId());
         for (Stories story : allStories) {
@@ -84,13 +79,13 @@ public class ProfileUI extends javax.swing.JFrame {
         }
         for (NewsFeedPanelStories panel : storiesPanels) {
             storiesPanel.add(panel);
-        }*/
+        }
         JScrollPane scrollPane2 = new JScrollPane(storiesPanel);
         scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane2.setBounds(250,250, 230,230);
         add(scrollPane2);
         JPanel requestsPanel=new JPanel();
-       /* requestsPanel.setLayout(new BoxLayout(requestsPanel, BoxLayout.Y_AXIS));
+        requestsPanel.setLayout(new BoxLayout(requestsPanel, BoxLayout.Y_AXIS));
         List<ProfileRequests>requestPanels=new ArrayList<>();
         List<FriendRequest> friendRequests=friendDatabase.getRecievedRequests(user.getUserId());
         for(FriendRequest request:friendRequests){
@@ -98,7 +93,7 @@ public class ProfileUI extends javax.swing.JFrame {
         }
         for(ProfileRequests panel:requestPanels){
             requestsPanel.add(panel);
-        }*/
+        }
         JScrollPane scrollPane3 = new JScrollPane(requestsPanel);
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setBounds(500, 330, 200, 150);
@@ -171,29 +166,29 @@ public class ProfileUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(changeCoverPhoto)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(147, 147, 147)
+                                .addComponent(changeCoverPhoto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(changeProfilephoto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(changeBio))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(profilePhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(coverPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bio1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 4, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(block)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(changeProfilephoto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(changeBio))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(profilePhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(coverPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(bio1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(10, Short.MAX_VALUE))
-
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(block)
-                .addGap(27, 27, 27)
-                .addComponent(remove)
-                .addGap(42, 42, 42))
-
+                        .addComponent(remove)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,13 +204,11 @@ public class ProfileUI extends javax.swing.JFrame {
                     .addComponent(changeBio))
                 .addGap(8, 8, 8)
                 .addComponent(bio1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-
-                .addGap(86, 86, 86)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(block)
                     .addComponent(remove))
-                .addContainerGap(117, Short.MAX_VALUE))
-
+                .addContainerGap(160, Short.MAX_VALUE))
         );
 
         pack();
@@ -266,8 +259,7 @@ public class ProfileUI extends javax.swing.JFrame {
         if (!friendDatabase.getFriends(user.getUserId()).contains(userInput)) {
             JOptionPane.showMessageDialog(null, "Friend not found!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        FriendManagment friendmanager = new FriendManagment(user.getUserId());
-        friendmanager.blockUser(userInput);
+        friendManager.blockUser(userInput);
         JOptionPane.showMessageDialog(null, userInput + " has been blocked.", "Message", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_blockActionPerformed
 
@@ -276,8 +268,7 @@ public class ProfileUI extends javax.swing.JFrame {
         if (!friendDatabase.getFriends(user.getUserId()).contains(userInput)) {
             JOptionPane.showMessageDialog(null, "Friend not found!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        FriendManagment friendmanager = new FriendManagment(user.getUserId());
-        friendmanager.removeFriend(userInput);
+        friendManager.removeFriend(userInput);
         JOptionPane.showMessageDialog(null, userInput + " has been removed.", "Message", JOptionPane.PLAIN_MESSAGE);    }//GEN-LAST:event_removeActionPerformed
 
     /**
@@ -291,8 +282,6 @@ public class ProfileUI extends javax.swing.JFrame {
     private javax.swing.JButton changeProfilephoto;
     private javax.swing.JLabel coverPhoto;
     private javax.swing.JLabel profilePhoto;
-
     private javax.swing.JButton remove;
-
     // End of variables declaration//GEN-END:variables
 }

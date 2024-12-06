@@ -16,11 +16,6 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              <Component id="date" min="-2" pref="60" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-          </Group>
           <Group type="102" alignment="0" attributes="0">
               <Component id="userProfile" min="-2" pref="113" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -33,6 +28,11 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="date" min="-2" pref="129" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -44,7 +44,7 @@
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="userStory" min="-2" pref="124" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="date" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -58,9 +58,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="userStory">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Story"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="date">
       <Properties>
@@ -68,9 +65,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="userProfile">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Profile Pictur"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>
