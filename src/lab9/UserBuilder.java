@@ -19,7 +19,7 @@ private static String id="0";
         user.setUserId(id);
         user.setProfile(new ProfileBuilder().build());
     }    
-    public static void incrementString() {
+    private static void incrementString() {
         try {
             int num = Integer.parseInt(id);
             num++;
