@@ -108,6 +108,7 @@ public class FriendManagment {
         friendSuggestions.removeAll(blockedUsers);
         friendSuggestions.removeAll(sentString);
         friendSuggestions.removeAll(recievedString);
+        friendSuggestions.remove(userId);
         return friendSuggestions;
     }
 

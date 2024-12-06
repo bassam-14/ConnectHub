@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,17 +30,19 @@ import lab9.*;
 public class ProfileUI extends javax.swing.JFrame {
     
     Profile profile = new Profile();
-    FriendDatabase friendDatabase = FriendDatabase.getInstance();
+    //FriendDatabase friendDatabase = FriendDatabase.getInstance();
     ContentDatabase contentDatabase = ContentDatabase.getInstance();
-    UserDatabase userDatabase = UserDatabase.getInstance();
+    //UserDatabase userDatabase = UserDatabase.getInstance();
 
     /**
      * Creates new form Profile
+     * @param user
      */
     public ProfileUI(User user) {
         initComponents();
         setTitle("Profile");
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         String pfpPath = profile.getPfpPath();
         ImageIcon pfp = new ImageIcon(pfpPath);
         Image pfpImage = pfp.getImage().getScaledInstance(profilePhoto.getWidth(), profilePhoto.getHeight(), Image.SCALE_SMOOTH);
