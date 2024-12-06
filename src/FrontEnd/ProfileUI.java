@@ -18,18 +18,25 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Zeina
  */
 public class ProfileUI extends javax.swing.JFrame {
-    
+
     Profile profile = new Profile();
+
     FriendManagment friendManager;
     FriendDatabase friendDatabase = FriendDatabase.getInstance();
     ContentDatabase contentDatabase = ContentDatabase.getInstance();
     UserDatabase userDatabase = UserDatabase.getInstance();
 
+    private final User user;
+
+
     /**
      * Creates new form Profile
+     *
      * @param user
      */
     public ProfileUI(User user) {
+        this.user = user;
+        FriendManagment friendmanager = new FriendManagment(user.getUserId());
         initComponents();
         //friendManager=new FriendManagment(user.getUserId());
         setTitle("Profile");
@@ -112,6 +119,8 @@ public class ProfileUI extends javax.swing.JFrame {
         changeProfilephoto = new javax.swing.JButton();
         bio1 = new javax.swing.JLabel();
         changeBio = new javax.swing.JButton();
+        block = new javax.swing.JButton();
+        remove = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,6 +151,20 @@ public class ProfileUI extends javax.swing.JFrame {
             }
         });
 
+        block.setText("Block Friends");
+        block.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                blockActionPerformed(evt);
+            }
+        });
+
+        remove.setText("Remove Friends");
+        remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,6 +185,14 @@ public class ProfileUI extends javax.swing.JFrame {
                         .addComponent(coverPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(bio1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(10, Short.MAX_VALUE))
+
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(block)
+                .addGap(27, 27, 27)
+                .addComponent(remove)
+                .addGap(42, 42, 42))
+
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +208,13 @@ public class ProfileUI extends javax.swing.JFrame {
                     .addComponent(changeBio))
                 .addGap(8, 8, 8)
                 .addComponent(bio1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(226, Short.MAX_VALUE))
+
+                .addGap(86, 86, 86)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(block)
+                    .addComponent(remove))
+                .addContainerGap(117, Short.MAX_VALUE))
+
         );
 
         pack();
@@ -223,15 +260,38 @@ public class ProfileUI extends javax.swing.JFrame {
         bio1.setText(profile.getBio());
     }//GEN-LAST:event_changeBioActionPerformed
 
+    private void blockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blockActionPerformed
+        String userInput = JOptionPane.showInputDialog(null, "Enter friend name you want to block:", "Input Dialog", JOptionPane.QUESTION_MESSAGE);
+        if (!friendDatabase.getFriends(user.getUserId()).contains(userInput)) {
+            JOptionPane.showMessageDialog(null, "Friend not found!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        FriendManagment friendmanager = new FriendManagment(user.getUserId());
+        friendmanager.blockUser(userInput);
+        JOptionPane.showMessageDialog(null, userInput + " has been blocked.", "Message", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_blockActionPerformed
+
+    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+    String userInput = JOptionPane.showInputDialog(null, "Enter friend name you want to remove:", "Input Dialog", JOptionPane.QUESTION_MESSAGE);
+        if (!friendDatabase.getFriends(user.getUserId()).contains(userInput)) {
+            JOptionPane.showMessageDialog(null, "Friend not found!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        FriendManagment friendmanager = new FriendManagment(user.getUserId());
+        friendmanager.removeFriend(userInput);
+        JOptionPane.showMessageDialog(null, userInput + " has been removed.", "Message", JOptionPane.PLAIN_MESSAGE);    }//GEN-LAST:event_removeActionPerformed
+
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bio1;
+    private javax.swing.JButton block;
     private javax.swing.JButton changeBio;
     private javax.swing.JButton changeCoverPhoto;
     private javax.swing.JButton changeProfilephoto;
     private javax.swing.JLabel coverPhoto;
     private javax.swing.JLabel profilePhoto;
+
+    private javax.swing.JButton remove;
+
     // End of variables declaration//GEN-END:variables
 }
