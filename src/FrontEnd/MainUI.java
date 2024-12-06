@@ -82,11 +82,11 @@ public class MainUI extends javax.swing.JFrame {
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
         // TODO add your handling code here:
-       NewsfeedFram nf=new NewsfeedFram(new UserBuilder("ahmed@gmail.com","bassam","bruhh",LocalDate.now()).build());
-       nf.setVisible(true);
+      /* NewsfeedFram nf=new NewsfeedFram(new UserBuilder("ahmed@gmail.com","bassam","bruhh",LocalDate.now()).build());
+       nf.setVisible(true);*/
        
-        /*LogIn logIn = new LogIn();
-        logIn.show();*/
+        LogIn logIn = new LogIn();
+        logIn.show();
         this.dispose();
     }//GEN-LAST:event_logInButtonActionPerformed
 
@@ -125,10 +125,8 @@ public class MainUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainUI().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainUI().setVisible(true);
         });
     }
 
