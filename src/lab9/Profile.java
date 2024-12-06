@@ -5,24 +5,14 @@
  */
 package lab9;
 
-import contentcreation.*;
-import java.util.ArrayList;
-
 /**
  *
  * @author Zeina
  */
 public class Profile {
-    private String pfpPath;
-    private String cpPath;
-    private String bio;
-
-    public Profile(String pfpPath, String cpPath, String bio, ArrayList<ContentCreation> content) {
-        this.pfpPath = pfpPath;
-        this.cpPath = cpPath;
-        this.bio = bio;
-    }
-
+    private String pfpPath="src/resources/default-avatar.png";
+    private String cpPath="src/resources/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
+    private String bio="";
     public String getPfpPath() {
         return pfpPath;
     }

@@ -11,26 +11,22 @@ import java.util.*;
  * @author bassam
  */
 public class User {
-    private String userId;
+    private String userId="";
     private String email;
     private String username;
     private String password;
     private LocalDate dateOfBirth;
-    private String status;
+    private String status="offline";
     private Profile profile;
-    private final List<String>blockedUsers;
+    private final List<String>blockedUsers=new ArrayList<>();
 
-    public User(String userId, String email, String username, String password, LocalDate dateOfBirth, String status, Profile profile) {
-        this.userId = userId;
+    public User(String email,String username,String password,LocalDate dateOfBirth) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
-        this.status = status;
-        this.profile=profile;
-        blockedUsers=new ArrayList<>();
+        
     }
-
     public List<String> getBlockedUsers() {
         return blockedUsers;
     }

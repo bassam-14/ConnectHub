@@ -6,7 +6,6 @@ package lab9;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.*;
 /**
  *
  * @author belal
@@ -15,16 +14,6 @@ import java.util.*;
 public class AccountManagement {
    
     private final UserDatabase userDatabase;
-    private static String userId="0";
-    public static void incrementString() {
-        try {
-            int num = Integer.parseInt(userId);
-            num++;
-            userId=Integer.toString(num);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("The string is not a valid number", e);
-        }
-    }
     public AccountManagement(){
         this.userDatabase = UserDatabase.getInstance();
     }
@@ -32,12 +21,9 @@ public class AccountManagement {
         if(userDatabase.getRecordByEmail(email)!= null){
             return false;
         }
-        incrementString();
-        Profile defaultProfile = new Profile("default_pfp.jpg","default_cp.jpg","",new ArrayList<>());
                PasswordHash passhash=new PasswordHash();
                password=passhash.hashPassword(password);
-        User user= new User( userId, email, username, password, dateOfBirth, "offline", defaultProfile);
-        userDatabase.addRecord(user);
+        userDatabase.addRecord(new UserBuilder(email,username,password,dateOfBirth).build());
         return true;
     }
     public boolean login(String email, String password){
