@@ -3,32 +3,42 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package contentcreation;
+
+import FrontEnd.MainUI;
+import FrontEnd.ProfileUI;
 import lab9.*;
 import javax.swing.*;
 import java.awt.*;
+
 /**
  *
  * @author mazen
  */
 public class NewsfeedFram extends javax.swing.JFrame {
+
+    private User currentuser;
+    private AccountManagement accmanage;
+
     /**
      * Creates new form NewsfeedFram
+     *
      * @param user
      */
     public NewsfeedFram(User user) {
+        this.currentuser = user;
         initComponents();
         userProfile.setHorizontalAlignment(JLabel.CENTER);
         userProfile.setVerticalAlignment(JLabel.CENTER);
-        setTitle(user.getUsername()+"'s Newsfeed");
-        ImageIcon profileIcon=new ImageIcon(user.getProfile().getPfpPath());
-        Image image=profileIcon.getImage().getScaledInstance(150,150,Image.SCALE_SMOOTH);
-        profileIcon=new ImageIcon(image);
+        setTitle(user.getUsername() + "'s Newsfeed");
+        ImageIcon profileIcon = new ImageIcon(user.getProfile().getPfpPath());
+        Image image = profileIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        profileIcon = new ImageIcon(image);
         userProfile.setIcon(profileIcon);
         userName.setText(user.getUsername());
         userName.setHorizontalAlignment(JLabel.CENTER);
         userName.setVerticalAlignment(JLabel.CENTER);
-        NewsFeedFriendStatus status=new  NewsFeedFriendStatus(user);
-        status.setBounds(0,220,300,100);
+        NewsFeedFriendStatus status = new NewsFeedFriendStatus(user);
+        status.setBounds(0, 220, 300, 100);
         add(status);
 
     }
@@ -79,6 +89,11 @@ public class NewsfeedFram extends javax.swing.JFrame {
         jScrollPane6.setViewportView(newsFeedFriendSuggestion1);
 
         refresh.setText("Refresh");
+        refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshActionPerformed(evt);
+            }
+        });
 
         logout.setText("Logout");
         logout.addActionListener(new java.awt.event.ActionListener() {
@@ -135,9 +150,10 @@ public class NewsfeedFram extends javax.swing.JFrame {
                     .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {logout, profile, refresh});
@@ -146,13 +162,32 @@ public class NewsfeedFram extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileActionPerformed
-        // TODO add your handling code here:
+        ProfileUI p = new ProfileUI();
+        p.setVisible(true);
     }//GEN-LAST:event_profileActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-        // TODO add your handling code here:
+
+        if (currentuser != null && accmanage.logout(currentuser)) {
+            currentuser = null;
+            MainUI mainUI = new MainUI();
+            mainUI.setVisible(true);
+            this.dispose(); // Close the current frame
+        } else {
+            // Optionally, display a message if logout fails
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Logout failed. Please try again.",
+                    "Logout Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_logoutActionPerformed
 
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+        refreshData();
+    }//GEN-LAST:event_refreshActionPerformed
+    private void refreshData() {
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
