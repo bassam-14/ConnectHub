@@ -33,7 +33,7 @@ UserDatabase userDatabase=UserDatabase.getInstance();
         userName.setVerticalAlignment(JLabel.CENTER);
         if(story.getContent().getImagepath()!= null){
         ImageIcon postIcon=new ImageIcon(story.getContent().getImagepath());
-        Image postImage=postIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        Image postImage=postIcon.getImage().getScaledInstance(100,100, Image.SCALE_SMOOTH);
         postIcon=new ImageIcon(postImage);
         userStory.setIcon(postIcon);
         }
@@ -60,20 +60,12 @@ UserDatabase userDatabase=UserDatabase.getInstance();
 
         userName.setText("Name");
 
-        userStory.setText("Story");
-
         date.setText("Date");
-
-        userProfile.setText("Profile Pictur");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(userProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -83,6 +75,10 @@ UserDatabase userDatabase=UserDatabase.getInstance();
                         .addComponent(userName)
                         .addGap(0, 248, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

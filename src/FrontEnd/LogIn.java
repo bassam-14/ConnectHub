@@ -133,7 +133,8 @@ public class LogIn extends javax.swing.JFrame {
     return;
         }
         String email = emailField.getText();
-        String password = passwordField.getText();
+        char[] passwordChar = passwordField.getPassword();
+        String password=new String(passwordChar);
         AccountManagement accountManagement = new AccountManagement();
         boolean loginSuccessful = accountManagement.login(email, password);
     if (!loginSuccessful) {

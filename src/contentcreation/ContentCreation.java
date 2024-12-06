@@ -18,6 +18,10 @@ public abstract class ContentCreation {
     private Content content;
     private final LocalDateTime createdtime;
 
+    public ContentCreation() {
+        createdtime=LocalDateTime.now();
+    }
+
     public ContentCreation(String authorId, Content content) {
         incrementString();
         contentId=id;
