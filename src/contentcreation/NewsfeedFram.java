@@ -208,7 +208,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileActionPerformed
-        ProfileUI p = new ProfileUI();
+        ProfileUI p = new ProfileUI(currentuser);
         p.setVisible(true);
     }//GEN-LAST:event_profileActionPerformed
 

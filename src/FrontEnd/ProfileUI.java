@@ -4,11 +4,21 @@
  */
 package FrontEnd;
 
+import contentcreation.NewsFeedFriendStatus;
+import contentcreation.NewsFeedPanelStories;
+import contentcreation.Posts;
+import contentcreation.PostsContentPanel;
+import contentcreation.Stories;
 import java.awt.Image;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import lab9.*;
 
@@ -17,13 +27,16 @@ import lab9.*;
  * @author Zeina
  */
 public class ProfileUI extends javax.swing.JFrame {
-
+    
     Profile profile = new Profile();
+    FriendDatabase friendDatabase = FriendDatabase.getInstance();
+    ContentDatabase contentDatabase = ContentDatabase.getInstance();
+    UserDatabase userDatabase = UserDatabase.getInstance();
 
     /**
      * Creates new form Profile
      */
-    public ProfileUI() {
+    public ProfileUI(User user) {
         initComponents();
         setTitle("Profile");
         setLocationRelativeTo(null);
@@ -39,6 +52,37 @@ public class ProfileUI extends javax.swing.JFrame {
         coverPhoto.setIcon(scaledIcon);
         String bio = profile.getBio();
         bio1.setText(profile.getBio());
+        NewsFeedFriendStatus status = new NewsFeedFriendStatus(user);
+        status.setBounds(400, 260, 560, 70);
+        add(status);
+        JPanel postsPanel = new JPanel();
+        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
+        List<PostsContentPanel> postsPanels = new ArrayList<>();
+        List<Posts> allPosts = contentDatabase.getPostsByAuthor(user.getUserId());
+        for (Posts post : allPosts) {
+            postsPanels.add(new PostsContentPanel(post));
+        }
+        for (PostsContentPanel panel : postsPanels) {
+            postsPanel.add(panel);
+        }
+        JScrollPane scrollPane = new JScrollPane(postsPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBounds(300, 20, 450, 300);
+        add(scrollPane);
+        JPanel storiesPanel = new JPanel();
+        storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS));
+        List<NewsFeedPanelStories> storiesPanels = new ArrayList<>();
+        List<Stories> allStories = contentDatabase.getStoriesByAuthor(user.getUserId());
+        for (Stories story : allStories) {
+            storiesPanels.add(new NewsFeedPanelStories(story));
+        }
+        for (NewsFeedPanelStories panel : storiesPanels) {
+            storiesPanel.add(panel);
+        }
+        JScrollPane scrollPane2 = new JScrollPane(storiesPanel);
+        scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane2.setBounds(300, 330, 450, 280);
+        add(scrollPane2);
     }
 
     /**
@@ -188,39 +232,6 @@ public class ProfileUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProfileUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProfileUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProfileUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProfileUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ProfileUI().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bio1;
     private javax.swing.JButton changeBio;
