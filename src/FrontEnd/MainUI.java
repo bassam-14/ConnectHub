@@ -83,7 +83,7 @@ public class MainUI extends javax.swing.JFrame {
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
         // TODO add your handling code here:
-     /* NewsfeedFram nf=new NewsfeedFram(new UserBuilder("ahmed@gmail.com","bassam","bruhh",LocalDate.now()).build());
+    /* NewsfeedFram nf=new NewsfeedFram(new UserBuilder("ahmed@gmail.com","bassam","bruhh",LocalDate.now()).build());
        nf.setVisible(true);
        */
         LogIn logIn = new LogIn();
@@ -102,7 +102,10 @@ public class MainUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        
+    FriendDatabase friendDatabase = FriendDatabase.getInstance();
+    ContentDatabase contentDatabase = ContentDatabase.getInstance();
+    UserDatabase userDatabase = UserDatabase.getInstance();/* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -124,13 +127,17 @@ public class MainUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            friendDatabase.saveData();
+            contentDatabase.saveData();
+            userDatabase.saveData();
+        }));
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new MainUI().setVisible(true);
         });
+        
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton logInButton;
     private javax.swing.JButton signUpButton;
