@@ -33,7 +33,7 @@
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="dateOfPost" min="-2" pref="91" max="-2" attributes="0"/>
+              <Component id="dateOfPost" min="-2" pref="152" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -77,7 +77,6 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Post"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="userCaption">

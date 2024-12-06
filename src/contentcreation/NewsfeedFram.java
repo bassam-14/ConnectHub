@@ -9,7 +9,8 @@ import FrontEnd.ProfileUI;
 import lab9.*;
 import javax.swing.*;
 import java.awt.*;
-
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author mazen
@@ -18,6 +19,9 @@ public class NewsfeedFram extends javax.swing.JFrame {
 
     private User currentuser;
     private AccountManagement accmanage;
+    FriendDatabase friendDatabase=FriendDatabase.getInstance();
+    ContentDatabase contentDatabase=ContentDatabase.getInstance();
+    
 
     /**
      * Creates new form NewsfeedFram
@@ -40,7 +44,42 @@ public class NewsfeedFram extends javax.swing.JFrame {
         NewsFeedFriendStatus status = new NewsFeedFriendStatus(user);
         status.setBounds(0, 220, 300, 100);
         add(status);
-
+        JPanel postsPanel=new JPanel();
+        postsPanel.setLayout(new BoxLayout(postsPanel,BoxLayout.Y_AXIS));
+        List<PostsContentPanel>postsPanels=new ArrayList<>();
+        List<String>friends=friendDatabase.getFriends(user.getUserId());
+        List<Posts>allPosts=new ArrayList<>();
+        for(String friend:friends){
+            allPosts.addAll(contentDatabase.getPostsByAuthor(friend));
+        }
+        for(Posts post:allPosts){
+            postsPanels.add(new PostsContentPanel(post));
+        }
+        for(PostsContentPanel panel:postsPanels){
+            postsPanel.add(panel);
+        }
+        JScrollPane scrollPane=new JScrollPane(postsPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBounds(300,20,450,300);
+        add(scrollPane);
+        JPanel storiesPanel=new JPanel();
+        storiesPanel.setLayout(new BoxLayout(storiesPanel,BoxLayout.Y_AXIS));
+        List<NewsFeedPanelStories>storiesPanels=new ArrayList<>();
+        List<String>friends2=friendDatabase.getFriends(user.getUserId());
+        List<Stories>allStories=new ArrayList<>();
+        for(String friend:friends2){
+            allStories.addAll(contentDatabase.getStoriesByAuthor(friend));
+        }
+        for(Stories story:allStories){
+            storiesPanels.add(new NewsFeedPanelStories(story));
+        }
+        for(NewsFeedPanelStories panel:storiesPanels){
+            storiesPanel.add(panel);
+        }
+        JScrollPane scrollPane2=new JScrollPane(storiesPanel);
+        scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane2.setBounds(300,330,450,280);
+        add(scrollPane2);
     }
 
     /**
@@ -55,10 +94,6 @@ public class NewsfeedFram extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         userProfile = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        postsContentPanel1 = new contentcreation.PostsContentPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        newsFeedPanelStories1 = new contentcreation.NewsFeedPanelStories();
         userName = new javax.swing.JLabel();
         profile = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -74,12 +109,6 @@ public class NewsfeedFram extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        postsContentPanel1.setBackground(new java.awt.Color(153, 153, 153));
-        jScrollPane1.setViewportView(postsContentPanel1);
-
-        newsFeedPanelStories1.setBackground(new java.awt.Color(153, 153, 153));
-        jScrollPane2.setViewportView(newsFeedPanelStories1);
 
         profile.setText("Profile");
         profile.addActionListener(new java.awt.event.ActionListener() {
@@ -143,10 +172,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
                                     .addComponent(refresh))
                                 .addComponent(profile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2)))
+                .addGap(556, 556, 556))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addPost, addStory, logout, refresh});
@@ -154,29 +180,23 @@ public class NewsfeedFram extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(userProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addGap(145, 145, 145)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(profile, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addPost)
-                            .addComponent(addStory))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                .addComponent(userProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(145, 145, 145)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(profile, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addPost)
+                    .addComponent(addStory))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -226,13 +246,9 @@ public class NewsfeedFram extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JButton logout;
     private contentcreation.NewsFeedFriendSuggestion newsFeedFriendSuggestion1;
-    private contentcreation.NewsFeedPanelStories newsFeedPanelStories1;
-    private contentcreation.PostsContentPanel postsContentPanel1;
     private javax.swing.JButton profile;
     private javax.swing.JButton refresh;
     private javax.swing.JLabel userName;
