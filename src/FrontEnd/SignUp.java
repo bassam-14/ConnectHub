@@ -10,7 +10,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import lab9.AccountManagement;
 import lab9.UserDatabase;
-
+import FrontEnd.ProfileUI;
 /**
  *
  * @author belal
@@ -23,6 +23,7 @@ public class SignUp extends javax.swing.JFrame {
     public SignUp() {
         initComponents();
         setTitle("Sign up!");
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -181,7 +182,10 @@ public class SignUp extends javax.swing.JFrame {
         main.setVisible(true);
         this.dispose();
         JOptionPane.showMessageDialog(this, "Sign up successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        
+        ProfileUI profilePage = new ProfileUI(); 
+        profilePage.setVisible(true);
+        this.dispose();  
+    
     }
     }//GEN-LAST:event_signUpButtonActionPerformed
 
