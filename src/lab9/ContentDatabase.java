@@ -58,4 +58,20 @@ public class ContentDatabase extends FileHandling<ContentCreation> {
     }
     return content;
     }
+    public List<Posts> getPostsByAuthor(String authorId){
+        List<Posts>posts=new ArrayList<>();
+         for(ContentCreation c:records){
+        if(c.getAuthorId().equals(authorId) && c instanceof Posts)
+            posts.add((Posts)c);
+    }
+         return posts;
+}
+    public List<Stories> getStoriesByAuthor(String authorId){
+        List<Stories>stories=new ArrayList<>();
+         for(ContentCreation c:records){
+        if(c.getAuthorId().equals(authorId) && c instanceof Stories)
+            stories.add((Stories)c);
+    }
+         return stories;
+}
 }
