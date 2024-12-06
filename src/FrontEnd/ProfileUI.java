@@ -4,13 +4,24 @@
  */
 package FrontEnd;
 
+import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import lab9.*;
+import contentcreation.*;
+import java.awt.Dimension;
+import java.util.Arrays;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -18,12 +29,14 @@ import lab9.*;
  */
 public class ProfileUI extends javax.swing.JFrame {
 
+    ContentDatabase contentdatabase = ContentDatabase.getInstance();
+    private static User user;
     Profile profile = new Profile();
 
     /**
      * Creates new form Profile
      */
-    public ProfileUI() {
+    public ProfileUI(User user) {
         initComponents();
         setTitle("Profile");
         setLocationRelativeTo(null);
@@ -39,6 +52,7 @@ public class ProfileUI extends javax.swing.JFrame {
         coverPhoto.setIcon(scaledIcon);
         String bio = profile.getBio();
         bio1.setText(profile.getBio());
+        this.user = user;
     }
 
     /**
@@ -52,9 +66,9 @@ public class ProfileUI extends javax.swing.JFrame {
 
         coverPhoto = new javax.swing.JLabel();
         profilePhoto = new javax.swing.JLabel();
-        posts = new javax.swing.JScrollPane();
-        stories = new javax.swing.JScrollPane();
-        friendsList = new javax.swing.JScrollPane();
+        postsScrollPane = new javax.swing.JScrollPane();
+        storiesPane = new javax.swing.JScrollPane();
+        friendsListPane = new javax.swing.JScrollPane();
         changeCoverPhoto = new javax.swing.JButton();
         changeProfilephoto = new javax.swing.JButton();
         bio1 = new javax.swing.JLabel();
@@ -97,13 +111,13 @@ public class ProfileUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(posts, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(postsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(stories, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(storiesPane, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(friendsList))
+                        .addComponent(friendsListPane))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(147, 147, 147)
                                 .addComponent(changeCoverPhoto)
@@ -114,11 +128,14 @@ public class ProfileUI extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(profilePhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(coverPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(bio1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(coverPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 4, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(bio1, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,9 +153,9 @@ public class ProfileUI extends javax.swing.JFrame {
                 .addComponent(bio1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(stories, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(posts, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(friendsList, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(storiesPane, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(postsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(friendsListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
@@ -183,7 +200,43 @@ public class ProfileUI extends javax.swing.JFrame {
         String input = JOptionPane.showInputDialog(null, "Enter new Bio:", "Input Dialog", JOptionPane.PLAIN_MESSAGE);
         profile.setBio(input);
         bio1.setText(profile.getBio());
+        // bioTextLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     }//GEN-LAST:event_changeBioActionPerformed
+    private void displayPosts() {
+        List<Posts> allPosts = contentdatabase.getPostsByAuthor(user.getUserId());
+        JScrollPane scrollPane = postsScrollPane;
+        int width = scrollPane.getWidth();  // Get the width of the JScrollPane
+        int height = scrollPane.getHeight();
+        //JPanel that holds all posts
+        JPanel postsPanel = new JPanel();
+        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
+        for (int i = 0; i < allPosts.size(); i++) {
+            Posts post = allPosts.get(i);  // Get the current post
+            Content content = post.getContent();
+            JPanel postPanel = new JPanel();
+            postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.Y_AXIS));
+            postPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            File imageFile = new File(content.getImagepath().get(0));
+            if (imageFile.exists()) {
+                ImageIcon postImageIcon = new ImageIcon(imageFile.getAbsolutePath());
+                Image image = postImageIcon.getImage().getScaledInstance(400, 300, Image.SCALE_SMOOTH);
+                JLabel postImageLabel = new JLabel(new ImageIcon(image));
+                postImageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                postPanel.add(postImageLabel);
+            }
+            String postText = content.getText();
+            if (postText != null && !postText.isEmpty()) {
+                JLabel postTextLabel = new JLabel(postText);
+                postTextLabel.setAlignmentX(Component.CENTER_ALIGNMENT);  // Center the text
+                postPanel.add(postTextLabel);
+            }
+            postsPanel.add(postPanel);
+            postsPanel.add(Box.createVerticalStrut(20));
+
+        }
+        scrollPane.setViewportView(postsPanel);
+        scrollPane.setPreferredSize(new Dimension(width, height));
+    }
 
     /**
      * @param args the command line arguments
@@ -216,7 +269,12 @@ public class ProfileUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProfileUI().setVisible(true);
+                new ProfileUI(user).setVisible(true);
+                List<String> imagePaths = Arrays.asList("src/resources/default-avatar.png");
+                Content content=new Content("hi",imagePaths);
+                String contentId="1";
+                Posts post=new Posts(contentId,user.getUserId(),content);
+                post.setContent(content);
             }
         });
     }
@@ -227,9 +285,9 @@ public class ProfileUI extends javax.swing.JFrame {
     private javax.swing.JButton changeCoverPhoto;
     private javax.swing.JButton changeProfilephoto;
     private javax.swing.JLabel coverPhoto;
-    private javax.swing.JScrollPane friendsList;
-    private javax.swing.JScrollPane posts;
+    private javax.swing.JScrollPane friendsListPane;
+    private javax.swing.JScrollPane postsScrollPane;
     private javax.swing.JLabel profilePhoto;
-    private javax.swing.JScrollPane stories;
+    private javax.swing.JScrollPane storiesPane;
     // End of variables declaration//GEN-END:variables
 }

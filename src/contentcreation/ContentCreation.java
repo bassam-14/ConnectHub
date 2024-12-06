@@ -18,7 +18,7 @@ public abstract class ContentCreation {
     private Content content;
     private final LocalDateTime createdtime;
 
-    public ContentCreation(String authorId, Content content) {
+    public ContentCreation(String contentId,String authorId, Content content) {
         incrementString();
         contentId=id;
         this.authorId = authorId;
