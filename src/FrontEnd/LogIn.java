@@ -19,6 +19,7 @@ public class LogIn extends javax.swing.JFrame {
     public LogIn() {
         initComponents();
         setTitle("Log in!");
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -138,6 +139,9 @@ public class LogIn extends javax.swing.JFrame {
         return;
     }
     JOptionPane.showMessageDialog(this, "Login successful!", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+    ProfileUI profilePage = new ProfileUI(); 
+        profilePage.setVisible(true);
+        this.dispose(); 
     }//GEN-LAST:event_logInButtonActionPerformed
 
     /**
