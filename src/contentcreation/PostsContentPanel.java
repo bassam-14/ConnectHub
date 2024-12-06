@@ -3,18 +3,44 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package contentcreation;
-
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import lab9.*;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author mazen
  */
 public class PostsContentPanel extends javax.swing.JPanel {
-
+UserDatabase userDatabase=UserDatabase.getInstance();
     /**
      * Creates new form PostsContentPanel
+     * @param post
      */
-    public PostsContentPanel() {
+    public PostsContentPanel(Posts post) {
         initComponents();
+        userProfilePicture.setHorizontalAlignment(JLabel.CENTER);
+        userProfilePicture.setVerticalAlignment(JLabel.CENTER);
+        ImageIcon profileIcon = new ImageIcon(userDatabase.getRecord(post.getAuthorId()).getProfile().getPfpPath());
+        Image image = profileIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        profileIcon = new ImageIcon(image);
+        userProfilePicture.setIcon(profileIcon);
+        userName.setText(userDatabase.getRecord(post.getAuthorId()).getUsername());
+        userName.setHorizontalAlignment(JLabel.CENTER);
+        userName.setVerticalAlignment(JLabel.CENTER);
+        if(post.getContent().getImagepath()!= null){
+        ImageIcon postIcon=new ImageIcon(post.getContent().getImagepath());
+        Image postImage=postIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        postIcon=new ImageIcon(postImage);
+        userPost.setIcon(postIcon);
+        }
+        else {
+            userPost.setText("No image attached");
+        }
+        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        dateOfPost.setText(post.getCreatedtime().format(formatter));
+        userCaption.setText(post.getContent().getText());
     }
 
     /**
@@ -38,7 +64,6 @@ public class PostsContentPanel extends javax.swing.JPanel {
         userProfilePicture.setText("Profile Picture");
 
         userPost.setBackground(new java.awt.Color(255, 255, 255));
-        userPost.setText("Post");
 
         userCaption.setText("Caption");
 
@@ -61,7 +86,7 @@ public class PostsContentPanel extends javax.swing.JPanel {
                     .addComponent(userCaption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(dateOfPost, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dateOfPost, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

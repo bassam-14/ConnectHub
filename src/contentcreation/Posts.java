@@ -10,7 +10,7 @@ package contentcreation;
  */
 public class Posts extends ContentCreation {
 
-    public Posts(String contentId, String authorId, Content content) {
+    public Posts(String authorId, Content content) {
         super(authorId, content);
     }
     @Override

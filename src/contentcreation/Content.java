@@ -13,9 +13,9 @@ import java.util.List;
 public class Content {
 
     private String text;
-    private List<String> imagepath;
+    private String imagepath;
 
-    public Content(String text, List<String> imagepath) {
+    public Content(String text,String imagepath) {
         this.text = text;
         this.imagepath = imagepath;
     }
@@ -28,11 +28,11 @@ public class Content {
         this.text = text;
     }
 
-    public List<String> getImagepath() {
+    public String getImagepath() {
         return imagepath;
     }
 
-    public void setImagepath(List<String> imagepath) {
+    public void setImagepath(String imagepath) {
         this.imagepath = imagepath;
     }
 

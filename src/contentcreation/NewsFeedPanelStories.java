@@ -4,17 +4,44 @@
  */
 package contentcreation;
 
+import java.awt.Image;
+import java.time.format.DateTimeFormatter;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import lab9.*;
+
 /**
  *
  * @author mazen
  */
 public class NewsFeedPanelStories extends javax.swing.JPanel {
-
+UserDatabase userDatabase=UserDatabase.getInstance();
     /**
      * Creates new form NewsFeedPanelStories
+     * @param story
      */
-    public NewsFeedPanelStories() {
+    public NewsFeedPanelStories(Stories story) {
         initComponents();
+        userProfile.setHorizontalAlignment(JLabel.CENTER);
+        userProfile.setVerticalAlignment(JLabel.CENTER);
+        ImageIcon profileIcon = new ImageIcon(userDatabase.getRecord(story.getAuthorId()).getProfile().getPfpPath());
+        Image image = profileIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        profileIcon = new ImageIcon(image);
+        userProfile.setIcon(profileIcon);
+        userName.setText(userDatabase.getRecord(story.getAuthorId()).getUsername());
+        userName.setHorizontalAlignment(JLabel.CENTER);
+        userName.setVerticalAlignment(JLabel.CENTER);
+        if(story.getContent().getImagepath()!= null){
+        ImageIcon postIcon=new ImageIcon(story.getContent().getImagepath());
+        Image postImage=postIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        postIcon=new ImageIcon(postImage);
+        userStory.setIcon(postIcon);
+        }
+        else {
+            userStory.setText("No image attached");
+        }
+        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        date.setText(story.getCreatedtime().format(formatter));
     }
 
     /**
