@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
 public class Stories extends ContentCreation {
 
     public Stories(String contentId,String authorId, Content content) {
-        super(contentId, authorId, content);
+        super(authorId, content);
     }
 
   
+    @Override
     public boolean isExpired() {
-        LocalDateTime nowtime = LocalDateTime.now();
-        return getCreatedtime().isBefore(nowtime);
+        return LocalDateTime.now().isAfter(getCreatedtime().plusHours(24));
     }
 }

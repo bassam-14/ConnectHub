@@ -11,6 +11,10 @@ package contentcreation;
 public class Posts extends ContentCreation {
 
     public Posts(String contentId, String authorId, Content content) {
-        super(contentId, authorId, content);
+        super(authorId, content);
+    }
+    @Override
+    public boolean isExpired(){
+        return false;
     }
 }
