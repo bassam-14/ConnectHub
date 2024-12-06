@@ -13,6 +13,7 @@ import java.util.*;
  */
 public class FriendDatabase extends FileHandling<FriendRequest>{
     private static FriendDatabase instance;
+    UserDatabase userDatabase=UserDatabase.getInstance();
       private FriendDatabase(){
        super("friendrequests.json",new TypeReference<List<FriendRequest>>(){});
     }
@@ -55,6 +56,16 @@ public class FriendDatabase extends FileHandling<FriendRequest>{
         }
         return friends;
     }
+        public List<User>getFriendsUsers(String userId){
+        List<User> friends=new ArrayList<>();
+        for(FriendRequest f:records){
+            if(f.getRecieverID().equals(userId)&& f.getStatus().equals("Accepted"))
+                friends.add(userDatabase.getRecord(f.getSenderID()));
+             if(f.getSenderID().equals(userId)&& f.getStatus().equals("Accepted"))
+                friends.add(userDatabase.getRecord(f.getRecieverID()));
+        }
+        return friends;
+        }
         
         
     

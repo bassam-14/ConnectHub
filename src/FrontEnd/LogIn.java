@@ -5,7 +5,8 @@
 package FrontEnd;
 
 import javax.swing.JOptionPane;
-import lab9.AccountManagement;
+import lab9.*;
+import contentcreation.*;
 
 /**
  *
@@ -13,6 +14,7 @@ import lab9.AccountManagement;
  */
 public class LogIn extends javax.swing.JFrame {
 
+    UserDatabase userDatabase=UserDatabase.getInstance();
     /**
      * Creates new form LogIn
      */
@@ -138,6 +140,9 @@ public class LogIn extends javax.swing.JFrame {
         return;
     }
     JOptionPane.showMessageDialog(this, "Login successful!", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+    NewsfeedFram newsfeed=new NewsfeedFram(userDatabase.getRecordByEmail(email));
+    newsfeed.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_logInButtonActionPerformed
 
     /**

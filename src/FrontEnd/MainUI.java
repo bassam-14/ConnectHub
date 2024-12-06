@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package FrontEnd;
+import java.time.*;
+import contentcreation.*;
+import lab9.*;
 /**
  *
  * @author belal
@@ -79,8 +82,11 @@ public class MainUI extends javax.swing.JFrame {
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
         // TODO add your handling code here:
-        LogIn logIn = new LogIn();
-        logIn.show();
+       NewsfeedFram nf=new NewsfeedFram(new UserBuilder("ahmed@gmail.com","bassam","bruhh",LocalDate.now()).build());
+       nf.setVisible(true);
+       
+        /*LogIn logIn = new LogIn();
+        logIn.show();*/
         this.dispose();
     }//GEN-LAST:event_logInButtonActionPerformed
 

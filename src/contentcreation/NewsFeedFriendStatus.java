@@ -3,18 +3,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package contentcreation;
-
+import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
+import javax.swing.*;
+import lab9.*;
 /**
  *
  * @author mazen
  */
 public class NewsFeedFriendStatus extends javax.swing.JPanel {
-
+ FriendDatabase friendDatabase=FriendDatabase.getInstance();
     /**
      * Creates new form NewsFeedFriendStatus
+     * @param user
      */
-    public NewsFeedFriendStatus() {
+    public NewsFeedFriendStatus(User user) {
         initComponents();
+        setLayout(new GridLayout(0,2));
+        List<User>friends=friendDatabase.getFriendsUsers(user.getUserId());
+        ArrayList<String> friendsStatus = new ArrayList<>();
+        for (User friend:friends) {
+            friendsStatus.add(friend.getUsername()+" | "+friend.getStatus());
+        }
+        String[] statusArray = friendsStatus.toArray(String[]::new);
+       //String[]friends={"ahmed  online","mohamed  offline","belal  offline","bro  offline"};
+        JList<String>friendsList=new JList<>(statusArray);
+        add(new JScrollPane(friendsList));
+        
     }
 
     /**
@@ -26,33 +42,19 @@ public class NewsFeedFriendStatus extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-
-        jLabel1.setText("Friend name");
-
-        jLabel2.setText("online/ofline");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(30, 30, 30)
-                .addComponent(jLabel2))
+            .addGap(0, 164, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel1)
-                .addComponent(jLabel2))
+            .addGap(0, 16, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

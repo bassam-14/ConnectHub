@@ -177,6 +177,9 @@ public class SignUp extends javax.swing.JFrame {
         AccountManagement accountManagement = new AccountManagement();
         boolean isSignedUp = accountManagement.signup(email, username, password, dateOfBirth);
         if (isSignedUp) {
+        MainUI main = new MainUI();
+        main.setVisible(true);
+        this.dispose();
         JOptionPane.showMessageDialog(this, "Sign up successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
         
     }
