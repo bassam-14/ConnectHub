@@ -4,7 +4,8 @@
  */
 package lab9;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.*;
 import java.util.*;
@@ -16,7 +17,11 @@ import java.util.*;
  */
 public abstract class FileHandling<T> {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+        static {
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    }
     private final File file;
     private final TypeReference<List<T>> typeReference;
     protected List<T> records;
