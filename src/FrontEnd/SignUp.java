@@ -182,8 +182,8 @@ public class SignUp extends javax.swing.JFrame {
         main.setVisible(true);
         this.dispose();
         JOptionPane.showMessageDialog(this, "Sign up successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        ProfileUI profilePage = new ProfileUI(); 
-        profilePage.setVisible(true);
+        //ProfileUI profilePage = new ProfileUI(); 
+        //profilePage.setVisible(true);
         this.dispose();  
     
     }
