@@ -33,7 +33,8 @@ public class NewsfeedFram extends javax.swing.JFrame {
      */
     public NewsfeedFram(User user) {
         this.currentuser = user;
-        friendManagment=new FriendManagment(user.getUserId());
+        friendManagment = new FriendManagment(user.getUserId());
+        accmanage = new AccountManagement();
         initComponents();
         userProfile.setHorizontalAlignment(JLabel.CENTER);
         userProfile.setVerticalAlignment(JLabel.CENTER);
@@ -84,14 +85,14 @@ public class NewsfeedFram extends javax.swing.JFrame {
         scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane2.setBounds(300, 330, 450, 280);
         add(scrollPane2);
-        JPanel suggestionsPanel=new JPanel();
+        JPanel suggestionsPanel = new JPanel();
         suggestionsPanel.setLayout(new BoxLayout(suggestionsPanel, BoxLayout.Y_AXIS));
-        List<NewsFeedFriendSuggestion>suggestionPanels=new ArrayList<>();
-        List<String>friendSuggestion=friendManagment.getFriendSuggestions();
-        for(String suggestion:friendSuggestion){
-            suggestionPanels.add(new NewsFeedFriendSuggestion(friendManagment,suggestion));
+        List<NewsFeedFriendSuggestion> suggestionPanels = new ArrayList<>();
+        List<String> friendSuggestion = friendManagment.getFriendSuggestions();
+        for (String suggestion : friendSuggestion) {
+            suggestionPanels.add(new NewsFeedFriendSuggestion(friendManagment, suggestion));
         }
-        for(NewsFeedFriendSuggestion panel:suggestionPanels){
+        for (NewsFeedFriendSuggestion panel : suggestionPanels) {
             suggestionsPanel.add(panel);
         }
         JScrollPane scrollPane3 = new JScrollPane(suggestionsPanel);
@@ -265,14 +266,14 @@ public class NewsfeedFram extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "You must provide either an image or a caption!", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        contentDatabase.addRecord(new Posts(currentuser.getUserId(),new Content(caption,path)));
+        contentDatabase.addRecord(new Posts(currentuser.getUserId(), new Content(caption, path)));
     }//GEN-LAST:event_addPostActionPerformed
 
     private void addStoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStoryActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select an image");
         int result = fileChooser.showOpenDialog(null);
-        String path=null;
+        String path = null;
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             path = selectedFile.getAbsolutePath();
@@ -284,7 +285,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "An image is required!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        contentDatabase.addRecord(new Stories(currentuser.getUserId(),new Content(null,path)));
+        contentDatabase.addRecord(new Stories(currentuser.getUserId(), new Content(null, path)));
     }//GEN-LAST:event_addStoryActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
