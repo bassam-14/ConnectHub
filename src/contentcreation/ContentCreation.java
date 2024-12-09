@@ -5,6 +5,7 @@
 package contentcreation;
 
 import java.time.LocalDateTime;
+import java.util.*;
 
 /**
  *
@@ -12,7 +13,6 @@ import java.time.LocalDateTime;
  */
 public abstract class ContentCreation {
 
-    private static String id="0";
     private String contentId;
     private String authorId;
     private Content content;
@@ -23,20 +23,10 @@ public abstract class ContentCreation {
     }
 
     public ContentCreation(String authorId, Content content) {
-        incrementString();
-        contentId=id;
+        contentId=UUID.randomUUID().toString();
         this.authorId = authorId;
         this.content = content;
         this.createdtime = LocalDateTime.now();
-    }
-    private static void incrementString() {
-        try {
-            int num = Integer.parseInt(id);
-            num++;
-            id=Integer.toString(num);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("The string is not a valid number", e);
-        }
     }
     public LocalDateTime getCreatedtime() {
         return createdtime;
