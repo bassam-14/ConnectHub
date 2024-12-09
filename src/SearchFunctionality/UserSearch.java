@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import lab9.User;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -44,7 +46,7 @@ public class UserSearch {
                 int id = userJson.getInt("userid");
                 LocalDate dob = LocalDate.parse(userJson.getString("dob"), formatter);
                 String password = userJson.getString("password");
-                users.add(new User(id, name, email, dob, password));
+                users.add());
             }
 
         } catch (IOException e) {

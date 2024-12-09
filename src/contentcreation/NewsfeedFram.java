@@ -6,6 +6,8 @@ package contentcreation;
 
 import FrontEnd.MainUI;
 import FrontEnd.ProfileUI;
+import SearchFunctionality.UserSearch;
+import SearchFunctionality.UserSearchFriend;
 import lab9.*;
 import javax.swing.*;
 import java.awt.*;
@@ -124,6 +126,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         addPost = new javax.swing.JButton();
         addStory = new javax.swing.JButton();
+        FriendSearch = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -168,6 +171,13 @@ public class NewsfeedFram extends javax.swing.JFrame {
             }
         });
 
+        FriendSearch.setText("Search For Friend");
+        FriendSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FriendSearchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -191,9 +201,12 @@ public class NewsfeedFram extends javax.swing.JFrame {
                                 .addComponent(profile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(556, 556, 556))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(FriendSearch)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addPost, addStory, logout, refresh});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {FriendSearch, addPost, addStory, logout, refresh});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +216,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
                 .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addGap(317, 317, 317)
+                .addGap(211, 211, 211)
                 .addComponent(profile, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -213,7 +226,9 @@ public class NewsfeedFram extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FriendSearch)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {logout, profile, refresh});
@@ -252,7 +267,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
     }//GEN-LAST:event_refreshActionPerformed
 
     private void addPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPostActionPerformed
-       //opening file choser from desktop to select a photo
+        //opening file choser from desktop to select a photo
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select an image");
         int result = fileChooser.showOpenDialog(null);
@@ -294,7 +309,13 @@ public class NewsfeedFram extends javax.swing.JFrame {
         contentDatabase.addRecord(new Stories(currentuser.getUserId(), new Content(null, path)));
     }//GEN-LAST:event_addStoryActionPerformed
 
+    private void FriendSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FriendSearchActionPerformed
+        UserSearchFriend s = new UserSearchFriend();
+        s.setVisible(true);
+    }//GEN-LAST:event_FriendSearchActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton FriendSearch;
     private javax.swing.JButton addPost;
     private javax.swing.JButton addStory;
     private javax.swing.JLabel jLabel1;
