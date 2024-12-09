@@ -228,7 +228,7 @@ public class ProfileUI extends javax.swing.JFrame {
             ImageIcon scaledIcon = new ImageIcon(cpImage);
             coverPhoto.setIcon(scaledIcon);
         }
-        JOptionPane.showMessageDialog(null, "No file selected. Operation canceled.", "File Selection", JOptionPane.WARNING_MESSAGE);
+       else JOptionPane.showMessageDialog(null, "No file selected. Operation canceled.", "File Selection", JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_changeCoverPhotoActionPerformed
 
     private void changeProfilephotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeProfilephotoActionPerformed
@@ -245,7 +245,7 @@ public class ProfileUI extends javax.swing.JFrame {
             ImageIcon scaledIcon = new ImageIcon(pfpImage);
             profilePhoto.setIcon(scaledIcon);
         }
-        JOptionPane.showMessageDialog(null, "No file selected. Operation canceled.", "File Selection", JOptionPane.WARNING_MESSAGE);
+       else JOptionPane.showMessageDialog(null, "No file selected. Operation canceled.", "File Selection", JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_changeProfilephotoActionPerformed
 
     private void changeBioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeBioActionPerformed
