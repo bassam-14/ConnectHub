@@ -7,7 +7,7 @@ package contentcreation;
 import FrontEnd.MainUI;
 import FrontEnd.ProfileUI;
 import SearchFunctionality.UserSearch;
-import SearchFunctionality.UserSearchFriend;
+import SearchFunctionality.UserSearchFriendFrame;
 import lab9.*;
 import javax.swing.*;
 import java.awt.*;
@@ -310,7 +310,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
     }//GEN-LAST:event_addStoryActionPerformed
 
     private void FriendSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FriendSearchActionPerformed
-        UserSearchFriend s = new UserSearchFriend();
+        UserSearchFriendFrame s = new UserSearchFriendFrame();
         s.setVisible(true);
     }//GEN-LAST:event_FriendSearchActionPerformed
 

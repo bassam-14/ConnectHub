@@ -1,18 +1,13 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package SearchFunctionality;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import lab9.User;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import lab9.UserDatabase;
 
 /**
  *
@@ -20,38 +15,24 @@ import org.json.JSONObject;
  */
 public class UserSearch {
 
+    // Reference the singleton instance of UserDatabase
+    private static final UserDatabase userdata = UserDatabase.getInstance();
+
     public static ArrayList<User> search(String username) {
-        ArrayList<User> users = readUsers();
+        // Retrieve all user records from the database
+        List<User> users = userdata.getAllRecords();
+
+        // Result list to store matching users
         ArrayList<User> result = new ArrayList<>();
+
+        // Loop through the list of users and match based on the search criteria
         for (User user : users) {
-            if (user.getUsername().startsWith(username)) {
-                result.add(user);
+            if (user.getUsername().startsWith(username)) { // Case-sensitive match
+                result.add(user); // Add matching users to the result list
             }
         }
+
+        // Return the list of matching users
         return result;
-    }
-
-    public static ArrayList<User> readUsers() {
-        ArrayList<User> users = new ArrayList<>();
-
-        try {
-            String json = new String(Files.readAllBytes(Paths.get("users.json")));
-            JSONArray usersArray = new JSONArray(json);
-
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
-            for (int i = 0; i < usersArray.length(); i++) {
-                JSONObject userJson = usersArray.getJSONObject(i);
-                String email = userJson.getString("email");
-                String name = userJson.getString("name");
-                int id = userJson.getInt("userid");
-                LocalDate dob = LocalDate.parse(userJson.getString("dob"), formatter);
-                String password = userJson.getString("password");
-                users.add());
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return users;
     }
 }
