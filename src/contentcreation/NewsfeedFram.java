@@ -39,6 +39,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         userProfile.setHorizontalAlignment(JLabel.CENTER);
         userProfile.setVerticalAlignment(JLabel.CENTER);
         setTitle(user.getUsername() + "'s Newsfeed");
+        //setting profile photo
         ImageIcon profileIcon = new ImageIcon(user.getProfile().getPfpPath());
         Image image = profileIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         profileIcon = new ImageIcon(image);
@@ -46,9 +47,11 @@ public class NewsfeedFram extends javax.swing.JFrame {
         userName.setText(user.getUsername());
         userName.setHorizontalAlignment(JLabel.CENTER);
         userName.setVerticalAlignment(JLabel.CENTER);
+        //initializing NewsFeedFriendStatus panel
         NewsFeedFriendStatus status = new NewsFeedFriendStatus(user);
         status.setBounds(0, 220, 300, 100);
         add(status);
+        //initializing posts&stories panel 
         JPanel postsPanel = new JPanel();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
         List<PostsContentPanel> postsPanels = new ArrayList<>();
@@ -82,6 +85,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
             storiesPanel.add(panel);
         }
         JScrollPane scrollPane2 = new JScrollPane(storiesPanel);
+        //adding vertical scrollbar
         scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane2.setBounds(300, 330, 450, 280);
         add(scrollPane2);
@@ -223,7 +227,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
     }//GEN-LAST:event_profileActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-
+//checking that the user is found
         if (currentuser != null && accmanage.logout(currentuser)) {
             currentuser = null;
             MainUI mainUI = new MainUI();
@@ -248,6 +252,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
     }//GEN-LAST:event_refreshActionPerformed
 
     private void addPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPostActionPerformed
+       //opening file choser from desktop to select a photo
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select an image");
         int result = fileChooser.showOpenDialog(null);
@@ -255,6 +260,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         String caption = null;
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
+            //getting photo path
             path = selectedFile.getAbsolutePath();
             if (!path.matches(".*\\.(jpg|jpeg|png|gif)$")) {
                 JOptionPane.showMessageDialog(null, "Please select a valid image file!", "Invalid File", JOptionPane.ERROR_MESSAGE);

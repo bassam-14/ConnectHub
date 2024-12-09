@@ -16,9 +16,8 @@ import java.util.*;
  * @param <T>
  */
 public abstract class FileHandling<T> {
-
     private static final ObjectMapper objectMapper = new ObjectMapper();
-
+    //serializing localdate
     static {
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
