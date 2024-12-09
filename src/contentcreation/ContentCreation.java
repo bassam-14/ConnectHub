@@ -19,6 +19,7 @@ public abstract class ContentCreation {
     private final LocalDateTime createdtime;
 
     public ContentCreation() {
+        contentId=UUID.randomUUID().toString();
         createdtime=LocalDateTime.now();
     }
 

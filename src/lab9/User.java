@@ -21,6 +21,7 @@ public class User {
     private final List<String>blockedUsers=new ArrayList<>();
 
     public User() {
+        userId=UUID.randomUUID().toString();
     }
 
     public User(String email, String username, String password, LocalDate dateOfBirth, Profile profile) {

@@ -48,7 +48,7 @@ public class FriendManagment {
         if (friends.contains(receiverID)) {
             return;
         }
-        FriendRequest request = new FriendRequest(userId, receiverID, "Pending");
+        FriendRequest request = new FriendRequest(receiverID, userId, "Pending");
         sentRequests.add(request);
         friendDatabase.addRecord(request);
     }
