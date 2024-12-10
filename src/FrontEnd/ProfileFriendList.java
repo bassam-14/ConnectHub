@@ -19,7 +19,7 @@ public class ProfileFriendList extends javax.swing.JPanel {
     UserDatabase userDatabase = UserDatabase.getInstance();
     FriendDatabase friendDatabase = FriendDatabase.getInstance();
     private final String friendId;
-    private final FriendManagment friendManager;
+    FriendManagment friendManager;
 
     /**
      * Creates new form ProfileFriendList
@@ -29,10 +29,10 @@ public class ProfileFriendList extends javax.swing.JPanel {
         this.friendManager = friendManager;
         this.friendId = friendId;
         ImageIcon pfpIcon = new ImageIcon(userDatabase.getRecord(friendId).getProfile().getPfpPath());
-        Image image = pfpIcon.getImage().getScaledInstance(80,80, Image.SCALE_SMOOTH);
+        Image image = pfpIcon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         pfpIcon = new ImageIcon(image);
         pfp.setIcon(pfpIcon);
-        String friendStatus=userDatabase.getRecord(friendId).getUsername()+"|"+userDatabase.getRecord(friendId).getStatus();
+        String friendStatus = userDatabase.getRecord(friendId).getUsername() + "|" + userDatabase.getRecord(friendId).getStatus();
         friends.setText(friendStatus);
     }
 

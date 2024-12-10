@@ -20,7 +20,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ProfileUI extends javax.swing.JFrame {
 
     Profile profile;
-
     FriendManagment friendManager;
     FriendDatabase friendDatabase = FriendDatabase.getInstance();
     ContentDatabase contentDatabase = ContentDatabase.getInstance();
@@ -64,7 +63,7 @@ public class ProfileUI extends javax.swing.JFrame {
         }
         JScrollPane scrollPane1 = new JScrollPane(friendsPanel);
         scrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane1.setBounds(500, 210, 370, 90);
+        scrollPane1.setBounds(500, 210, 270, 120);
         add(scrollPane1);
         JPanel postsPanel = new JPanel();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
@@ -106,7 +105,7 @@ public class ProfileUI extends javax.swing.JFrame {
         }
         JScrollPane scrollPane3 = new JScrollPane(requestsPanel);
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane3.setBounds(500, 330, 200, 150);
+        scrollPane3.setBounds(500, 330, 200, 120);
         add(scrollPane3);
     }
 
