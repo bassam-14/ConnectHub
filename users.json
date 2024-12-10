@@ -4,13 +4,13 @@
   "username" : "zeina",
   "password" : "c4de1a57107dc3220f17c9a20eaeaeb8200e2dda411167dc0ef2a4379d99a5df",
   "dateOfBirth" : "2024-12-10",
-  "status" : "offline",
+  "status" : "online",
   "profile" : {
     "pfpPath" : "src/resources/default-avatar.png",
     "cpPath" : "src/resources/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg",
     "bio" : ""
   },
-  "blockedUsers" : [ ]
+  "blockedUsers" : [ "fd287e31-b140-424b-9f3d-c8de24c12ac9", "fd287e31-b140-424b-9f3d-c8de24c12ac9", "fd287e31-b140-424b-9f3d-c8de24c12ac9", "fd287e31-b140-424b-9f3d-c8de24c12ac9" ]
 }, {
   "userId" : "a2361acc-ff74-4ec0-8db4-16ef663d6112",
   "email" : "sara@gmail.com",

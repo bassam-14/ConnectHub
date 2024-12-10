@@ -80,14 +80,8 @@ public class FriendManagment {
 
     }
     public void blockUser(String userId) {
-        if (blockedUsers.contains(userId)) {
-            return;
-        } else if (friends.contains(userId)) {
             blockedUsers.add(userId);
             friends.remove(userId);
-        } else {
-            blockedUsers.add(userId);
-        }
     }
     public ArrayList<String> getFriendSuggestions() {
         List<User> allUsersByUser = userDatabase.getAllRecords();
