@@ -1,0 +1,16 @@
+[ {
+  "recieverID" : "1bdb4762-d41f-4bd1-8b57-3758d3a9e952",
+  "senderID" : "0ab8f275-9ba5-4a1c-86e7-04e76d793171",
+  "status" : "Accepted",
+  "friendShipId" : "0ab8f275-9ba5-4a1c-86e7-04e76d793171-1bdb4762-d41f-4bd1-8b57-3758d3a9e952"
+}, {
+  "recieverID" : "1bdb4762-d41f-4bd1-8b57-3758d3a9e952",
+  "senderID" : "0ab8f275-9ba5-4a1c-86e7-04e76d793171",
+  "status" : "Pending",
+  "friendShipId" : "0ab8f275-9ba5-4a1c-86e7-04e76d793171-1bdb4762-d41f-4bd1-8b57-3758d3a9e952"
+}, {
+  "recieverID" : "1bdb4762-d41f-4bd1-8b57-3758d3a9e952",
+  "senderID" : "0ab8f275-9ba5-4a1c-86e7-04e76d793171",
+  "status" : "Pending",
+  "friendShipId" : "0ab8f275-9ba5-4a1c-86e7-04e76d793171-1bdb4762-d41f-4bd1-8b57-3758d3a9e952"
+} ]
