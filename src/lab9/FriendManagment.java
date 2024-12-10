@@ -81,7 +81,8 @@ public class FriendManagment {
     }
     public void blockUser(String userId) {
             blockedUsers.add(userId);
-            friends.remove(userId);
+           User user=userDatabase.getRecord(this.userId);
+           friendDatabase.getFriends(this.userId).remove(userId);
     }
     public ArrayList<String> getFriendSuggestions() {
         List<User> allUsersByUser = userDatabase.getAllRecords();

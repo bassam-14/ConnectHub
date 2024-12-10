@@ -32,8 +32,8 @@ public class ProfileFriendList extends javax.swing.JPanel {
         Image image = pfpIcon.getImage().getScaledInstance(80,80, Image.SCALE_SMOOTH);
         pfpIcon = new ImageIcon(image);
         pfp.setIcon(pfpIcon);
-        String friendStatus="userDatabase.getRecord(friendId).getUsername()+userDatabase.getRecord(friendId).getStatus()";
-        friends.setText(friendId);
+        String friendStatus=userDatabase.getRecord(friendId).getUsername()+"|"+userDatabase.getRecord(friendId).getStatus();
+        friends.setText(friendStatus);
     }
 
     /**

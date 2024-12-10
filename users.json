@@ -1,35 +1,22 @@
 [ {
-  "userId" : "75db25fb-ad5b-4f4d-9048-1ffc73b2e176",
-  "email" : "zeina@gmail.com",
-  "username" : "zeina",
-  "password" : "c4de1a57107dc3220f17c9a20eaeaeb8200e2dda411167dc0ef2a4379d99a5df",
-  "dateOfBirth" : "2024-12-10",
-  "status" : "online",
-  "profile" : {
-    "pfpPath" : "src/resources/default-avatar.png",
-    "cpPath" : "src/resources/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg",
-    "bio" : ""
-  },
-  "blockedUsers" : [ "fd287e31-b140-424b-9f3d-c8de24c12ac9", "fd287e31-b140-424b-9f3d-c8de24c12ac9", "fd287e31-b140-424b-9f3d-c8de24c12ac9", "fd287e31-b140-424b-9f3d-c8de24c12ac9" ]
-}, {
-  "userId" : "a2361acc-ff74-4ec0-8db4-16ef663d6112",
-  "email" : "sara@gmail.com",
-  "username" : "sara",
-  "password" : "3a6d64c24cf80b69ccda37650406467e8266667b50cfd0b984beb3651b129ed7",
-  "dateOfBirth" : "2024-12-15",
-  "status" : "online",
-  "profile" : {
-    "pfpPath" : "src/resources/default-avatar.png",
-    "cpPath" : "src/resources/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg",
-    "bio" : ""
-  },
-  "blockedUsers" : [ null, "75db25fb-ad5b-4f4d-9048-1ffc73b2e176" ]
-}, {
-  "userId" : "fd287e31-b140-424b-9f3d-c8de24c12ac9",
+  "userId" : "1bdb4762-d41f-4bd1-8b57-3758d3a9e952",
   "email" : "ahmed@gmail.com",
   "username" : "ahmed",
   "password" : "9af2921d3fd57fe886c9022d1fcc055d53a79e4032fa6137e397583884e1a5de",
-  "dateOfBirth" : "2024-12-24",
+  "dateOfBirth" : "2024-12-27",
+  "status" : "online",
+  "profile" : {
+    "pfpPath" : "src/resources/default-avatar.png",
+    "cpPath" : "src/resources/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg",
+    "bio" : ""
+  },
+  "blockedUsers" : [ "0ab8f275-9ba5-4a1c-86e7-04e76d793171", "0ab8f275-9ba5-4a1c-86e7-04e76d793171" ]
+}, {
+  "userId" : "0ab8f275-9ba5-4a1c-86e7-04e76d793171",
+  "email" : "zeina@gmail.com",
+  "username" : "zeina",
+  "password" : "c4de1a57107dc3220f17c9a20eaeaeb8200e2dda411167dc0ef2a4379d99a5df",
+  "dateOfBirth" : "2024-12-26",
   "status" : "offline",
   "profile" : {
     "pfpPath" : "src/resources/default-avatar.png",
