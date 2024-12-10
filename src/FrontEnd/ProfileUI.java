@@ -56,6 +56,20 @@ public class ProfileUI extends javax.swing.JFrame {
         NewsFeedFriendStatus status = new NewsFeedFriendStatus(user);
         status.setBounds(500,210,200,90);
        add(status);
+       JPanel friendsPanel = new JPanel();
+        friendsPanel.setLayout(new BoxLayout(friendsPanel, BoxLayout.Y_AXIS));
+        List<ProfileFriendList> friendsPanels = new ArrayList<>();
+        List<User> allFriends=friendDatabase.getFriendsUsers(user.getUserId());
+        for(User friend:allFriends){
+        friendsPanels.add(new ProfileFriendList(friendManager,friend.getUserId()));
+        }
+        for(ProfileFriendList panel:friendsPanels){
+        friendsPanel.add(panel);
+        }
+        JScrollPane scrollPane1 = new JScrollPane(friendsPanel);
+        scrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane1.setBounds(500,210,370,90);
+        add(scrollPane1);
         JPanel postsPanel = new JPanel();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
         List<PostsContentPanel> postsPanels = new ArrayList<>();
