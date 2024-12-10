@@ -25,23 +25,27 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="Name" min="-2" pref="77" max="-2" attributes="0"/>
+                      <Component id="Name" min="-2" pref="65" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="UserNameText" min="-2" pref="195" max="-2" attributes="0"/>
+                      <Component id="UserNameText" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" alignment="1" min="-2" pref="278" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="Search" alignment="1" min="-2" pref="125" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
-                  <Component id="RemoveFriend" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="BlockUser" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
-                  <Component id="ViewProfile" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
+                  <Component id="Search" min="-2" pref="125" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                          <Component id="jButton2" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
+                          <Component id="RemoveFriend" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="BlockUser" alignment="1" min="-2" pref="125" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="ViewProfile" alignment="1" min="-2" pref="125" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -49,29 +53,33 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="Name" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="UserNameText" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
                       <Component id="Search" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="Name" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="UserNameText" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="0" pref="92" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Component id="jButton2" min="-2" pref="27" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="RemoveFriend" min="-2" pref="27" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="BlockUser" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="ViewProfile" min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

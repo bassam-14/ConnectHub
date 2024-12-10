@@ -15,19 +15,18 @@ import lab9.UserDatabase;
  */
 public class UserSearch {
 
-    // Reference the singleton instance of UserDatabase
     private static final UserDatabase userdata = UserDatabase.getInstance();
 
-    public static ArrayList<User> search(String username) {
+    public static ArrayList<User> search(String username, String currentname) {
         // Retrieve all user records from the database
         List<User> users = userdata.getAllRecords();
 
         // Result list to store matching users
         ArrayList<User> result = new ArrayList<>();
 
-        // Loop through the list of users and match based on the search criteria
+        // Loop through the list of users and match based on the search criteria exept the current username.
         for (User user : users) {
-            if (user.getUsername().startsWith(username)) { // Case-sensitive match
+            if (!user.getUsername().equals(currentname) && user.getUsername().startsWith(username)) {
                 result.add(user); // Add matching users to the result list
             }
         }
