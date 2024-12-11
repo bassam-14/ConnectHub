@@ -25,7 +25,10 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
      */
     public UserSearchFriendFrame(User currentname) {
         this.currentname = currentname.getUsername();
+        this.friendManager = new FriendManagment(currentname.getUserId()); // Initialize friendManager
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
     public void loadAllUsers() {
@@ -48,7 +51,7 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
         Name = new javax.swing.JLabel();
         UserNameText = new javax.swing.JTextField();
         Search = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        AddFriend = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         FriendjList1 = new javax.swing.JList<>();
         RemoveFriend = new javax.swing.JButton();
@@ -76,13 +79,13 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(204, 204, 255));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("Add Friend");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        AddFriend.setBackground(new java.awt.Color(204, 204, 255));
+        AddFriend.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        AddFriend.setForeground(new java.awt.Color(0, 0, 0));
+        AddFriend.setText("Add Friend");
+        AddFriend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                AddFriendActionPerformed(evt);
             }
         });
 
@@ -132,7 +135,7 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
                     .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AddFriend, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(RemoveFriend)
                             .addComponent(BlockUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(ViewProfile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -152,7 +155,7 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(AddFriend, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(RemoveFriend, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -177,22 +180,39 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
         loadAllUsers();
     }//GEN-LAST:event_SearchActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void AddFriendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFriendActionPerformed
         int index = FriendjList1.getSelectedIndex();
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Choose user");
         } else {
             User u = users.get(index);
             friendManager.sendRequest(u.getUserId());
+            JOptionPane.showMessageDialog(this, "Add friend successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_AddFriendActionPerformed
 
     private void RemoveFriendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveFriendActionPerformed
-        // TODO add your handling code here:
+        int index = FriendjList1.getSelectedIndex();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(this, "Choose user");
+        } else {
+            User u = users.get(index);
+            friendManager.removeFriend(u.getUserId());
+            JOptionPane.showMessageDialog(this, "Friend removed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        }
     }//GEN-LAST:event_RemoveFriendActionPerformed
 
     private void BlockUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlockUserActionPerformed
-        // TODO add your handling code here:
+        int index = FriendjList1.getSelectedIndex();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(this, "Choose user");
+        } else {
+            User u = users.get(index);
+            friendManager.blockUser(u.getUserId());
+            JOptionPane.showMessageDialog(this, "Friend Block successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_BlockUserActionPerformed
 
     /**
@@ -200,6 +220,7 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddFriend;
     private javax.swing.JButton BlockUser;
     private javax.swing.JList<String> FriendjList1;
     private javax.swing.JLabel Name;
@@ -207,7 +228,6 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
     private javax.swing.JButton Search;
     private javax.swing.JTextField UserNameText;
     private javax.swing.JButton ViewProfile;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
