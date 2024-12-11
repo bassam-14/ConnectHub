@@ -6,8 +6,10 @@ package lab9;
 
 /**
  *
- * @author Rana
+ * @author Zeina
  */
-public class NotificationType {
-    
+public enum NotificationType {
+    FRIEND_REQUEST, // Notifications for friend requests
+    GROUP_ACTIVITY, // Notifications for group-related activities
+    NEW_POST         // Notifications for new posts in groups
 }
