@@ -104,5 +104,5 @@ public class Group {
     public void removeMember(User member) {
         members.remove(member);
         admins.remove(member);
-    }
+    } 
 }

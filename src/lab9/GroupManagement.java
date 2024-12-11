@@ -120,5 +120,5 @@ public class GroupManagement {
    // public boolean addPost(String groupName, User user, String content) {
     //public boolean editPost(String groupName, User admin, int postIndex, String newContent){
     //public boolean deletePost(String groupName, User admin, int postIndex) {
-    //public ArrayList<String> viewPosts(String groupName) {
+    //public ArrayList<String> viewPosts(String groupName){
 }
