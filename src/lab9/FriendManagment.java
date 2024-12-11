@@ -47,6 +47,10 @@ public class FriendManagment {
         return userDatabase;
     }
 
+    public List<FriendRequest> getSentRequests() {
+        return sentRequests;
+    }
+
     public void sendRequest(String receiverID) {
 
         if (friends.contains(receiverID)) {

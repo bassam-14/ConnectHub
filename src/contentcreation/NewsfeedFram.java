@@ -68,7 +68,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         }
         JScrollPane scrollPane = new JScrollPane(postsPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBounds(300, 20, 450, 300);
+        scrollPane.setBounds(300, 20, 450, 200);
         add(scrollPane);
         JPanel storiesPanel = new JPanel();
         storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS));
@@ -87,7 +87,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         JScrollPane scrollPane2 = new JScrollPane(storiesPanel);
         //adding vertical scrollbar
         scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane2.setBounds(300, 330, 450, 280);
+        scrollPane2.setBounds(300, 330, 450, 180);
         add(scrollPane2);
         JPanel suggestionsPanel = new JPanel();
         suggestionsPanel.setLayout(new BoxLayout(suggestionsPanel, BoxLayout.Y_AXIS));
