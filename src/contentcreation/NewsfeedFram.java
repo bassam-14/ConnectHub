@@ -13,6 +13,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -34,7 +36,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
      */
     public NewsfeedFram(User user) {
         this.currentuser = user;
-        friendManagment =FriendManagment.getInstance(user.getUserId());
+        friendManagment = FriendManagment.getInstance(user.getUserId());
         accmanage = new AccountManagement();
         initComponents();
         userProfile.setHorizontalAlignment(JLabel.CENTER);
@@ -104,6 +106,14 @@ public class NewsfeedFram extends javax.swing.JFrame {
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setBounds(0, 330, 300, 200);
         add(scrollPane3);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                user.setStatus("offline");
+                dispose();
+            }
+        });
     }
 
     /**
