@@ -63,7 +63,7 @@ public class ProfileUI extends javax.swing.JFrame {
         }
         JScrollPane scrollPane1 = new JScrollPane(friendsPanel);
         scrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane1.setBounds(500, 210, 270, 120);
+        scrollPane1.setBounds(480, 210, 210, 120);
         add(scrollPane1);
         JPanel postsPanel = new JPanel();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
