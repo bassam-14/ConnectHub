@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package lab9;
+import contentcreation.Content;
+import contentcreation.ContentCreation;
+import contentcreation.Posts;
 import java.util.*;
 /**
  *
@@ -11,9 +14,11 @@ import java.util.*;
 public class GroupManagement {
     private static final Map<String,GroupManagement> instances=new HashMap<>();
     private final GroupDatabase groupDatabase;
+    private final ContentDatabase contentDatabase;
     private final Group group;
     private GroupManagement(String groupId) {
      groupDatabase=GroupDatabase.getInstance();
+     contentDatabase = ContentDatabase.getInstance();
      group=groupDatabase.getRecord(groupId);
     }
     public static GroupManagement getInstance(String groupId){
@@ -85,8 +90,45 @@ public class GroupManagement {
         }
         return false;
     }
-   // public boolean addPost(String groupName, User user, String content) {
-    //public boolean editPost(String groupName, User admin, int postIndex, String newContent){
-    //public boolean deletePost(String groupName, User admin, int postIndex) {
-    //public ArrayList<String> viewPosts(String groupName){
+   public boolean addPost(String userId, Content content) {
+        if (group.getMembers().contains(userId)) {
+            Posts post = new Posts(userId, content);
+            contentDatabase.addRecord(post);
+            return true;
+        }
+        return false;
+    }
+    public boolean editPost(String adminId, String contentId, Content newContent) {
+        if (group.getAdmins().contains(adminId)) {
+            ContentCreation content = contentDatabase.getRecord(contentId);
+            if (content instanceof Posts) {
+                content.setContent(newContent);
+                contentDatabase.saveData();
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean deletePost(String adminId, String contentId) {
+        if (group.getAdmins().contains(adminId)) {
+            ContentCreation existingContent = contentDatabase.getRecord(contentId);
+            if (existingContent instanceof Posts) {
+                contentDatabase.deleteRecord(existingContent);
+                contentDatabase.saveData();
+                return true;
+            }
+        }
+        return false;
+    }
+    public List<Posts> viewPosts() {
+        List<Posts> groupPosts = new ArrayList<>();
+        List<Posts> allPosts = contentDatabase.getPosts();
+
+        for (Posts post : allPosts) {
+            if (group.getMembers().contains(post.getAuthorId())) {
+                groupPosts.add(post);
+            }
+        }
+        return groupPosts;
+    }
 }
