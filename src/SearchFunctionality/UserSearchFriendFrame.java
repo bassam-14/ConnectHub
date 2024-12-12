@@ -17,15 +17,16 @@ import lab9.User;
 public class UserSearchFriendFrame extends javax.swing.JFrame {
 
     private ArrayList<User> users;
-    private FriendManagment friendManager;
-    private String currentname;
+    private final FriendManagment friendManager;
+    private final String currentname;
 
     /**
      * Creates new form UserSearchFriend
+     * @param currentname
      */
     public UserSearchFriendFrame(User currentname) {
         this.currentname = currentname.getUsername();
-        this.friendManager = new FriendManagment(currentname.getUserId()); // Initialize friendManager
+        this.friendManager =FriendManagment.getInstance(currentname.getUserId()); // Initialize friendManager
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 

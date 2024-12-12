@@ -36,7 +36,7 @@ public class ProfileUI extends javax.swing.JFrame {
         this.user = user;
         profile = user.getProfile();
         initComponents();
-        friendManager = new FriendManagment(user.getUserId());
+        friendManager =FriendManagment.getInstance(user.getUserId());
         setTitle("Profile");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
