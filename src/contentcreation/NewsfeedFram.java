@@ -31,7 +31,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
     UserDatabase userDatabase = UserDatabase.getInstance();
     NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
     private final FriendManagment friendManagment;
-    private final NotificationManager notificationManager;
+    //private final NotificationManager notificationManager;
 
     /**
      * Creates new form NewsfeedFram
@@ -40,7 +40,6 @@ public class NewsfeedFram extends javax.swing.JFrame {
      */
     public NewsfeedFram(User user) {
         this.currentuser = user;
-        notificationManager=new NotificationManager(currentuser.getUserId(), FriendManagment friendManagment, NotificationDatabase notificationDatabase,NotificationManager notificationManager.getNotification() ,FriendDatabase friendDatabase);
         friendManagment = FriendManagment.getInstance(user.getUserId());
         accmanage = new AccountManagement();
         initComponents();
@@ -111,7 +110,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setBounds(0, 330, 300, 200);
         add(scrollPane3);
-        JPanel notificationsPanel = new JPanel();
+       /* JPanel notificationsPanel = new JPanel();
         notificationsPanel.setLayout(new BoxLayout(notificationsPanel, BoxLayout.Y_AXIS));
         List<FriendRequestNotificationPanel> notificationsPanel1 = new ArrayList<>();
         List<Notification> allNotifications = notificationDatabase.getAllRecords();
@@ -119,7 +118,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
             if (notification.getType().equals(FRIEND_REQUEST.toString())) {
                 notificationsPanel1.add(new FriendRequestNotificationPanel());
             }
-        }
+        }*/
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -327,7 +326,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "You must provide either an image or a caption!", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        contentDatabase.addRecord(new Posts(currentuser.getUserId(), new Content(caption, path)));
+        contentDatabase.addRecord(new Posts(currentuser.getUserId(), new Content(caption, path),null));
     }//GEN-LAST:event_addPostActionPerformed
 
     private void addStoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStoryActionPerformed
@@ -346,7 +345,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "An image is required!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        contentDatabase.addRecord(new Stories(currentuser.getUserId(), new Content(null, path)));
+        contentDatabase.addRecord(new Stories(currentuser.getUserId(), new Content(null, path),null));
     }//GEN-LAST:event_addStoryActionPerformed
 
     private void FriendSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FriendSearchActionPerformed

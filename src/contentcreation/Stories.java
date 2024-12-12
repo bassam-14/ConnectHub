@@ -14,8 +14,8 @@ import lab9.*;
  */
 public class Stories extends ContentCreation {
     ContentDatabase contentDatabase=ContentDatabase.getInstance();
-    public Stories(String authorId, Content content) {
-        super(authorId, content);
+    public Stories(String authorId, Content content, String groupId) {
+        super(authorId, content,groupId);
         Expire();
     }
    private void Expire(){

@@ -15,10 +15,14 @@ public class GroupManagement {
     private static final Map<String,GroupManagement> instances=new HashMap<>();
     private final GroupDatabase groupDatabase;
     private final ContentDatabase contentDatabase;
+    private final NotificationDatabase notificationDatabase;
+    private final UserDatabase userDatabase;
     private final Group group;
     private GroupManagement(String groupId) {
      groupDatabase=GroupDatabase.getInstance();
      contentDatabase = ContentDatabase.getInstance();
+     notificationDatabase=NotificationDatabase.getInstance();
+     userDatabase=UserDatabase.getInstance();
      group=groupDatabase.getRecord(groupId);
     }
     public static GroupManagement getInstance(String groupId){
@@ -36,6 +40,7 @@ public class GroupManagement {
     public boolean promoteToAdmin(String adminId,String userId) {
         if (group != null && group.getPrimaryAdmin().equals(adminId) && group.getMembers().contains(userId)) {
             group.addAdmin(userId);
+            notificationDatabase.addRecord(new Notification(NotificationType.GROUP_ACTIVITY,group.getName()+" group status changed to "+group.getStatus(userId),userId));
             return true;
         }
         return false;
@@ -43,6 +48,7 @@ public class GroupManagement {
     public boolean demoteAdmin(String adminId,String userId) {
         if (group != null && group.getPrimaryAdmin().equals(adminId) && group.getAdmins().contains(userId)) {
             group.removeAdmin(userId);
+            notificationDatabase.addRecord(new Notification(NotificationType.GROUP_ACTIVITY,group.getName()+" group status changed to "+group.getStatus(userId),userId));
             return true;
         }
         return false;
@@ -50,6 +56,7 @@ public class GroupManagement {
     public boolean removeMember(String adminId,String userId) {
         if (group != null && group.getAdmins().contains(adminId)) {
             group.removeMember(userId);
+            notificationDatabase.addRecord(new Notification(NotificationType.GROUP_ACTIVITY,group.getName()+" group status changed to "+group.getStatus(userId),userId));
             return true;
         }
         return false;
@@ -79,6 +86,7 @@ public class GroupManagement {
         if (group != null && group.getAdmins().contains(adminId) && group.getMembershipRequests().contains(userId)) {
             group.getMembershipRequests().remove(userId);
             group.addMember(userId);
+            notificationDatabase.addRecord(new Notification(NotificationType.GROUP_ACTIVITY,"You were added to group "+group.getName(),userId));
             return true;
         }
         return false;
@@ -92,8 +100,11 @@ public class GroupManagement {
     }
    public boolean addPost(String userId, Content content) {
         if (group.getMembers().contains(userId)) {
-            Posts post = new Posts(userId, content);
+            Posts post = new Posts(userId, content,group.getGroupId());
             contentDatabase.addRecord(post);
+            for(String member:group.getMembers()){
+                notificationDatabase.addRecord(new Notification(NotificationType.NEW_POST,userDatabase.getRecord(userId).getUsername()+" added a new post to "+group.getName(),member));
+            }
             return true;
         }
         return false;
@@ -103,7 +114,6 @@ public class GroupManagement {
             ContentCreation content = contentDatabase.getRecord(contentId);
             if (content instanceof Posts) {
                 content.setContent(newContent);
-                contentDatabase.saveData();
                 return true;
             }
         }
@@ -114,21 +124,9 @@ public class GroupManagement {
             ContentCreation existingContent = contentDatabase.getRecord(contentId);
             if (existingContent instanceof Posts) {
                 contentDatabase.deleteRecord(existingContent);
-                contentDatabase.saveData();
                 return true;
             }
         }
         return false;
-    }
-    public List<Posts> viewPosts() {
-        List<Posts> groupPosts = new ArrayList<>();
-        List<Posts> allPosts = contentDatabase.getPosts();
-
-        for (Posts post : allPosts) {
-            if (group.getMembers().contains(post.getAuthorId())) {
-                groupPosts.add(post);
-            }
-        }
-        return groupPosts;
     }
 }

@@ -68,7 +68,7 @@ public class ProfileUI extends javax.swing.JFrame {
         JPanel postsPanel = new JPanel();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
         List<PostsContentPanel> postsPanels = new ArrayList<>();
-        List<Posts> allPosts = contentDatabase.getPostsByAuthor(user.getUserId());
+        List<Posts> allPosts = contentDatabase.getAllPostsByAuthor(user.getUserId());
         for (Posts post : allPosts) {
             postsPanels.add(new PostsContentPanel(post));
         }
@@ -82,7 +82,7 @@ public class ProfileUI extends javax.swing.JFrame {
         JPanel storiesPanel = new JPanel();
         storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS));
         List<NewsFeedPanelStories> storiesPanels = new ArrayList<>();
-        List<Stories> allStories = contentDatabase.getStoriesByAuthor(user.getUserId());
+        List<Stories> allStories = contentDatabase.getAllStoriesByAuthor(user.getUserId());
         for (Stories story : allStories) {
             storiesPanels.add(new NewsFeedPanelStories(story));
         }

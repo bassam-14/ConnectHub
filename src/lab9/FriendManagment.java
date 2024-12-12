@@ -24,6 +24,7 @@ public class FriendManagment {
     private static final Map<String,FriendManagment> instances=new HashMap<>();
     UserDatabase userDatabase = UserDatabase.getInstance();
     FriendDatabase friendDatabase = FriendDatabase.getInstance();
+    NotificationDatabase notificationDatabase=NotificationDatabase.getInstance();
 
     private FriendManagment(String userId) {
         this.userId = userId;
@@ -66,6 +67,7 @@ public class FriendManagment {
         FriendRequest request = new FriendRequest(receiverID, userId, "Pending");
         sentRequests.add(request);
         friendDatabase.addRecord(request);
+        notificationDatabase.addRecord(new Notification(NotificationType.FRIEND_REQUEST,userDatabase.getRecord(userId).getUsername()+" sent you a friend request",receiverID));
     }
 
     public void acceptRequest(FriendRequest request) {
@@ -75,6 +77,7 @@ public class FriendManagment {
         }
         friends.add(request.getSenderID());
         request.setStatus("Accepted");
+        notificationDatabase.addRecord(new Notification(NotificationType.FRIEND_REQUEST,userDatabase.getRecord(userId).getUsername()+" accepted your friend request",request.getSenderID()));
         receivedRequests.remove(request);
     }
 

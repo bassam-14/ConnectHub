@@ -5,7 +5,7 @@
 package lab9;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -40,4 +40,12 @@ public class GroupDatabase extends FileHandling<Group> {
        public boolean createGroup(String name, String description, String groupPhoto,String primaryAdmin) {
          return addRecord(new Group(name,description,groupPhoto,primaryAdmin));
     }
+       public List<Group>getUserGroups(String userId){
+           List<Group>groups=new ArrayList<>();
+           for(Group g:records){
+               if(g.getMembers().contains(userId))
+                   groups.add(g);
+           }
+           return groups;
+       }
 }
