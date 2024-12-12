@@ -15,6 +15,7 @@ public abstract class ContentCreation {
 
     private String contentId;
     private String authorId;
+    private String groupId;
     private Content content;
     private final LocalDateTime createdtime;
 
@@ -23,8 +24,9 @@ public abstract class ContentCreation {
         createdtime=LocalDateTime.now();
     }
 
-    public ContentCreation(String authorId, Content content) {
+    public ContentCreation(String authorId, Content content,String groupId) {
         contentId=UUID.randomUUID().toString();
+        this.groupId=groupId;
         this.authorId = authorId;
         this.content = content;
         this.createdtime = LocalDateTime.now();
@@ -43,6 +45,10 @@ public abstract class ContentCreation {
 
     public String getAuthorId() {
         return authorId;
+    }
+
+    public String getGroupId() {
+        return groupId;
     }
 
     public void setAuthorId(String authorId) {

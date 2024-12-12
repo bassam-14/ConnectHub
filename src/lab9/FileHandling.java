@@ -45,8 +45,8 @@ public abstract class FileHandling<T> {
 
     public abstract T getRecord(String key);
 
-    public void addRecord(T record) {
-        records.add(record);
+    public boolean addRecord(T record) {
+       return records.add(record);
     }
 
     public boolean deleteRecord(T record) {

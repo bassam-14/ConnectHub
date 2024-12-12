@@ -4,7 +4,7 @@
  */
 package lab9;
 
-import java.util.UUID;
+import java.util.*;
 
 /**
  *
@@ -12,14 +12,19 @@ import java.util.UUID;
  */
 public class Notification {
 
+    private final String relatedUserId;
     private NotificationType type;
     private String message;
-    private String notificationId;
+    private final String notificationId;
 
-    public Notification(NotificationType type, String message) {
+    public Notification(NotificationType type, String message,String relatedUserId) {
+        this.relatedUserId=relatedUserId;
         this.type = type;
         this.message = message;
         this.notificationId = generateNotificationId();
+    }
+    public String getRelatedUserId() {
+        return relatedUserId;
     }
 
     public NotificationType getType() {
@@ -51,5 +56,17 @@ public class Notification {
     public String toString() {
         return "[" + type + "]" + ":" + message;
     }
-
+    @Override
+    public boolean equals(Object obj){
+        if(this==obj)return true;
+        if(obj==null||getClass()!=obj.getClass())return false;
+        Notification that = (Notification) obj;
+        return Objects.equals(relatedUserId, that.relatedUserId) &&
+                type == that.type &&
+                Objects.equals(message, that.message);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(relatedUserId, type, message);
+    }
 }

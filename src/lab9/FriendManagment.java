@@ -6,7 +6,9 @@
 package lab9;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -19,10 +21,12 @@ public class FriendManagment {
     private final List<FriendRequest> sentRequests;
     private final List<FriendRequest> receivedRequests;
     private final List<String> blockedUsers;
+    private static final Map<String,FriendManagment> instances=new HashMap<>();
     UserDatabase userDatabase = UserDatabase.getInstance();
     FriendDatabase friendDatabase = FriendDatabase.getInstance();
+    NotificationDatabase notificationDatabase=NotificationDatabase.getInstance();
 
-    public FriendManagment(String userId) {
+    private FriendManagment(String userId) {
         this.userId = userId;
         sentRequests = friendDatabase.getSentRequests(userId);
         receivedRequests = friendDatabase.getRecievedRequests(userId);
@@ -30,7 +34,11 @@ public class FriendManagment {
         blockedUsers = userDatabase.getRecord(userId).getBlockedUsers();
 
     }
-
+    public static FriendManagment getInstance(String userId){
+        if(!instances.containsKey(userId))
+            instances.put(userId,new FriendManagment(userId));
+        return instances.get(userId);
+    }
     public String getUserId() {
         return userId;
     }
@@ -59,6 +67,7 @@ public class FriendManagment {
         FriendRequest request = new FriendRequest(receiverID, userId, "Pending");
         sentRequests.add(request);
         friendDatabase.addRecord(request);
+        notificationDatabase.addRecord(new Notification(NotificationType.FRIEND_REQUEST,userDatabase.getRecord(userId).getUsername()+" sent you a friend request",receiverID));
     }
 
     public void acceptRequest(FriendRequest request) {
@@ -68,6 +77,7 @@ public class FriendManagment {
         }
         friends.add(request.getSenderID());
         request.setStatus("Accepted");
+        notificationDatabase.addRecord(new Notification(NotificationType.FRIEND_REQUEST,userDatabase.getRecord(userId).getUsername()+" accepted your friend request",request.getSenderID()));
         receivedRequests.remove(request);
     }
 

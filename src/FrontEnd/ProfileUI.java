@@ -36,7 +36,7 @@ public class ProfileUI extends javax.swing.JFrame {
         this.user = user;
         profile = user.getProfile();
         initComponents();
-        friendManager = new FriendManagment(user.getUserId());
+        friendManager =FriendManagment.getInstance(user.getUserId());
         setTitle("Profile");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -63,12 +63,12 @@ public class ProfileUI extends javax.swing.JFrame {
         }
         JScrollPane scrollPane1 = new JScrollPane(friendsPanel);
         scrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane1.setBounds(500, 210, 270, 120);
+        scrollPane1.setBounds(480, 210, 210, 120);
         add(scrollPane1);
         JPanel postsPanel = new JPanel();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
         List<PostsContentPanel> postsPanels = new ArrayList<>();
-        List<Posts> allPosts = contentDatabase.getPostsByAuthor(user.getUserId());
+        List<Posts> allPosts = contentDatabase.getAllPostsByAuthor(user.getUserId());
         for (Posts post : allPosts) {
             postsPanels.add(new PostsContentPanel(post));
         }
@@ -82,7 +82,7 @@ public class ProfileUI extends javax.swing.JFrame {
         JPanel storiesPanel = new JPanel();
         storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS));
         List<NewsFeedPanelStories> storiesPanels = new ArrayList<>();
-        List<Stories> allStories = contentDatabase.getStoriesByAuthor(user.getUserId());
+        List<Stories> allStories = contentDatabase.getAllStoriesByAuthor(user.getUserId());
         for (Stories story : allStories) {
             storiesPanels.add(new NewsFeedPanelStories(story));
         }

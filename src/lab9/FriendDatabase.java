@@ -66,6 +66,16 @@ public class FriendDatabase extends FileHandling<FriendRequest>{
         }
         return friends;
         }
+        public List<FriendRequest>getFriendsRequests(String userId){
+        List<FriendRequest> friends=new ArrayList<>();
+        for(FriendRequest f:records){
+            if(f.getRecieverID().equals(userId)&& f.getStatus().equals("Accepted"))
+                friends.add(f);
+             if(f.getSenderID().equals(userId)&& f.getStatus().equals("Accepted"))
+                friends.add(f);
+        }
+        return friends;
+        }
         
         
     
