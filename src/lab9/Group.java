@@ -5,6 +5,7 @@
 package lab9;
 
 import java.util.*;
+import contentcreation.*;
 
 
 /**
@@ -33,7 +34,12 @@ public class Group {
         this.admins.add(primaryAdmin);
         this.members.add(primaryAdmin);
     }
-    
+    public String getStatus(String userId){
+        if(primaryAdmin.equals(userId))return "Primary Admin";
+        if(admins.contains(userId))return "Admin";
+        if(members.contains(userId))return "Member";
+        return "Removed";
+    }
     public String getGroupId() {
         return groupId;
     }
@@ -48,7 +54,6 @@ public class Group {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }

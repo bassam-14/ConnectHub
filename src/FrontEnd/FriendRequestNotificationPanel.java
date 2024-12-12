@@ -6,7 +6,6 @@ package FrontEnd;
 
 import lab9.FriendDatabase;
 import lab9.FriendManagment;
-import lab9.NotificationManager;
 
 /**
  *
@@ -14,20 +13,20 @@ import lab9.NotificationManager;
  */
 public class FriendRequestNotificationPanel extends javax.swing.JFrame {
 
-    private final NotificationManager notificationManager;
+    //private final NotificationManager notificationManager;
     private FriendManagment friendManager;
     FriendDatabase friendDatabase = FriendDatabase.getInstance();
     private String requestId;
     /**
      * Creates new form FriendRequestNotificationPanel
      */
-    public FriendRequestNotificationPanel(NotificationManager notificationManager, FriendManagment friendManager, String requestId) {
+    /*public FriendRequestNotificationPanel(NotificationManager notificationManager, FriendManagment friendManager, String requestId) {
         initComponents();
         this.notificationManager = notificationManager;
         this.friendManager = friendManager;
         this.requestId = requestId;
-        notificationMessage.setText(notificationManager.getNotification().toString());
-    }
+       // notificationMessage.setText(notificationManager.getNotification().toString());
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,7 +86,7 @@ public class FriendRequestNotificationPanel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptActionPerformed
+    /*private void acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptActionPerformed
         friendManager.acceptRequest(friendDatabase.getRecord(requestId + "-" + notificationManager.getUserId()));
     }//GEN-LAST:event_acceptActionPerformed
 

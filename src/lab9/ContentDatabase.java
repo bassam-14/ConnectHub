@@ -61,7 +61,7 @@ public class ContentDatabase extends FileHandling<ContentCreation> {
     public List<Posts> getPostsByAuthor(String authorId){
         List<Posts>posts=new ArrayList<>();
          for(ContentCreation c:records){
-        if(c.getAuthorId().equals(authorId) && c instanceof Posts)
+        if(c.getAuthorId().equals(authorId) && c instanceof Posts && c.getGroupId() == null)
             posts.add((Posts)c);
     }
          return posts;
@@ -69,9 +69,35 @@ public class ContentDatabase extends FileHandling<ContentCreation> {
     public List<Stories> getStoriesByAuthor(String authorId){
         List<Stories>stories=new ArrayList<>();
          for(ContentCreation c:records){
+        if(c.getAuthorId().equals(authorId) && c instanceof Stories && c.getGroupId()==null)
+            stories.add((Stories)c);
+    }
+         return stories;
+}
+        public List<Posts> getAllPostsByAuthor(String authorId){
+        List<Posts>posts=new ArrayList<>();
+         for(ContentCreation c:records){
+        if(c.getAuthorId().equals(authorId) && c instanceof Posts)
+            posts.add((Posts)c);
+    }
+         return posts;
+}
+    public List<Stories> getAllStoriesByAuthor(String authorId){
+        List<Stories>stories=new ArrayList<>();
+         for(ContentCreation c:records){
         if(c.getAuthorId().equals(authorId) && c instanceof Stories)
             stories.add((Stories)c);
     }
          return stories;
 }
+    public List<Posts> getGroupPosts(String groupId) {
+        List<Posts> groupPosts = new ArrayList<>();
+        List<Posts> allPosts =getPosts();
+        for (Posts post : allPosts) {
+            if (post.getGroupId().equals(groupId)) {
+                groupPosts.add(post);
+            }
+        }
+        return groupPosts;
+    }
 }
