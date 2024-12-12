@@ -16,45 +16,33 @@ public class NotificationManager {
     private String userId;
     private FriendManagment friendManager;
     private NotificationDatabase notificationDatabase;
-    private List<Notification> notifications;
     FriendDatabase friendDatabase = FriendDatabase.getInstance();
 
-    public NotificationManager(String userId, FriendManagment friendManager, NotificationDatabase notificationDatabase, List<Notification> notifications) {
+    public NotificationManager(String userId, FriendManagment friendManager, NotificationDatabase notificationDatabase) {
         this.userId = userId;
         this.friendManager = friendManager;
         this.notificationDatabase = notificationDatabase;
-        this.notifications = notifications;
     }
 
-    public void fetchFriendRequestNotifications(FriendManagment friendManager, String UserId) {
-        List<FriendRequest> recievedRequests = friendDatabase.getRecievedRequests(userId);
-        if (!recievedRequests.isEmpty()) {
-            for (FriendRequest request : recievedRequests) {
-                String message = request.getSenderID() + " sent you a friend request";
-                notifications.add(new Notification(NotificationType.FRIEND_REQUEST, message, request.getSenderID()));
-            }
-        }
-        List<FriendRequest> sentRequests = friendManager.getSentRequests();
-        if (!sentRequests.isEmpty()) {
-            for (FriendRequest request : sentRequests) {
-                if (request.getStatus().equals("Accepted")) {
-                    String message = request.getRecieverID() + " accepted your friend request";
-                    notifications.add(new Notification(NotificationType.FRIEND_REQUEST, message, request.getRecieverID()));
-                }
-            }
+    public void fetchFriendRequestNotifications(FriendRequest request) {
+        String message = request.getSenderID() + " sent you a friend request";
+        Notification notificaton = new Notification(NotificationType.FRIEND_REQUEST, message);
+    }
+
+    public void fetchAcceptedFriendrequestNotification(FriendRequest request) {
+        if (request.getStatus().equals("Accepted")) {
+            String message = request.getRecieverID() + " accepted your friend request";
+            Notification notificaton = new Notification(NotificationType.FRIEND_REQUEST, message);
+
         }
     }
-    public List<Notification> getAllNotifications() {
-        return new ArrayList<>(notifications); // Return a copy to prevent external modification
+
+    public String getUserId() {
+        return userId;
     }
-     public void clearNotifications() {
+    /*  public void clearNotifications() {
         notifications.clear();
-        saveNotifications(); // Save changes to file
-    }
-    private void saveNotifications() {
-        notificationDatabase.getAllRecords().clear();
-        notificationDatabase.getAllRecords().addAll(notifications);
-        notificationDatabase.saveData();
-    }
+        notificationDatabase.saveData();// Save changes to file
+    }*/
 
 }

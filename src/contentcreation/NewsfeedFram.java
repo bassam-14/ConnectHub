@@ -4,6 +4,7 @@
  */
 package contentcreation;
 
+import FrontEnd.FriendRequestNotificationPanel;
 import FrontEnd.MainUI;
 import FrontEnd.ProfileUI;
 import SearchFunctionality.UserSearchFriendFrame;
@@ -13,6 +14,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
+import static lab9.NotificationType.FRIEND_REQUEST;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -27,7 +29,9 @@ public class NewsfeedFram extends javax.swing.JFrame {
     FriendDatabase friendDatabase = FriendDatabase.getInstance();
     ContentDatabase contentDatabase = ContentDatabase.getInstance();
     UserDatabase userDatabase = UserDatabase.getInstance();
+    NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
     private final FriendManagment friendManagment;
+    private final NotificationManager notificationManager;
 
     /**
      * Creates new form NewsfeedFram
@@ -36,6 +40,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
      */
     public NewsfeedFram(User user) {
         this.currentuser = user;
+        notificationManager=new NotificationManager(currentuser.getUserId(), FriendManagment friendManagment, NotificationDatabase notificationDatabase,NotificationManager notificationManager.getNotification() ,FriendDatabase friendDatabase);
         friendManagment = FriendManagment.getInstance(user.getUserId());
         accmanage = new AccountManagement();
         initComponents();
@@ -106,6 +111,15 @@ public class NewsfeedFram extends javax.swing.JFrame {
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setBounds(0, 330, 300, 200);
         add(scrollPane3);
+        JPanel notificationsPanel = new JPanel();
+        notificationsPanel.setLayout(new BoxLayout(notificationsPanel, BoxLayout.Y_AXIS));
+        List<FriendRequestNotificationPanel> notificationsPanel1 = new ArrayList<>();
+        List<Notification> allNotifications = notificationDatabase.getAllRecords();
+        for (Notification notification : allNotifications) {
+            if (notification.getType().equals(FRIEND_REQUEST.toString())) {
+                notificationsPanel1.add(new FriendRequestNotificationPanel());
+            }
+        }
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -286,6 +300,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         userDatabase.saveData();
         friendDatabase.saveData();
         contentDatabase.saveData();
+        notificationDatabase.saveData();
         NewsfeedFram newframe = new NewsfeedFram(currentuser);
         newframe.setVisible(true);
         dispose();

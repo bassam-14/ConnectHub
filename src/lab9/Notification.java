@@ -4,19 +4,22 @@
  */
 package lab9;
 
+import java.util.UUID;
+
 /**
  *
  * @author Zeina
  */
 public class Notification {
+
     private NotificationType type;
     private String message;
-    private String relatedUserId;
+    private String notificationId;
 
-    public Notification(NotificationType type, String message, String relatedUserId) {
+    public Notification(NotificationType type, String message) {
         this.type = type;
         this.message = message;
-        this.relatedUserId=relatedUserId;
+        this.notificationId = generateNotificationId();
     }
 
     public NotificationType getType() {
@@ -27,13 +30,26 @@ public class Notification {
         return message;
     }
 
-    public String getRelatedUserId() {
-        return relatedUserId;
+    public String getNotificationId() {
+        return notificationId;
+    }
+
+    public void setType(NotificationType type) {
+        this.type = type;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String generateNotificationId() {
+        return UUID.randomUUID().toString(); // Generate a unique ID
+
     }
 
     @Override
     public String toString() {
-        return "["+type+"]"+ message ;
+        return "[" + type + "]" + ":" + message;
     }
-    
+
 }
