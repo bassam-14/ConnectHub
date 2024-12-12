@@ -28,9 +28,9 @@ public class NotificationDatabase extends FileHandling<Notification> {
     }
 
     @Override
-    public Notification getRecord(String relatedUserId) {
+    public Notification getRecord(String notificationId) {
         for (Notification N : records) {
-            if (N.getRelatedUserId().equals(relatedUserId)) {
+            if (N.getNotificationId().equals(notificationId)) {
                 return N;
             }
         }
