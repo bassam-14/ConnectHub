@@ -4,7 +4,10 @@
  */
 package FrontEnd;
 
+import SearchFunctionality.ViewGroupFrame;
+import lab9.Group;
 import lab9.NotificationDatabase;
+import lab9.User;
 
 /**
  *
@@ -13,12 +16,16 @@ import lab9.NotificationDatabase;
 public class NewGroupPostPanel extends javax.swing.JPanel {
 NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
     private String notificationId;
+    private Group group;
+    private User user;
     /**
      * Creates new form NewGroupPostPanel
      */
-    public NewGroupPostPanel(String notificationId) {
+    public NewGroupPostPanel(String notificationId, Group group, User user) {
         initComponents();
         this.notificationId=notificationId;
+        this.group=group;
+        this.user=user;
         notificationMessage.setText(notificationDatabase.getRecord(notificationId).toString());
     }
 
@@ -32,14 +39,14 @@ NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
     private void initComponents() {
 
         notificationMessage = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        viewGroup = new javax.swing.JButton();
 
         notificationMessage.setText("jLabel1");
 
-        jButton1.setText("View Post");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        viewGroup.setText("View Group");
+        viewGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                viewGroupActionPerformed(evt);
             }
         });
 
@@ -51,7 +58,7 @@ NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
                 .addContainerGap()
                 .addComponent(notificationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(viewGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -60,18 +67,19 @@ NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(notificationMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(jButton1))
+                    .addComponent(viewGroup))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void viewGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewGroupActionPerformed
+       ViewGroupFrame grpFrame=new ViewGroupFrame(group, user);
+       grpFrame.setVisible(true);
+    }//GEN-LAST:event_viewGroupActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel notificationMessage;
+    private javax.swing.JButton viewGroup;
     // End of variables declaration//GEN-END:variables
 }

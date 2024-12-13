@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package contentcreation;
+
 import FrontEnd.*;
 import SearchFunctionality.*;
 import lab9.*;
@@ -122,14 +123,17 @@ public class NewsfeedFram extends javax.swing.JFrame {
                 }
             } else if (notification.getType() == NotificationType.GROUP_ACTIVITY) {
                 if (isGroupAddedNotification(notification.getMessage())) {
-                    UserAddedToGroupsPanel notificationsPanel3 = new UserAddedToGroupsPanel(notification.getNotificationId());
+                    Group grp = notification.extractGroup();
+                    UserAddedToGroupsPanel notificationsPanel3 = new UserAddedToGroupsPanel(notification.getNotificationId(), grp,currentuser);
                     notificationsPanel.add(notificationsPanel3);
                 } else {
-                    GrpStatusChangedPanel notificationsPanel4 = new GrpStatusChangedPanel(notification.getNotificationId());
+                    Group grp = notification.extractGroup();
+                    GrpStatusChangedPanel notificationsPanel4 = new GrpStatusChangedPanel(notification.getNotificationId(), currentuser, grp);
                     notificationsPanel.add(notificationsPanel4);
                 }
             } else {
-                NewGroupPostPanel notificationsPanel5 = new NewGroupPostPanel(notification.getNotificationId());
+                Group grp = notification.extractGroup();
+                NewGroupPostPanel notificationsPanel5 = new NewGroupPostPanel(notification.getNotificationId(), grp, currentuser);
                 notificationsPanel.add(notificationsPanel5);
             }
         }

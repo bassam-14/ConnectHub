@@ -11,19 +11,21 @@ import java.util.*;
  * @author Zeina
  */
 public class Notification {
- 
-    private UserDatabase userDatabase=UserDatabase.getInstance();
+
+    private UserDatabase userDatabase = UserDatabase.getInstance();
+    private GroupDatabase groupDatabse = GroupDatabase.getInstance();
     private final String relatedUserId;
     private NotificationType type;
     private String message;
     private final String notificationId;
 
-    public Notification(NotificationType type, String message,String relatedUserId) {
-        this.relatedUserId=relatedUserId;
+    public Notification(NotificationType type, String message, String relatedUserId) {
+        this.relatedUserId = relatedUserId;
         this.type = type;
         this.message = message;
         this.notificationId = generateNotificationId();
     }
+
     public String getRelatedUserId() {
         return relatedUserId;
     }
@@ -52,26 +54,42 @@ public class Notification {
         return UUID.randomUUID().toString(); // Generate a unique ID
 
     }
+
     public String extractSenderId() {
-    if (type == NotificationType.FRIEND_REQUEST && message.contains(" sent you a friend request")) {
-        String name=message.split(" ")[0];// Extract the first word, which is the sender's ID
-        return userDatabase.getRecordByName(name).getUserId();
+        if (type == NotificationType.FRIEND_REQUEST && message.contains(" sent you a friend request")) {
+            String name = message.split(" ")[0];// Extract the first word, which is the sender's ID
+            return userDatabase.getRecordByName(name).getUserId();
+        }
+        return null; // Return null if the notification type or format is invalid
     }
-    return null; // Return null if the notification type or format is invalid
-}
+
+    public Group extractGroup() {
+        if (type == NotificationType.GROUP_ACTIVITY && message.contains(" group status changed to")) {
+            String groupName = message.split(" ")[0];// Extract the first word, which is the sender's ID
+            return groupDatabse.getGroupByName(groupName);
+        }
+        return null; // Return null if the notification type or format is invalid
+    }
+
     @Override
     public String toString() {
         return "[" + type + "]" + ":" + message;
     }
+
     @Override
-    public boolean equals(Object obj){
-        if(this==obj)return true;
-        if(obj==null||getClass()!=obj.getClass())return false;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         Notification that = (Notification) obj;
-        return Objects.equals(relatedUserId, that.relatedUserId) &&
-                type == that.type &&
-                Objects.equals(message, that.message);
+        return Objects.equals(relatedUserId, that.relatedUserId)
+                && type == that.type
+                && Objects.equals(message, that.message);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(relatedUserId, type, message);

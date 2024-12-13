@@ -4,7 +4,10 @@
  */
 package FrontEnd;
 
+import SearchFunctionality.ViewGroupFrame;
+import lab9.Group;
 import lab9.NotificationDatabase;
+import lab9.User;
 
 /**
  *
@@ -14,13 +17,17 @@ public class UserAddedToGroupsPanel extends javax.swing.JPanel {
 
     NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
     private String notificationId;
+    private User user;
+    private Group group;
 
     /**
      * Creates new form UserAddedToGroupPanel
      */
-    public UserAddedToGroupsPanel(String notificationId) {
+    public UserAddedToGroupsPanel(String notificationId, Group group, User user) {
         this.notificationId = notificationId;
         initComponents();
+        this.group=group;
+        this.user=user;
         notificationMessage.setText(notificationDatabase.getRecord(notificationId).toString());
     }
 
@@ -68,7 +75,8 @@ public class UserAddedToGroupsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewGroupActionPerformed
-        // TODO add your handling code here:
+        ViewGroupFrame grpFrame=new ViewGroupFrame(group, user);
+        grpFrame.setVisible(true);
     }//GEN-LAST:event_viewGroupActionPerformed
 
 
