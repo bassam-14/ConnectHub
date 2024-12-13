@@ -101,7 +101,9 @@ public class MainUI extends javax.swing.JFrame {
         
     FriendDatabase friendDatabase = FriendDatabase.getInstance();
     ContentDatabase contentDatabase = ContentDatabase.getInstance();
-    UserDatabase userDatabase = UserDatabase.getInstance();/* Set the Nimbus look and feel */
+    UserDatabase userDatabase = UserDatabase.getInstance();
+    NotificationDatabase notificationDatabase=NotificationDatabase.getInstance();
+    /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -127,6 +129,7 @@ public class MainUI extends javax.swing.JFrame {
             friendDatabase.saveData();
             contentDatabase.saveData();
             userDatabase.saveData();
+            notificationDatabase.saveData();
         }));
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {

@@ -106,10 +106,12 @@ public class NotificationDatabase extends FileHandling<Notification> {
     }*/
    public List<Notification>fetchAllNotifications(String userId){
        List<Notification>notifications=new ArrayList<>();
-       for(Notification notif:records){
+       Iterator<Notification>iterator=records.iterator();
+       while(iterator.hasNext()){
+           Notification notif=iterator.next();
            if(notif.getRelatedUserId().equals(userId)){
                notifications.add(notif);
-               deleteRecord(notif);
+               iterator.remove();
            }
        }
        return notifications;

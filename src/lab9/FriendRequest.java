@@ -11,10 +11,12 @@ package lab9;
  */
 public class FriendRequest {
 
-    private final String recieverID;
-    private final String senderID;
+    private String recieverID;
+    private String senderID;
     private String status;
 
+    public FriendRequest() {
+    }
     public FriendRequest(String recieverID, String senderID, String status) {
         this.recieverID = recieverID;
         this.senderID = senderID;

@@ -27,7 +27,7 @@ import java.awt.event.WindowEvent;
 public class NewsfeedFram extends javax.swing.JFrame {
 
     private User currentuser;
-    private AccountManagement accmanage;
+    private final AccountManagement accmanage;
     FriendDatabase friendDatabase = FriendDatabase.getInstance();
     ContentDatabase contentDatabase = ContentDatabase.getInstance();
     UserDatabase userDatabase = UserDatabase.getInstance();
