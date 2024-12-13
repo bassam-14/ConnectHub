@@ -21,7 +21,6 @@ import java.awt.event.*;
 public class ViewGroupFrame extends javax.swing.JFrame {
 
     private Group currentgroup;
-    private User user;
     private GroupManagement grpmanage;
     GroupDatabase groupdata = GroupDatabase.getInstance();
     ContentDatabase contentdata = ContentDatabase.getInstance();
@@ -42,7 +41,6 @@ public class ViewGroupFrame extends javax.swing.JFrame {
         this.currentgroup = group;
         this.user = user;
         this.grpid = group.getGroupId();
-        this.user = user;
         grpmanage = GroupManagement.getInstance(group.getGroupId());
         initComponents();
         if (!grpmanage.isMember(user.getUserId())) {
