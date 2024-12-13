@@ -18,13 +18,14 @@ public class GroupSearchFrame extends javax.swing.JFrame {
     private ArrayList<Group> groups;
     private GroupManagement groupManager;
     private final String currentuserid;
+    private User currentuser;
 
     /**
      * Creates new form GroupSearchFrame
      *
      */
     public GroupSearchFrame(User currentuser) {
-        this.currentuserid=currentuser.getUserId();
+        this.currentuserid = currentuser.getUserId();
         setTitle("Group Search");
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -213,16 +214,17 @@ public class GroupSearchFrame extends javax.swing.JFrame {
 
             // Check if the current user is a member of the group
             boolean isMember = groupManager.isMember(currentuserid);
- if (!isMember) {
+            if (!isMember) {
                 JOptionPane.showMessageDialog(this,
                         "You are not a member of this group. Please join the group first.",
                         "Access Denied",
                         JOptionPane.WARNING_MESSAGE);
             } else {
                 // Open ViewGroupFrame
-                ViewGroupFrame g = new ViewGroupFrame(selectedGroup);
+                ViewGroupFrame g = new ViewGroupFrame(selectedGroup,currentuser);
                 g.setVisible(true);
-            }}
+            }
+        }
     }//GEN-LAST:event_ViewGroupActionPerformed
 
     /**

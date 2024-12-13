@@ -1,0 +1,11 @@
+[ {
+  "relatedUserId" : "6286ba22-fd80-42c4-a4e7-99bc9fd069ce",
+  "type" : "FRIEND_REQUEST",
+  "message" : "zeina accepted your friend request",
+  "notificationId" : "14df248b-dc44-414d-aa21-f25b61b7eaac"
+}, {
+  "relatedUserId" : "edbd81ce-33bb-46ed-8980-2e7d35900f13",
+  "type" : "FRIEND_REQUEST",
+  "message" : "xyz accepted your friend request",
+  "notificationId" : "01fea14e-d69c-4e6c-a7fe-1a5866090922"
+} ]
