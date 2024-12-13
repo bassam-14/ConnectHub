@@ -34,4 +34,11 @@ public class UserDatabase extends FileHandling<User> {
         }
         return null;
     }
+        public User getRecordByName(String name){
+        for(User u:records){
+            if(u.getUsername().equals(name))
+                return u;
+        }
+        return null;
+    }
 }

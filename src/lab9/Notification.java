@@ -11,7 +11,8 @@ import java.util.*;
  * @author Zeina
  */
 public class Notification {
-
+ 
+    private UserDatabase userDatabase=UserDatabase.getInstance();
     private final String relatedUserId;
     private NotificationType type;
     private String message;
@@ -53,7 +54,8 @@ public class Notification {
     }
     public String extractSenderId() {
     if (type == NotificationType.FRIEND_REQUEST && message.contains(" sent you a friend request")) {
-        return message.split(" ")[0]; // Extract the first word, which is the sender's ID
+        String name=message.split(" ")[0];// Extract the first word, which is the sender's ID
+        return userDatabase.getRecordByName(name).getUserId();
     }
     return null; // Return null if the notification type or format is invalid
 }

@@ -39,12 +39,12 @@ public class FriendProfile extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         String pfpPath = user.getProfile().getPfpPath();
         ImageIcon pfp = new ImageIcon(pfpPath);
-        Image pfpImage = pfp.getImage().getScaledInstance(profilePhoto.getWidth(), profilePhoto.getHeight(), Image.SCALE_SMOOTH);
+        Image pfpImage = pfp.getImage().getScaledInstance(174,101, Image.SCALE_SMOOTH);
         ImageIcon pfpIcon = new ImageIcon(pfpImage);
         profilePhoto.setIcon(pfpIcon);
         String cpPath = user.getProfile().getCpPath();
         ImageIcon cp = new ImageIcon(cpPath);
-        Image cpImage = cp.getImage().getScaledInstance(coverPhoto.getWidth(), coverPhoto.getHeight(), Image.SCALE_SMOOTH);
+        Image cpImage = cp.getImage().getScaledInstance(597,130, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(cpImage);
         coverPhoto.setIcon(scaledIcon);
         bio.setText(user.getProfile().getBio());
@@ -60,7 +60,7 @@ public class FriendProfile extends javax.swing.JFrame {
         }
         JScrollPane scrollPane = new JScrollPane(postsPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBounds(0, 250, 230, 320);
+        scrollPane.setBounds(0,180,400, 220);
         add(scrollPane);
         JPanel storiesPanel = new JPanel();
         storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS));
@@ -74,7 +74,7 @@ public class FriendProfile extends javax.swing.JFrame {
         }
         JScrollPane scrollPane2 = new JScrollPane(storiesPanel);
         scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane2.setBounds(330, 250, 230, 310);
+        scrollPane2.setBounds(410,180,400,220);
         add(scrollPane2);
     }
 
@@ -91,14 +91,18 @@ public class FriendProfile extends javax.swing.JFrame {
         profilePhoto = new javax.swing.JLabel();
         bio = new javax.swing.JLabel();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(837, 444));
+        setMinimumSize(new java.awt.Dimension(837, 444));
+
         coverPhoto.setText("jLabel1");
 
         profilePhoto.setText("jLabel2");
 
         bio.setText("jLabel1");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()

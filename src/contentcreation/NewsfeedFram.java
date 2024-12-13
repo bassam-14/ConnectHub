@@ -3,13 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package contentcreation;
-import FrontEnd.AcceptedRequestNotificationPanel;
-import FrontEnd.FriendRequestNotificationPanel;
-import FrontEnd.GrpStatusChangedPanel;
-import FrontEnd.MainUI;
-import FrontEnd.NewGroupPostPanel;
-import FrontEnd.ProfileUI;
-import FrontEnd.UserAddedToGroupPanel;
+import FrontEnd.*;
 import SearchFunctionality.*;
 import lab9.*;
 import javax.swing.*;
@@ -119,15 +113,15 @@ public class NewsfeedFram extends javax.swing.JFrame {
             if (notification.getType() == NotificationType.FRIEND_REQUEST) {
                 if (isValidFriendRequestFormat(notification.getMessage())) {
                     String requestSenderId = notification.extractSenderId();
-                    FriendRequestNotificationPanel notificationsPanel1 = new FriendRequestNotificationPanel(friendManagment, requestSenderId, notification.getNotificationId(), currentuser.getUserId());
+                    FriendRequestNotificationsPanel notificationsPanel1 = new FriendRequestNotificationsPanel(friendManagment, requestSenderId, notification, currentuser.getUserId());
                     notificationsPanel.add(notificationsPanel1);
                 } else {
-                    AcceptedRequestNotificationPanel notificationsPanel2 = new AcceptedRequestNotificationPanel(notification.getNotificationId());
+                    AcceptedRequestNotificationPanel notificationsPanel2 = new AcceptedRequestNotificationPanel(notification);
                     notificationsPanel.add(notificationsPanel2);
                 }
             } else if (notification.getType() == NotificationType.GROUP_ACTIVITY) {
                 if (isGroupAddedNotification(notification.getMessage())) {
-                    UserAddedToGroupPanel notificationsPanel3 = new UserAddedToGroupPanel(notification.getNotificationId());
+                    UserAddedToGroupsPanel notificationsPanel3 = new UserAddedToGroupsPanel(notification.getNotificationId());
                     notificationsPanel.add(notificationsPanel3);
                 } else {
                     GrpStatusChangedPanel notificationsPanel4 = new GrpStatusChangedPanel(notification.getNotificationId());
@@ -140,7 +134,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         }
         JScrollPane scrollPane4 = new JScrollPane(notificationsPanel);
         scrollPane4.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane4.setBounds(300, 450, 530, 200);
+        scrollPane4.setBounds(300, 490, 530, 180);
         add(scrollPane4);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -150,6 +144,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
                 friendDatabase.saveData();
                 contentDatabase.saveData();
                 userDatabase.saveData();
+                notificationDatabase.saveData();
                 dispose();
             }
         });
