@@ -1,1 +1,4 @@
 /build/
+/DataBase/build/
+/DataBase/dist/
+/DataBase/nbproject/private/

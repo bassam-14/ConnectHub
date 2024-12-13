@@ -51,7 +51,12 @@ public class Notification {
         return UUID.randomUUID().toString(); // Generate a unique ID
 
     }
-
+    public String extractSenderId() {
+    if (type == NotificationType.FRIEND_REQUEST && message.contains(" sent you a friend request")) {
+        return message.split(" ")[0]; // Extract the first word, which is the sender's ID
+    }
+    return null; // Return null if the notification type or format is invalid
+}
     @Override
     public String toString() {
         return "[" + type + "]" + ":" + message;

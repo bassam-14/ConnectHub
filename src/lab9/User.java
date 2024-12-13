@@ -19,6 +19,7 @@ public class User {
     private String status="offline";
     private Profile profile;
     private final List<String>blockedUsers=new ArrayList<>();
+    
 
     public User() {
         userId=UUID.randomUUID().toString();
