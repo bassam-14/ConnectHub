@@ -82,9 +82,6 @@ public class MainUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
-        UserDatabase userDatabase = UserDatabase.getInstance();
-        FriendProfile profile=new FriendProfile(userDatabase.getRecordByName("bassam"));
-        profile.setVisible(true);
         LogIn logIn = new LogIn();
         logIn.show();
         this.dispose();
