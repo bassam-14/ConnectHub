@@ -75,7 +75,6 @@ public class NewsfeedFram extends javax.swing.JFrame {
         scrollPane.setBounds(400, 20, 530, 250);
         add(scrollPane);
         JPanel storiesPanel = new JPanel();
-        .
         storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS));
         List<NewsFeedPanelStories> storiesPanels = new ArrayList<>();
         List<String> friends2 = friendDatabase.getFriends(user.getUserId());
