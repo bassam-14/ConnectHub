@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package contentcreation;
-
 import FrontEnd.AcceptedRequestNotificationPanel;
 import FrontEnd.FriendRequestNotificationPanel;
 import FrontEnd.GrpStatusChangedPanel;
@@ -11,7 +10,7 @@ import FrontEnd.MainUI;
 import FrontEnd.NewGroupPostPanel;
 import FrontEnd.ProfileUI;
 import FrontEnd.UserAddedToGroupPanel;
-import SearchFunctionality.UserSearchFriendFrame;
+import SearchFunctionality.*;
 import lab9.*;
 import javax.swing.*;
 import java.awt.*;
@@ -316,6 +315,12 @@ public class NewsfeedFram extends javax.swing.JFrame {
     }//GEN-LAST:event_profileActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        java.awt.Window[] windows = java.awt.Window.getWindows();
+        for (java.awt.Window window : windows) {
+            if (window.isVisible() && !(window instanceof MainUI)) {
+                window.dispose();
+            }
+        }
         //checking that the user is found
         if (currentuser != null && accmanage.logout(currentuser)) {
             currentuser = null;
@@ -390,7 +395,8 @@ public class NewsfeedFram extends javax.swing.JFrame {
     }//GEN-LAST:event_FriendSearchActionPerformed
 
     private void GroupSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GroupSearchActionPerformed
-        // TODO add your handling code here:
+        GroupSearchFrame p = new GroupSearchFrame(currentuser);
+        p.setVisible(true);
     }//GEN-LAST:event_GroupSearchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

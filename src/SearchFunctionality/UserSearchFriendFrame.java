@@ -22,14 +22,16 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form UserSearchFriend
+     *
      * @param currentname
      */
     public UserSearchFriendFrame(User currentname) {
         this.currentname = currentname.getUsername();
-        this.friendManager =FriendManagment.getInstance(currentname.getUserId()); // Initialize friendManager
+        // Initialize friendManager
+        this.friendManager = FriendManagment.getInstance(currentname.getUserId());
+        setTitle("User Search - " + currentname.getUsername()); // Set the title of the frame
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
     }
 
     public void loadAllUsers() {
@@ -72,7 +74,6 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
 
         Search.setBackground(new java.awt.Color(204, 204, 255));
         Search.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Search.setForeground(new java.awt.Color(0, 0, 0));
         Search.setText("Search");
         Search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,7 +83,6 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
 
         AddFriend.setBackground(new java.awt.Color(204, 204, 255));
         AddFriend.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        AddFriend.setForeground(new java.awt.Color(0, 0, 0));
         AddFriend.setText("Add Friend");
         AddFriend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +96,6 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
 
         RemoveFriend.setBackground(new java.awt.Color(204, 204, 255));
         RemoveFriend.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        RemoveFriend.setForeground(new java.awt.Color(0, 0, 0));
         RemoveFriend.setText("Remove Friend");
         RemoveFriend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,7 +105,6 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
 
         BlockUser.setBackground(new java.awt.Color(204, 204, 255));
         BlockUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        BlockUser.setForeground(new java.awt.Color(0, 0, 0));
         BlockUser.setText("Block User");
         BlockUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +114,6 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
 
         ViewProfile.setBackground(new java.awt.Color(204, 204, 255));
         ViewProfile.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        ViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         ViewProfile.setText("View Profile");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -193,6 +190,17 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_AddFriendActionPerformed
 
+    private void BlockUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlockUserActionPerformed
+        int index = FriendjList1.getSelectedIndex();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(this, "Choose user");
+        } else {
+            User u = users.get(index);
+            friendManager.blockUser(u.getUserId());
+            JOptionPane.showMessageDialog(this, "Friend Block successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_BlockUserActionPerformed
+
     private void RemoveFriendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveFriendActionPerformed
         int index = FriendjList1.getSelectedIndex();
         if (index == -1) {
@@ -204,17 +212,6 @@ public class UserSearchFriendFrame extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_RemoveFriendActionPerformed
-
-    private void BlockUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlockUserActionPerformed
-        int index = FriendjList1.getSelectedIndex();
-        if (index == -1) {
-            JOptionPane.showMessageDialog(this, "Choose user");
-        } else {
-            User u = users.get(index);
-            friendManager.blockUser(u.getUserId());
-            JOptionPane.showMessageDialog(this, "Friend Block successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_BlockUserActionPerformed
 
     /**
      * @param args the command line arguments
