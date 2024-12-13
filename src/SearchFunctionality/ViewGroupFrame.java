@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package SearchFunctionality;
-
 import contentcreation.Content;
 import contentcreation.Posts;
 import contentcreation.PostsContentPanel;
@@ -11,14 +10,9 @@ import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import lab9.*;
+import java.awt.event.*;
 
 /**
  *
@@ -32,18 +26,79 @@ public class ViewGroupFrame extends javax.swing.JFrame {
     GroupDatabase groupdata = GroupDatabase.getInstance();
     ContentDatabase contentdata = ContentDatabase.getInstance();
     private final String grpid;
+    private final User user;
+    private JPanel manageMembersPanel;
+    private JPanel postsPanel;
+    private JPanel requestsPanel;
+    private JButton requestJoin;
 
     /**
      * Creates new form ViewGroupFrame
      *
      * @param group
+     * @param user
      */
     public ViewGroupFrame(Group group, User user) {
         this.currentgroup = group;
+        this.user = user;
         this.grpid = group.getGroupId();
         this.user = user;
         grpmanage = GroupManagement.getInstance(group.getGroupId());
         initComponents();
+        if (!grpmanage.isMember(user.getUserId())) {
+            requestJoin = new JButton("Request Join");
+            requestJoin.setBounds(300, 100, 100, 30);
+            requestJoin.addActionListener((ActionEvent evt) -> {
+                grpmanage.requestMembership(user.getUserId());
+            });
+            this.add(requestJoin);
+            JPanel grouppanel = new JPanel();
+            grouppanel.setLayout(new BoxLayout(grouppanel, BoxLayout.Y_AXIS));
+            List<PostsContentPanel> postsPanels = new ArrayList<>();
+            List<Posts> allPosts = contentdata.getGroupPosts(grpid);
+            for (Posts post : allPosts) {
+                postsPanels.add(new PostsContentPanel(post));
+            }
+            for (PostsContentPanel panel : postsPanels) {
+                grouppanel.add(panel);
+            }
+            JScrollPane scrollPane = new JScrollPane(grouppanel);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane.setBounds(100, 100, 100, 100);
+            add(scrollPane);
+        } else if (currentgroup.getStatus(user.getUserId()).equals("Primary Admin")) {
+            postsPanel = new JPanel();
+            postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
+            List<AdminPostPanel> postsPanels = new ArrayList<>();
+            List<Posts> allPosts = contentdata.getGroupPosts(grpid);
+            for (Posts post : allPosts) {
+                postsPanels.add(new AdminPostPanel(post, group, user.getUserId()));
+            }
+            for (AdminPostPanel panel : postsPanels) {
+                postsPanel.add(panel);
+            }
+            JScrollPane scrollPane = new JScrollPane(postsPanel);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane.setBounds(100, 100, 100, 100);
+            add(scrollPane);
+        } else if (currentgroup.getStatus(user.getUserId()).equals("Admin")) {
+
+        } else {
+            JPanel grouppanel = new JPanel();
+            grouppanel.setLayout(new BoxLayout(grouppanel, BoxLayout.Y_AXIS));
+            List<PostsContentPanel> postsPanels = new ArrayList<>();
+            List<Posts> allPosts = contentdata.getGroupPosts(grpid);
+            for (Posts post : allPosts) {
+                postsPanels.add(new PostsContentPanel(post));
+            }
+            for (PostsContentPanel panel : postsPanels) {
+                grouppanel.add(panel);
+            }
+            JScrollPane scrollPane = new JScrollPane(grouppanel);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane.setBounds(100, 100, 100, 100);
+            add(scrollPane);
+        }
         GroupProfile.setHorizontalAlignment(JLabel.CENTER);
         GroupProfile.setVerticalAlignment(JLabel.CENTER);
         ImageIcon profileIcon = new ImageIcon(group.getGroupPhoto());
@@ -55,21 +110,6 @@ public class ViewGroupFrame extends javax.swing.JFrame {
         GroupName.setText(GroupName.getName());
         GroupName.setHorizontalAlignment(JLabel.CENTER);
         GroupName.setVerticalAlignment(JLabel.CENTER);
-        // initializing group posts
-        JPanel grouppanel = new JPanel();
-        grouppanel.setLayout(new BoxLayout(grouppanel, BoxLayout.Y_AXIS));
-        List<PostsContentPanel> postsPanels = new ArrayList<>();
-        List<Posts> allPosts = contentdata.getGroupPosts(grpid);
-        for (Posts post : allPosts) {
-            postsPanels.add(new PostsContentPanel(post));
-            for (PostsContentPanel panel : postsPanels) {
-                grouppanel.add(panel);
-            }
-            JScrollPane scrollPane = new JScrollPane(grouppanel);
-            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-            add(scrollPane);
-
-        }
 
     }
 
