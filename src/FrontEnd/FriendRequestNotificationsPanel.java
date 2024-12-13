@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package FrontEnd;
 
@@ -8,26 +8,26 @@ import lab9.*;
 
 /**
  *
- * @author Zeina
+ * @author bassam
  */
-public class FriendRequestNotificationPanel extends javax.swing.JFrame {
-
-    private FriendManagment friendManager;
-    private String notificationId;
-    private String userId;
-    FriendDatabase friendDatabase = FriendDatabase.getInstance();
-    NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
-    private String requestId;
+public class FriendRequestNotificationsPanel extends javax.swing.JPanel {
+    private final FriendManagment friendManager;
+    private final String userId;
+    private final FriendDatabase friendDatabase=FriendDatabase.getInstance();
+    private final String requestId;
     /**
      * Creates new form FriendRequestNotificationPanel
+     * @param friendManager
+     * @param requestId
+     * @param notification
+     * @param userID
      */
-    public FriendRequestNotificationPanel(FriendManagment friendManager, String requestId, String notificationId , String userID) {
+    public FriendRequestNotificationsPanel(FriendManagment friendManager, String requestId,Notification notification , String userID) {
         initComponents();
         this.friendManager = friendManager;
         this.requestId = requestId;
-        this.notificationId=notificationId;
-        this.userId=userId;
-        notificationMessage.setText(notificationDatabase.getRecord(notificationId).toString());
+        this.userId=userID;
+        notificationMessage.setText(notification.toString());
     }
 
     /**
@@ -39,13 +39,14 @@ public class FriendRequestNotificationPanel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         notificationMessage = new javax.swing.JLabel();
         accept = new javax.swing.JButton();
         decline = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1.setText("jLabel1");
 
-        notificationMessage.setText("jLabel1");
+        notificationMessage.setText("jLabel2");
 
         accept.setText("Accept");
         accept.addActionListener(new java.awt.event.ActionListener() {
@@ -61,48 +62,44 @@ public class FriendRequestNotificationPanel extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(notificationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(notificationMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(accept)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(decline)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(notificationMessage)
                     .addComponent(accept)
                     .addComponent(decline))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptActionPerformed
-       friendManager.acceptRequest(friendDatabase.getRecord(requestId+"-"+userId));
+        friendManager.acceptRequest(friendDatabase.getRecord(requestId+"-"+userId));
     }//GEN-LAST:event_acceptActionPerformed
 
     private void declineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_declineActionPerformed
-      friendManager.declineRequest(friendDatabase.getRecord(requestId+"-"+userId));
+        friendManager.declineRequest(friendDatabase.getRecord(requestId+"-"+userId));
     }//GEN-LAST:event_declineActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accept;
     private javax.swing.JButton decline;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel notificationMessage;
     // End of variables declaration//GEN-END:variables
 }

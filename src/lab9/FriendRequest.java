@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 package lab9;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 /**
  *
  * @author Zeina
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class FriendRequest {
 
     private String recieverID;

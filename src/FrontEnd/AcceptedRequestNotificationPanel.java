@@ -4,9 +4,7 @@
  */
 package FrontEnd;
 
-import lab9.NotificationDatabase;
-import lab9.User;
-import lab9.UserDatabase;
+import lab9.*;
 
 /**
  *
@@ -16,15 +14,15 @@ public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
 
     NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
     UserDatabase userDatabase = UserDatabase.getInstance();
-    private String notificationId;
+    private Notification notification;
 
     /**
      * Creates new form AcceptedRequestNotificationPanel
      */
-    public AcceptedRequestNotificationPanel(String notificationId) {
+    public AcceptedRequestNotificationPanel(Notification notification) {
         initComponents();
-        this.notificationId = notificationId;
-        notificationMessage.setText(notificationDatabase.getRecord(notificationId).toString());
+        this.notification= notification;
+        notificationMessage.setText(notification.toString());
     }
 
     /**
@@ -55,9 +53,9 @@ public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(notificationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewProfile, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(viewProfile)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,9 +69,10 @@ public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewProfileActionPerformed
-        User user = userDatabase.getRecord(notificationDatabase.getRecord(notificationId).getRelatedUserId());
+        User user = userDatabase.getRecord(notification.getRelatedUserId());
         FriendProfile profile = new FriendProfile(user);
-        profile.setVisible(true);    }//GEN-LAST:event_viewProfileActionPerformed
+        profile.setVisible(true);
+    }//GEN-LAST:event_viewProfileActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

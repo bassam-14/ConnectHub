@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package FrontEnd;
 
@@ -8,9 +8,9 @@ import lab9.NotificationDatabase;
 
 /**
  *
- * @author Rana
+ * @author bassam
  */
-public class UserAddedToGroupPanel extends javax.swing.JFrame {
+public class UserAddedToGroupsPanel extends javax.swing.JPanel {
 
     NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
     private String notificationId;
@@ -18,7 +18,7 @@ public class UserAddedToGroupPanel extends javax.swing.JFrame {
     /**
      * Creates new form UserAddedToGroupPanel
      */
-    public UserAddedToGroupPanel(String notificationId) {
+    public UserAddedToGroupsPanel(String notificationId) {
         this.notificationId = notificationId;
         initComponents();
         notificationMessage.setText(notificationDatabase.getRecord(notificationId).toString());
@@ -36,48 +36,41 @@ public class UserAddedToGroupPanel extends javax.swing.JFrame {
         notificationMessage = new javax.swing.JLabel();
         viewGroup = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         notificationMessage.setText("jLabel1");
 
-        viewGroup.setText("View group");
+        viewGroup.setText("View Group");
         viewGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewGroupActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(notificationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(viewGroup, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(notificationMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(viewGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(notificationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(notificationMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
                     .addComponent(viewGroup))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap())
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewGroupActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_viewGroupActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel notificationMessage;

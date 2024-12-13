@@ -72,7 +72,6 @@ public class FriendManagment {
 
     public void acceptRequest(FriendRequest request) {
         if (!(request.getRecieverID().equals(userId)) || !request.getStatus().equals("Pending")) {
-
             return;
         }
         friends.add(request.getSenderID());
