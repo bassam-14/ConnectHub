@@ -5,17 +5,11 @@
 package SearchFunctionality;
 
 import contentcreation.Posts;
-import contentcreation.PostsContentPanel;
-import java.awt.Image;
-import java.util.ArrayList;
+import java.awt.BorderLayout;
 import java.util.List;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import lab9.*;
+import lab9.ContentDatabase;
 
 /**
  *
@@ -23,45 +17,51 @@ import lab9.*;
  */
 public class ViewGroupFrame extends javax.swing.JFrame {
 
-    private Group currentgroup;
-    private GroupManagement grpmanage;
-    GroupDatabase groupdata = GroupDatabase.getInstance();
-    ContentDatabase contentdata = ContentDatabase.getInstance();
-    private String grpid;
+    private JTable postsTable;
+    private JScrollPane scrollPane;
 
     /**
      * Creates new form ViewGroupFrame
-     * @param group
+     *
+     * @param groupId
      */
-    public ViewGroupFrame(Group group) {
-        this.currentgroup = group;
-        this.grpid = group.getGroupId();
-        grpmanage = GroupManagement.getInstance(group.getGroupId());
+    public ViewGroupFrame(String groupId) {
         initComponents();
-        GroupProfile.setHorizontalAlignment(JLabel.CENTER);
-        GroupProfile.setVerticalAlignment(JLabel.CENTER);
-        ImageIcon profileIcon = new ImageIcon(group.getGroupPhoto());
-        Image image = profileIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-        profileIcon = new ImageIcon(image);
-        setTitle(group.getName() + "- view group");
-        GroupName.setText(group.getName());
-        GroupName.setText(GroupName.getName());
-        GroupName.setHorizontalAlignment(JLabel.CENTER);
-        GroupName.setVerticalAlignment(JLabel.CENTER);
-        // initializing group posts
-        JPanel grouppanel = new JPanel();
-        grouppanel.setLayout(new BoxLayout(grouppanel, BoxLayout.Y_AXIS));
-        List<PostsContentPanel> postsPanels = new ArrayList<>();
-        List<Posts> allPosts = contentdata.getGroupPosts(grpid);
-        for (Posts post : allPosts) {
-            postsPanels.add(new PostsContentPanel(post));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Group Posts");
+
+        // Set layout
+        setLayout(new BorderLayout());
+
+        // Create table to display posts
+        postsTable = new JTable();
+        scrollPane = new JScrollPane(postsTable);
+
+        // Add scroll pane to the frame
+        add(scrollPane, BorderLayout.CENTER);
+
+        pack();
+        loadGroupPosts(groupId);
+    }
+
+    private void loadGroupPosts(String groupId) {
+        // Get group posts from the database
+        List<Posts> groupPosts = ContentDatabase.getInstance().getGroupPosts(groupId);
+
+        // Define column names
+        String[] columnNames = {"Author ID", "Content", "Timestamp"};
+
+        // Populate table data
+        String[][] data = new String[groupPosts.size()][3];
+        for (int i = 0; i < groupPosts.size(); i++) {
+            Posts post = groupPosts.get(i);
+            data[i][0] = post.getAuthorId();
+            data[i][1] = post.getContent().toString(); // Assuming a `getContent` method exists
+            data[i][2] = post.getCreatedtime().toString(); // Assuming a `getTimestamp` method exists
         }
-        for (PostsContentPanel panel : postsPanels) {
-            grouppanel.add(panel);
-        }
-        JScrollPane scrollPane = new JScrollPane(grouppanel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        add(scrollPane);
+
+        // Set table model
+        postsTable.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
     }
 
     /**
@@ -73,48 +73,22 @@ public class ViewGroupFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        GroupProfile = new javax.swing.JLabel();
-        userName = new javax.swing.JLabel();
-        GroupName = new javax.swing.JLabel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(GroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(GroupProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(444, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(55, 55, 55)
-                    .addComponent(userName, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
-                    .addGap(55, 55, 55)))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(GroupProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(GroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(356, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(136, 136, 136)
-                    .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(389, Short.MAX_VALUE)))
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel GroupName;
-    private javax.swing.JLabel GroupProfile;
-    private javax.swing.JLabel userName;
     // End of variables declaration//GEN-END:variables
 }

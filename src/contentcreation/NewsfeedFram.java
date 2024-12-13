@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package contentcreation;
-
 import FrontEnd.*;
 import SearchFunctionality.*;
 import lab9.*;
@@ -75,7 +74,6 @@ public class NewsfeedFram extends javax.swing.JFrame {
         scrollPane.setBounds(300, 20, 530, 250);
         add(scrollPane);
         JPanel storiesPanel = new JPanel();
-        .
         storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS));
         List<NewsFeedPanelStories> storiesPanels = new ArrayList<>();
         List<String> friends2 = friendDatabase.getFriends(user.getUserId());
