@@ -4,17 +4,15 @@
  */
 package contentcreation;
 
-import FrontEnd.FriendRequestNotificationPanel;
 import FrontEnd.MainUI;
 import FrontEnd.ProfileUI;
-import SearchFunctionality.UserSearchFriendFrame;
+import SearchFunctionality.*;
 import lab9.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
-import static lab9.NotificationType.FRIEND_REQUEST;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -110,7 +108,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setBounds(0, 330, 300, 200);
         add(scrollPane3);
-       /* JPanel notificationsPanel = new JPanel();
+        /* JPanel notificationsPanel = new JPanel();
         notificationsPanel.setLayout(new BoxLayout(notificationsPanel, BoxLayout.Y_AXIS));
         List<FriendRequestNotificationPanel> notificationsPanel1 = new ArrayList<>();
         List<Notification> allNotifications = notificationDatabase.getAllRecords();
@@ -124,9 +122,9 @@ public class NewsfeedFram extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 user.setStatus("offline");
-            friendDatabase.saveData();
-            contentDatabase.saveData();
-            userDatabase.saveData();
+                friendDatabase.saveData();
+                contentDatabase.saveData();
+                userDatabase.saveData();
                 dispose();
             }
         });
@@ -280,7 +278,13 @@ public class NewsfeedFram extends javax.swing.JFrame {
     }//GEN-LAST:event_profileActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-//checking that the user is found
+        java.awt.Window[] windows = java.awt.Window.getWindows();
+        for (java.awt.Window window : windows) {
+            if (window.isVisible() && !(window instanceof MainUI)) {
+                window.dispose();
+            }
+        }
+        //checking that the user is found
         if (currentuser != null && accmanage.logout(currentuser)) {
             currentuser = null;
             MainUI mainUI = new MainUI();
@@ -326,7 +330,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "You must provide either an image or a caption!", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        contentDatabase.addRecord(new Posts(currentuser.getUserId(), new Content(caption, path),null));
+        contentDatabase.addRecord(new Posts(currentuser.getUserId(), new Content(caption, path), null));
     }//GEN-LAST:event_addPostActionPerformed
 
     private void addStoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStoryActionPerformed
@@ -345,7 +349,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "An image is required!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        contentDatabase.addRecord(new Stories(currentuser.getUserId(), new Content(null, path),null));
+        contentDatabase.addRecord(new Stories(currentuser.getUserId(), new Content(null, path), null));
     }//GEN-LAST:event_addStoryActionPerformed
 
     private void FriendSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FriendSearchActionPerformed
@@ -354,7 +358,8 @@ public class NewsfeedFram extends javax.swing.JFrame {
     }//GEN-LAST:event_FriendSearchActionPerformed
 
     private void GroupSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GroupSearchActionPerformed
-        // TODO add your handling code here:
+        GroupSearchFrame p = new GroupSearchFrame(currentuser);
+        p.setVisible(true);
     }//GEN-LAST:event_GroupSearchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
