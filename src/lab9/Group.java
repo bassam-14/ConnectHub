@@ -7,12 +7,12 @@ package lab9;
 import java.util.*;
 import contentcreation.*;
 
-
 /**
  *
  * @author belal
  */
 public class Group {
+
     private final String groupId;
     private String name;
     private String description;
@@ -23,7 +23,7 @@ public class Group {
     private ArrayList<String> membershipRequests;
 
     public Group(String name, String description, String groupPhoto, String primaryAdmin) {
-        groupId=UUID.randomUUID().toString();
+        groupId = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
         this.groupPhoto = groupPhoto;
@@ -34,15 +34,24 @@ public class Group {
         this.admins.add(primaryAdmin);
         this.members.add(primaryAdmin);
     }
-    public String getStatus(String userId){
-        if(primaryAdmin.equals(userId))return "Primary Admin";
-        if(admins.contains(userId))return "Admin";
-        if(members.contains(userId))return "Member";
+
+    public String getStatus(String userId) {
+        if (primaryAdmin.equals(userId)) {
+            return "Primary Admin";
+        }
+        if (admins.contains(userId)) {
+            return "Admin";
+        }
+        if (members.contains(userId)) {
+            return "Member";
+        }
         return "Removed";
     }
+
     public String getGroupId() {
         return groupId;
     }
+
     public String getName() {
         return name;
     }
@@ -54,6 +63,7 @@ public class Group {
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -97,23 +107,27 @@ public class Group {
     public void setMembershipRequests(ArrayList<String> membershipRequests) {
         this.membershipRequests = membershipRequests;
     }
-     public void addAdmin(String admin){ 
-        if (!admins.contains(admin)){
+
+    public void addAdmin(String admin) {
+        if (!admins.contains(admin)) {
             admins.add(admin);
-        } 
+        }
     }
-    public void removeAdmin(String admin) { 
-        if (!admin.equals(primaryAdmin)){
+
+    public void removeAdmin(String admin) {
+        if (!admin.equals(primaryAdmin)) {
             admins.remove(admin);
-        } 
+        }
     }
-    public void addMember(String member) { 
+
+    public void addMember(String member) {
         if (!members.contains(member)) {
             members.add(member);
-        } 
+        }
     }
+
     public void removeMember(String member) {
         members.remove(member);
         admins.remove(member);
-    } 
+    }
 }
