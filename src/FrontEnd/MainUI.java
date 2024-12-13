@@ -6,6 +6,7 @@ package FrontEnd;
 import java.time.*;
 import contentcreation.*;
 import lab9.*;
+import SearchFunctionality.*;
 /**
  *
  * @author belal
@@ -82,6 +83,9 @@ public class MainUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
+        /*User user=new UserBuilder("mohamed@gmail.com","bassam","bruhh",LocalDate.now()).build();
+        ViewGroupFrame vgf=new ViewGroupFrame(new Group("bruhhh","gameel","src/resources/default-avatar.png",user.getUserId()),user);
+        vgf.setVisible(true);*/
         LogIn logIn = new LogIn();
         logIn.show();
         this.dispose();
