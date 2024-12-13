@@ -18,13 +18,16 @@ public class GroupSearchFrame extends javax.swing.JFrame {
     private ArrayList<Group> groups;
     private GroupManagement groupManager;
     private final String currentuserid;
+    private final User user;
 
     /**
      * Creates new form GroupSearchFrame
      *
+     * @param currentuser
      */
     public GroupSearchFrame(User currentuser) {
         this.currentuserid=currentuser.getUserId();
+        user=currentuser;
         setTitle("Group Search");
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -220,7 +223,7 @@ public class GroupSearchFrame extends javax.swing.JFrame {
                         JOptionPane.WARNING_MESSAGE);
             } else {
                 // Open ViewGroupFrame
-                ViewGroupFrame g = new ViewGroupFrame(selectedGroup);
+                ViewGroupFrame g = new ViewGroupFrame(selectedGroup, user);
                 g.setVisible(true);
             }}
     }//GEN-LAST:event_ViewGroupActionPerformed
