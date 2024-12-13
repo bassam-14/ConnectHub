@@ -48,12 +48,4 @@ public class GroupDatabase extends FileHandling<Group> {
            }
            return groups;
        }
-       public List<String>getUserGroupsNames(String userId){
-           List<String>groups=new ArrayList<>();
-           for(Group g:records){
-               if(g.getMembers().contains(userId))
-                   groups.add(g.getName());
-           }
-           return groups;
-       }
 }
