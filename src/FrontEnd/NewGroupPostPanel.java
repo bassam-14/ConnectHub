@@ -5,25 +5,20 @@
 package FrontEnd;
 
 import lab9.NotificationDatabase;
-import lab9.User;
-import lab9.UserDatabase;
 
 /**
  *
  * @author Zeina
  */
-public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
-
-    NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
-    UserDatabase userDatabase = UserDatabase.getInstance();
+public class NewGroupPostPanel extends javax.swing.JPanel {
+NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
     private String notificationId;
-
     /**
-     * Creates new form AcceptedRequestNotificationPanel
+     * Creates new form NewGroupPostPanel
      */
-    public AcceptedRequestNotificationPanel(String notificationId) {
+    public NewGroupPostPanel(String notificationId) {
         initComponents();
-        this.notificationId = notificationId;
+        this.notificationId=notificationId;
         notificationMessage.setText(notificationDatabase.getRecord(notificationId).toString());
     }
 
@@ -37,14 +32,14 @@ public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         notificationMessage = new javax.swing.JLabel();
-        viewProfile = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         notificationMessage.setText("jLabel1");
 
-        viewProfile.setText("View Profile");
-        viewProfile.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("View Post");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewProfileActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -54,30 +49,29 @@ public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(notificationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(notificationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewProfile, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(notificationMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addComponent(viewProfile))
+                    .addComponent(notificationMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void viewProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewProfileActionPerformed
-        User user = userDatabase.getRecord(notificationDatabase.getRecord(notificationId).getRelatedUserId());
-        FriendProfile profile = new FriendProfile(user);
-        profile.setVisible(true);    }//GEN-LAST:event_viewProfileActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel notificationMessage;
-    private javax.swing.JButton viewProfile;
     // End of variables declaration//GEN-END:variables
 }

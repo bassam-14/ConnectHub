@@ -6,8 +6,11 @@ package contentcreation;
 
 import FrontEnd.AcceptedRequestNotificationPanel;
 import FrontEnd.FriendRequestNotificationPanel;
+import FrontEnd.GrpStatusChangedPanel;
 import FrontEnd.MainUI;
+import FrontEnd.NewGroupPostPanel;
 import FrontEnd.ProfileUI;
+import FrontEnd.UserAddedToGroupPanel;
 import SearchFunctionality.UserSearchFriendFrame;
 import lab9.*;
 import javax.swing.*;
@@ -15,7 +18,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
-import static lab9.NotificationType.FRIEND_REQUEST;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -76,7 +78,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         }
         JScrollPane scrollPane = new JScrollPane(postsPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBounds(300, 20, 530, 350);
+        scrollPane.setBounds(300, 20, 530, 250);
         add(scrollPane);
         JPanel storiesPanel = new JPanel();
         storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS));
@@ -95,7 +97,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         JScrollPane scrollPane2 = new JScrollPane(storiesPanel);
         //adding vertical scrollbar
         scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane2.setBounds(300, 380, 530, 300);
+        scrollPane2.setBounds(300, 280, 530, 200);
         add(scrollPane2);
         JPanel suggestionsPanel = new JPanel();
         suggestionsPanel.setLayout(new BoxLayout(suggestionsPanel, BoxLayout.Y_AXIS));
@@ -113,21 +115,34 @@ public class NewsfeedFram extends javax.swing.JFrame {
         add(scrollPane3);
         JPanel notificationsPanel = new JPanel();
         notificationsPanel.setLayout(new BoxLayout(notificationsPanel, BoxLayout.Y_AXIS));
-        List<Notification> allNotifications = notificationDatabase.getAllRecords();
+        List<Notification> allNotifications = notificationDatabase.fetchAllNotifications(currentuser.getUserId());
         for (Notification notification : allNotifications) {
             if (notification.getType() == NotificationType.FRIEND_REQUEST) {
                 if (isValidFriendRequestFormat(notification.getMessage())) {
-                    // FriendRequest request = friendDatabase.getRecord(notification.getRelatedUserId() + "-" + currentuser.getUserId());
-                    FriendRequestNotificationPanel notificationsPanel1 = new FriendRequestNotificationPanel(friendManagment, notification.getRelatedUserId(), notification.getNotificationId(), currentuser.getUserId());
+                    String requestSenderId = notification.extractSenderId();
+                    FriendRequestNotificationPanel notificationsPanel1 = new FriendRequestNotificationPanel(friendManagment, requestSenderId, notification.getNotificationId(), currentuser.getUserId());
                     notificationsPanel.add(notificationsPanel1);
                 } else {
                     AcceptedRequestNotificationPanel notificationsPanel2 = new AcceptedRequestNotificationPanel(notification.getNotificationId());
                     notificationsPanel.add(notificationsPanel2);
                 }
             } else if (notification.getType() == NotificationType.GROUP_ACTIVITY) {
-                  
+                if (isGroupAddedNotification(notification.getMessage())) {
+                    UserAddedToGroupPanel notificationsPanel3 = new UserAddedToGroupPanel(notification.getNotificationId());
+                    notificationsPanel.add(notificationsPanel3);
+                } else {
+                    GrpStatusChangedPanel notificationsPanel4 = new GrpStatusChangedPanel(notification.getNotificationId());
+                    notificationsPanel.add(notificationsPanel4);
+                }
+            } else {
+                NewGroupPostPanel notificationsPanel5 = new NewGroupPostPanel(notification.getNotificationId());
+                notificationsPanel.add(notificationsPanel5);
             }
         }
+        JScrollPane scrollPane4 = new JScrollPane(notificationsPanel);
+        scrollPane4.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane4.setBounds(300, 450, 530, 200);
+        add(scrollPane4);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -144,6 +159,12 @@ public class NewsfeedFram extends javax.swing.JFrame {
     public static boolean isValidFriendRequestFormat(String input) {
         // Regex pattern: any non-whitespace characters as senderID, followed by the exact message
         String pattern = "^\\S+ sent you a friend request$";
+        return input.matches(pattern);
+    }
+
+    public static boolean isGroupAddedNotification(String input) {
+        // Regex pattern to match "You were added to group <group name>"
+        String pattern = "^You were added to group .+$";
         return input.matches(pattern);
     }
 
@@ -295,7 +316,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
     }//GEN-LAST:event_profileActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-//checking that the user is found
+        //checking that the user is found
         if (currentuser != null && accmanage.logout(currentuser)) {
             currentuser = null;
             MainUI mainUI = new MainUI();

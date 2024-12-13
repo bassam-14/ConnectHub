@@ -5,23 +5,20 @@
 package FrontEnd;
 
 import lab9.NotificationDatabase;
-import lab9.User;
-import lab9.UserDatabase;
 
 /**
  *
  * @author Zeina
  */
-public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
+public class GrpStatusChangedPanel extends javax.swing.JPanel {
 
     NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
-    UserDatabase userDatabase = UserDatabase.getInstance();
     private String notificationId;
 
     /**
-     * Creates new form AcceptedRequestNotificationPanel
+     * Creates new form GrpStatusChangedPanel
      */
-    public AcceptedRequestNotificationPanel(String notificationId) {
+    public GrpStatusChangedPanel(String notificationId) {
         initComponents();
         this.notificationId = notificationId;
         notificationMessage.setText(notificationDatabase.getRecord(notificationId).toString());
@@ -37,14 +34,14 @@ public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         notificationMessage = new javax.swing.JLabel();
-        viewProfile = new javax.swing.JButton();
+        viewGroup = new javax.swing.JButton();
 
         notificationMessage.setText("jLabel1");
 
-        viewProfile.setText("View Profile");
-        viewProfile.addActionListener(new java.awt.event.ActionListener() {
+        viewGroup.setText("View group");
+        viewGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewProfileActionPerformed(evt);
+                viewGroupActionPerformed(evt);
             }
         });
 
@@ -54,9 +51,9 @@ public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(notificationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(notificationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewProfile, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addComponent(viewGroup, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -64,20 +61,19 @@ public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(notificationMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addComponent(viewProfile))
+                    .addComponent(notificationMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                    .addComponent(viewGroup))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void viewProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewProfileActionPerformed
-        User user = userDatabase.getRecord(notificationDatabase.getRecord(notificationId).getRelatedUserId());
-        FriendProfile profile = new FriendProfile(user);
-        profile.setVisible(true);    }//GEN-LAST:event_viewProfileActionPerformed
+    private void viewGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewGroupActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewGroupActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel notificationMessage;
-    private javax.swing.JButton viewProfile;
+    private javax.swing.JButton viewGroup;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,29 +1,26 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package FrontEnd;
 
 import lab9.NotificationDatabase;
-import lab9.User;
-import lab9.UserDatabase;
 
 /**
  *
- * @author Zeina
+ * @author Rana
  */
-public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
+public class UserAddedToGroupPanel extends javax.swing.JFrame {
 
     NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
-    UserDatabase userDatabase = UserDatabase.getInstance();
     private String notificationId;
 
     /**
-     * Creates new form AcceptedRequestNotificationPanel
+     * Creates new form UserAddedToGroupPanel
      */
-    public AcceptedRequestNotificationPanel(String notificationId) {
-        initComponents();
+    public UserAddedToGroupPanel(String notificationId) {
         this.notificationId = notificationId;
+        initComponents();
         notificationMessage.setText(notificationDatabase.getRecord(notificationId).toString());
     }
 
@@ -37,47 +34,53 @@ public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         notificationMessage = new javax.swing.JLabel();
-        viewProfile = new javax.swing.JButton();
+        viewGroup = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         notificationMessage.setText("jLabel1");
 
-        viewProfile.setText("View Profile");
-        viewProfile.addActionListener(new java.awt.event.ActionListener() {
+        viewGroup.setText("View group");
+        viewGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewProfileActionPerformed(evt);
+                viewGroupActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(notificationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewProfile, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addComponent(notificationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(viewGroup, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(notificationMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addComponent(viewProfile))
-                .addContainerGap())
+                    .addComponent(notificationMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewGroup))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void viewProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewProfileActionPerformed
-        User user = userDatabase.getRecord(notificationDatabase.getRecord(notificationId).getRelatedUserId());
-        FriendProfile profile = new FriendProfile(user);
-        profile.setVisible(true);    }//GEN-LAST:event_viewProfileActionPerformed
+    private void viewGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewGroupActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewGroupActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel notificationMessage;
-    private javax.swing.JButton viewProfile;
+    private javax.swing.JButton viewGroup;
     // End of variables declaration//GEN-END:variables
 }
