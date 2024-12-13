@@ -64,7 +64,7 @@ public class ViewGroupFrame extends javax.swing.JFrame {
             }
             JScrollPane scrollPane = new JScrollPane(grouppanel);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-            scrollPane.setBounds(100, 100, 100, 100);
+            scrollPane.setBounds(0, 110, 400, 300);
             add(scrollPane);
           } else if (currentgroup.getStatus(user.getUserId()).equals("Primary Admin")) {
             
@@ -124,7 +124,7 @@ public class ViewGroupFrame extends javax.swing.JFrame {
             }
             JScrollPane scrollPane = new JScrollPane(postsPanel);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-            scrollPane.setBounds(100, 100, 100, 100);
+            scrollPane.setBounds(0, 110, 400, 300);
             add(scrollPane);
             
             manageMembersPanel = new JPanel();
@@ -139,7 +139,7 @@ public class ViewGroupFrame extends javax.swing.JFrame {
             }
             JScrollPane scrollPane2 = new JScrollPane(manageMembersPanel);
             scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-            scrollPane2.setBounds(100, 100, 100, 100);
+            scrollPane2.setBounds(410, 110, 200, 150);
             add(scrollPane2);
             
             requestsPanel=new JPanel();
@@ -154,7 +154,7 @@ public class ViewGroupFrame extends javax.swing.JFrame {
             }
             JScrollPane scrollPane3 = new JScrollPane(requestsPanel);
             scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-            scrollPane3.setBounds(100, 100, 100, 100);
+            scrollPane3.setBounds(410,270, 200, 150);
             add(scrollPane3);
 
         } else {
@@ -170,7 +170,7 @@ public class ViewGroupFrame extends javax.swing.JFrame {
             }
             JScrollPane scrollPane = new JScrollPane(grouppanel);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-            scrollPane.setBounds(100, 100, 100, 100);
+            scrollPane.setBounds(0, 110,400,300);
             add(scrollPane);
         }
         GroupProfile.setHorizontalAlignment(JLabel.CENTER);

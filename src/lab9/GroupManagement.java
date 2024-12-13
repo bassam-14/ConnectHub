@@ -34,6 +34,9 @@ public class GroupManagement {
     public Group getGroup() {
         return group;
     }
+    public boolean isMember(String userId){
+        return group.getMembers().contains(userId);
+    }
     public boolean deleteGroup(String userId) {
         if (group.getPrimaryAdmin().equals(userId)) {
             groupDatabase.deleteRecord(group);
