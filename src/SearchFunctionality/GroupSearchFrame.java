@@ -208,7 +208,7 @@ public class GroupSearchFrame extends javax.swing.JFrame {
             // Get the selected group
             Group selectedGroup = groups.get(index);
 
-            // Initialize Group Manager 
+            // Initialize Group Manager if necessary
             initializeGroupManager(selectedGroup.getGroupId());
 
             // Check if the current user is a member of the group
