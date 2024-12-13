@@ -11,4 +11,43 @@
     "bio" : ""
   },
   "blockedUsers" : [ ]
+}, {
+  "userId" : "edbd81ce-33bb-46ed-8980-2e7d35900f13",
+  "email" : "zeina@gmail.com",
+  "username" : "zeina",
+  "password" : "c4de1a57107dc3220f17c9a20eaeaeb8200e2dda411167dc0ef2a4379d99a5df",
+  "dateOfBirth" : "2024-12-16",
+  "status" : "offline",
+  "profile" : {
+    "pfpPath" : "src/resources/default-avatar.png",
+    "cpPath" : "src/resources/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg",
+    "bio" : ""
+  },
+  "blockedUsers" : [ ]
+}, {
+  "userId" : "6286ba22-fd80-42c4-a4e7-99bc9fd069ce",
+  "email" : "hhh@gmail.com",
+  "username" : "hhh",
+  "password" : "24d166cd6c8b826c779040b49d5b6708d649b236558e8744339dfee6afe11999",
+  "dateOfBirth" : "2024-12-23",
+  "status" : "offline",
+  "profile" : {
+    "pfpPath" : "src/resources/default-avatar.png",
+    "cpPath" : "src/resources/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg",
+    "bio" : ""
+  },
+  "blockedUsers" : [ ]
+}, {
+  "userId" : "8e7c9ded-b295-4ece-ba45-0cf16c6e3145",
+  "email" : "xyz@gmail.com",
+  "username" : "xyz",
+  "password" : "3608bca1e44ea6c4d268eb6db02260269892c0b42b86bbf1e77a6fa16c3c9282",
+  "dateOfBirth" : "2024-12-12",
+  "status" : "offline",
+  "profile" : {
+    "pfpPath" : "src/resources/default-avatar.png",
+    "cpPath" : "src/resources/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg",
+    "bio" : ""
+  },
+  "blockedUsers" : [ ]
 } ]

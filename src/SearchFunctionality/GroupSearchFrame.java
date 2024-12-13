@@ -216,7 +216,7 @@ public class GroupSearchFrame extends javax.swing.JFrame {
 
             // Check if the current user is a member of the group
             boolean isMember = groupManager.isMember(currentuserid);
- if (!isMember) {
+            if (!isMember) {
                 JOptionPane.showMessageDialog(this,
                         "You are not a member of this group. Please join the group first.",
                         "Access Denied",
@@ -225,7 +225,8 @@ public class GroupSearchFrame extends javax.swing.JFrame {
                 // Open ViewGroupFrame
                 ViewGroupFrame g = new ViewGroupFrame(selectedGroup, user);
                 g.setVisible(true);
-            }}
+            }
+        }
     }//GEN-LAST:event_ViewGroupActionPerformed
 
     /**
