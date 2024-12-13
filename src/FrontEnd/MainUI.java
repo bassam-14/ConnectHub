@@ -82,10 +82,8 @@ public class MainUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
-        NewsfeedFram nsf=new NewsfeedFram(new UserBuilder("mohamed@gmail.com","bassam","bruhh",LocalDate.now()).build());
-        nsf.setVisible(true);
-        /*LogIn logIn = new LogIn();
-        logIn.show();*/
+        LogIn logIn = new LogIn();
+        logIn.show();
         this.dispose();
     }//GEN-LAST:event_logInButtonActionPerformed
 
@@ -105,6 +103,7 @@ public class MainUI extends javax.swing.JFrame {
     ContentDatabase contentDatabase = ContentDatabase.getInstance();
     UserDatabase userDatabase = UserDatabase.getInstance();
     NotificationDatabase notificationDatabase=NotificationDatabase.getInstance();
+    GroupDatabase groupDatabase=GroupDatabase.getInstance();
     /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -132,6 +131,7 @@ public class MainUI extends javax.swing.JFrame {
             contentDatabase.saveData();
             userDatabase.saveData();
             notificationDatabase.saveData();
+            groupDatabase.saveData();
         }));
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
