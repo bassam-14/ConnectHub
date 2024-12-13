@@ -4,17 +4,23 @@
  */
 package FrontEnd;
 
+import lab9.NotificationDatabase;
+
 /**
  *
- * @author Rana
+ * @author Zeina
  */
 public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
+    NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
+    private String notificationId;
 
     /**
      * Creates new form AcceptedRequestNotificationPanel
      */
-    public AcceptedRequestNotificationPanel() {
+    public AcceptedRequestNotificationPanel(String notificationId) {
         initComponents();
+        this.notificationId=notificationId;
+        notificationMessage.setText(notificationDatabase.getRecord(notificationId).toString());
     }
 
     /**
@@ -26,19 +32,30 @@ public class AcceptedRequestNotificationPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        notificationMessage = new javax.swing.JLabel();
+
+        notificationMessage.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(notificationMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(notificationMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel notificationMessage;
     // End of variables declaration//GEN-END:variables
 }

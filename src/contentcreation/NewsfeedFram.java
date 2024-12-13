@@ -4,6 +4,7 @@
  */
 package contentcreation;
 
+import FrontEnd.AcceptedRequestNotificationPanel;
 import FrontEnd.FriendRequestNotificationPanel;
 import FrontEnd.MainUI;
 import FrontEnd.ProfileUI;
@@ -110,26 +111,40 @@ public class NewsfeedFram extends javax.swing.JFrame {
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setBounds(0, 330, 300, 200);
         add(scrollPane3);
-       /* JPanel notificationsPanel = new JPanel();
+        JPanel notificationsPanel = new JPanel();
         notificationsPanel.setLayout(new BoxLayout(notificationsPanel, BoxLayout.Y_AXIS));
-        List<FriendRequestNotificationPanel> notificationsPanel1 = new ArrayList<>();
         List<Notification> allNotifications = notificationDatabase.getAllRecords();
         for (Notification notification : allNotifications) {
-            if (notification.getType().equals(FRIEND_REQUEST.toString())) {
-                notificationsPanel1.add(new FriendRequestNotificationPanel());
+            if (notification.getType() == NotificationType.FRIEND_REQUEST) {
+                if (isValidFriendRequestFormat(notification.getMessage())) {
+                    // FriendRequest request = friendDatabase.getRecord(notification.getRelatedUserId() + "-" + currentuser.getUserId());
+                    FriendRequestNotificationPanel notificationsPanel1 = new FriendRequestNotificationPanel(friendManagment, notification.getRelatedUserId(), notification.getNotificationId(), currentuser.getUserId());
+                    notificationsPanel.add(notificationsPanel1);
+                } else {
+                    AcceptedRequestNotificationPanel notificationsPanel2 = new AcceptedRequestNotificationPanel(notification.getNotificationId());
+                    notificationsPanel.add(notificationsPanel2);
+                }
+            } else if (notification.getType() == NotificationType.GROUP_ACTIVITY) {
+                  
             }
-        }*/
+        }
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 user.setStatus("offline");
-            friendDatabase.saveData();
-            contentDatabase.saveData();
-            userDatabase.saveData();
+                friendDatabase.saveData();
+                contentDatabase.saveData();
+                userDatabase.saveData();
                 dispose();
             }
         });
+    }
+
+    public static boolean isValidFriendRequestFormat(String input) {
+        // Regex pattern: any non-whitespace characters as senderID, followed by the exact message
+        String pattern = "^\\S+ sent you a friend request$";
+        return input.matches(pattern);
     }
 
     /**
@@ -326,7 +341,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "You must provide either an image or a caption!", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        contentDatabase.addRecord(new Posts(currentuser.getUserId(), new Content(caption, path),null));
+        contentDatabase.addRecord(new Posts(currentuser.getUserId(), new Content(caption, path), null));
     }//GEN-LAST:event_addPostActionPerformed
 
     private void addStoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStoryActionPerformed
@@ -345,7 +360,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "An image is required!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        contentDatabase.addRecord(new Stories(currentuser.getUserId(), new Content(null, path),null));
+        contentDatabase.addRecord(new Stories(currentuser.getUserId(), new Content(null, path), null));
     }//GEN-LAST:event_addStoryActionPerformed
 
     private void FriendSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FriendSearchActionPerformed
