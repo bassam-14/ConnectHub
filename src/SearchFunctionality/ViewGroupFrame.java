@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package SearchFunctionality;
+
 import contentcreation.Content;
 import contentcreation.Posts;
 import contentcreation.PostsContentPanel;
@@ -13,6 +14,7 @@ import java.util.List;
 import javax.swing.*;
 import lab9.*;
 import java.awt.event.*;
+import FrontEnd.*;
 
 /**
  *
@@ -20,9 +22,8 @@ import java.awt.event.*;
  */
 public class ViewGroupFrame extends javax.swing.JFrame {
 
-    private Group currentgroup;
+    private final Group currentgroup;
     private GroupManagement grpmanage;
-    GroupDatabase groupdata = GroupDatabase.getInstance();
     ContentDatabase contentdata = ContentDatabase.getInstance();
     private final String grpid;
     private final User user;
@@ -43,9 +44,10 @@ public class ViewGroupFrame extends javax.swing.JFrame {
         this.grpid = group.getGroupId();
         grpmanage = GroupManagement.getInstance(group.getGroupId());
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         if (!grpmanage.isMember(user.getUserId())) {
             requestJoin = new JButton("Request Join");
-            requestJoin.setBounds(300, 100, 100, 30);
+            requestJoin.setBounds(617, 240, 100, 30);
             requestJoin.addActionListener((ActionEvent evt) -> {
                 grpmanage.requestMembership(user.getUserId());
             });
@@ -64,7 +66,52 @@ public class ViewGroupFrame extends javax.swing.JFrame {
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setBounds(100, 100, 100, 100);
             add(scrollPane);
-        } else if (currentgroup.getStatus(user.getUserId()).equals("Primary Admin")) {
+          } else if (currentgroup.getStatus(user.getUserId()).equals("Primary Admin")) {
+            
+            postsPanel = new JPanel();
+            postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
+            List<AdminPostPanel> postsPanels = new ArrayList<>();
+            List<Posts> allPosts = contentdata.getGroupPosts(grpid);
+            for (Posts post : allPosts) {
+                postsPanels.add(new AdminPostPanel(post, group, user.getUserId()));
+            }
+            for (AdminPostPanel panel : postsPanels) {
+                postsPanel.add(panel);
+            }
+            JScrollPane scrollPane = new JScrollPane(postsPanel);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane.setBounds(0, 110, 400, 300);
+            add(scrollPane);
+            manageMembersPanel = new JPanel();
+            manageMembersPanel.setLayout(new BoxLayout(manageMembersPanel, BoxLayout.Y_AXIS));
+            List<ManageMembers> managingPanels = new ArrayList<>();
+            List<String> members = new ArrayList<>(group.getMembers());
+            for (String member : members) {
+                managingPanels.add(new ManageMembers(grpmanage, member, user.getUserId()));
+            }
+            for (ManageMembers panel : managingPanels) {
+                manageMembersPanel.add(panel);
+            }
+            JScrollPane scrollPane2 = new JScrollPane(manageMembersPanel);
+            scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane2.setBounds(410, 110,200,150);
+            add(scrollPane2);
+            requestsPanel=new JPanel();
+            requestsPanel.setLayout(new BoxLayout(requestsPanel, BoxLayout.Y_AXIS));
+            List<MembershipRequests>panels=new ArrayList<>();
+            List<String>requests=new ArrayList<>(group.getMembershipRequests());
+            for(String request:requests){
+                panels.add(new MembershipRequests(grpmanage,request,user.getUserId()));
+            }
+            for(MembershipRequests panel:panels){
+                requestsPanel.add(panel);
+            }
+            JScrollPane scrollPane3 = new JScrollPane(requestsPanel);
+            scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane3.setBounds(410,270,200,150);
+            add(scrollPane3);
+
+           } else if (currentgroup.getStatus(user.getUserId()).equals("Admin")) {
             postsPanel = new JPanel();
             postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
             List<AdminPostPanel> postsPanels = new ArrayList<>();
@@ -79,7 +126,36 @@ public class ViewGroupFrame extends javax.swing.JFrame {
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setBounds(100, 100, 100, 100);
             add(scrollPane);
-        } else if (currentgroup.getStatus(user.getUserId()).equals("Admin")) {
+            
+            manageMembersPanel = new JPanel();
+            manageMembersPanel.setLayout(new BoxLayout(manageMembersPanel, BoxLayout.Y_AXIS));
+            List<ManageMembersAdmin> managingPanels = new ArrayList<>();
+            List<String> members = new ArrayList<>(group.getMembers());
+            for (String member : members) {
+                managingPanels.add(new ManageMembersAdmin(grpmanage, member, user.getUserId()));
+            }
+            for (ManageMembersAdmin panel : managingPanels) {
+                manageMembersPanel.add(panel);
+            }
+            JScrollPane scrollPane2 = new JScrollPane(manageMembersPanel);
+            scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane2.setBounds(100, 100, 100, 100);
+            add(scrollPane2);
+            
+            requestsPanel=new JPanel();
+            requestsPanel.setLayout(new BoxLayout(requestsPanel, BoxLayout.Y_AXIS));
+            List<MembershipRequests>panels=new ArrayList<>();
+            List<String>requests=new ArrayList<>(group.getMembershipRequests());
+            for(String request:requests){
+                panels.add(new MembershipRequests(grpmanage,request,user.getUserId()));
+            }
+            for(MembershipRequests panel:panels){
+                requestsPanel.add(panel);
+            }
+            JScrollPane scrollPane3 = new JScrollPane(requestsPanel);
+            scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane3.setBounds(100, 100, 100, 100);
+            add(scrollPane3);
 
         } else {
             JPanel grouppanel = new JPanel();
@@ -105,9 +181,7 @@ public class ViewGroupFrame extends javax.swing.JFrame {
         GroupProfile.setIcon(profileIcon);
         setTitle(group.getName() + "- view group");
         GroupName.setText(group.getName());
-        GroupName.setText(GroupName.getName());
-        GroupName.setHorizontalAlignment(JLabel.CENTER);
-        GroupName.setVerticalAlignment(JLabel.CENTER);
+        discription.setText(group.getDescription());
 
     }
 
@@ -119,6 +193,8 @@ public class ViewGroupFrame extends javax.swing.JFrame {
         GroupName = new javax.swing.JLabel();
         leave = new javax.swing.JButton();
         addPost = new javax.swing.JButton();
+        discription = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -140,31 +216,46 @@ public class ViewGroupFrame extends javax.swing.JFrame {
             }
         });
 
+        discription.setText("jLabel1");
+
+        jLabel1.setText("Description:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(GroupProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(GroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(132, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(addPost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(leave, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(GroupProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(discription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(GroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 408, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(leave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addPost, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GroupProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(GroupName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GroupProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(GroupName)
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(discription)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
                 .addComponent(addPost)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(leave)
@@ -196,12 +287,10 @@ public class ViewGroupFrame extends javax.swing.JFrame {
             return;
         }
         grpmanage.addPost(user.getUserId(), new Content(caption, path));
-
     }//GEN-LAST:event_addPostActionPerformed
 
     private void leaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leaveActionPerformed
-        grpmanage.leaveGroup(user.getUserId()); 
-
+        grpmanage.leaveGroup(user.getUserId());
     }//GEN-LAST:event_leaveActionPerformed
 
 
@@ -209,6 +298,8 @@ public class ViewGroupFrame extends javax.swing.JFrame {
     private javax.swing.JLabel GroupName;
     private javax.swing.JLabel GroupProfile;
     private javax.swing.JButton addPost;
+    private javax.swing.JLabel discription;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton leave;
     // End of variables declaration//GEN-END:variables
 }

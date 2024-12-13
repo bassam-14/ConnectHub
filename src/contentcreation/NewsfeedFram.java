@@ -26,6 +26,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
     ContentDatabase contentDatabase = ContentDatabase.getInstance();
     UserDatabase userDatabase = UserDatabase.getInstance();
     NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
+    GroupDatabase groupDatabase=GroupDatabase.getInstance();
     private final FriendManagment friendManagment;
     //private final NotificationManager notificationManager;
 
@@ -145,6 +146,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
                 contentDatabase.saveData();
                 userDatabase.saveData();
                 notificationDatabase.saveData();
+                groupDatabase.saveData();
                 dispose();
             }
         });
