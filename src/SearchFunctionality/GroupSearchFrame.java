@@ -221,7 +221,7 @@ public class GroupSearchFrame extends javax.swing.JFrame {
                         JOptionPane.WARNING_MESSAGE);
             } else {
                 // Open ViewGroupFrame
-                ViewGroupFrame g = new ViewGroupFrame(selectedGroup.getGroupId(), selectedGroup.getName());
+                ViewGroupFrame g = new ViewGroupFrame(selectedGroup);
                 g.setVisible(true);
             }
         }
