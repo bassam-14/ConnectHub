@@ -201,7 +201,28 @@ public class GroupSearchFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_LeaveGroupActionPerformed
 
     private void ViewGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewGroupActionPerformed
-        // TODO add your handling code here:
+        int index = GroupjList1.getSelectedIndex();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(this, "Choose a group to view.");
+        } else {
+            // Get the selected group
+            Group selectedGroup = groups.get(index);
+
+            // Initialize Group Manager 
+            initializeGroupManager(selectedGroup.getGroupId());
+
+            // Check if the current user is a member of the group
+            boolean isMember = groupManager.isMember(currentuserid);
+ if (!isMember) {
+                JOptionPane.showMessageDialog(this,
+                        "You are not a member of this group. Please join the group first.",
+                        "Access Denied",
+                        JOptionPane.WARNING_MESSAGE);
+            } else {
+                // Open ViewGroupFrame
+                ViewGroupFrame g = new ViewGroupFrame(selectedGroup);
+                g.setVisible(true);
+            }}
     }//GEN-LAST:event_ViewGroupActionPerformed
 
     /**

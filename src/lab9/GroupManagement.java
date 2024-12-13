@@ -54,6 +54,9 @@ public class GroupManagement {
         }
         return false;
     }
+    public boolean isMember(String userId){
+        return group.getMembers().contains(userId);
+    }
     public boolean removeMember(String adminId,String userId) {
         if (group != null && group.getAdmins().contains(adminId)) {
             group.removeMember(userId);
