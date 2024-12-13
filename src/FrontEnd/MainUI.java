@@ -82,8 +82,10 @@ public class MainUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
-        LogIn logIn = new LogIn();
-        logIn.show();
+        NewsfeedFram nsf=new NewsfeedFram(new UserBuilder("mohamed@gmail.com","bassam","bruhh",LocalDate.now()).build());
+        nsf.setVisible(true);
+        /*LogIn logIn = new LogIn();
+        logIn.show();*/
         this.dispose();
     }//GEN-LAST:event_logInButtonActionPerformed
 
