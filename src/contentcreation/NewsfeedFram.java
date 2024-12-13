@@ -26,8 +26,8 @@ public class NewsfeedFram extends javax.swing.JFrame {
     ContentDatabase contentDatabase = ContentDatabase.getInstance();
     UserDatabase userDatabase = UserDatabase.getInstance();
     NotificationDatabase notificationDatabase = NotificationDatabase.getInstance();
+    GroupDatabase groupDatabase=GroupDatabase.getInstance();
     private final FriendManagment friendManagment;
-    //private final NotificationManager notificationManager;
 
     /**
      * Creates new form NewsfeedFram
@@ -52,7 +52,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         userName.setVerticalAlignment(JLabel.CENTER);
         //initializing NewsFeedFriendStatus panel
         NewsFeedFriendStatus status = new NewsFeedFriendStatus(user);
-        status.setBounds(0, 220, 300, 100);
+        status.setBounds(200, 30,200,150);
         add(status);
         //initializing posts&stories panel 
         JPanel postsPanel = new JPanel();
@@ -71,7 +71,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         }
         JScrollPane scrollPane = new JScrollPane(postsPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBounds(300, 20, 530, 250);
+        scrollPane.setBounds(400, 20, 530, 250);
         add(scrollPane);
         JPanel storiesPanel = new JPanel();
         storiesPanel.setLayout(new BoxLayout(storiesPanel, BoxLayout.Y_AXIS));
@@ -90,7 +90,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         JScrollPane scrollPane2 = new JScrollPane(storiesPanel);
         //adding vertical scrollbar
         scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane2.setBounds(300, 280, 530, 200);
+        scrollPane2.setBounds(400, 280, 530, 200);
         add(scrollPane2);
         JPanel suggestionsPanel = new JPanel();
         suggestionsPanel.setLayout(new BoxLayout(suggestionsPanel, BoxLayout.Y_AXIS));
@@ -107,7 +107,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         scrollPane3.setBounds(0, 330, 300, 200);
         add(scrollPane3);
         JPanel notificationsPanel = new JPanel();
-        notificationsPanel.setLayout(new BoxLayout(notificationsPanel, BoxLayout.Y_AXIS));
+       notificationsPanel.setLayout(new BoxLayout(notificationsPanel, BoxLayout.Y_AXIS));
         List<Notification> allNotifications = notificationDatabase.fetchAllNotifications(currentuser.getUserId());
         for (Notification notification : allNotifications) {
             if (notification.getType() == NotificationType.FRIEND_REQUEST) {
@@ -134,8 +134,37 @@ public class NewsfeedFram extends javax.swing.JFrame {
         }
         JScrollPane scrollPane4 = new JScrollPane(notificationsPanel);
         scrollPane4.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane4.setBounds(300, 490, 530, 180);
+        scrollPane4.setBounds(665, 490, 265, 180);
         add(scrollPane4);
+        JPanel groupSuggestionsPanel = new JPanel();
+        groupSuggestionsPanel.setLayout(new BoxLayout(groupSuggestionsPanel, BoxLayout.Y_AXIS));
+        List<GroupSuggestion>groupSuggestionPanels=new ArrayList<>();
+        List<Group>groupSuggestions=new ArrayList<>(groupDatabase.getAllRecords());
+        groupSuggestions.removeAll(groupDatabase.getUserGroups(currentuser.getUserId()));
+        for(Group g:groupSuggestions){
+            groupSuggestionPanels.add(new GroupSuggestion(GroupManagement.getInstance(g.getGroupId()),currentuser.getUserId()));
+        }
+        for(GroupSuggestion panel:groupSuggestionPanels){
+            groupSuggestionsPanel.add(panel);
+        }
+        JScrollPane scrollPane5 = new JScrollPane(groupSuggestionsPanel);
+        scrollPane5.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane5.setBounds(0, 200,300,130);
+        add(scrollPane5);
+        JPanel groupsPanel = new JPanel();
+        groupsPanel.setLayout(new BoxLayout(groupsPanel, BoxLayout.Y_AXIS));
+        List<NewsFeedGroups> groupPanels = new ArrayList<>();
+        List<Group>groups=groupDatabase.getUserGroups(currentuser.getUserId());
+        for(Group g:groups){
+            groupPanels.add(new NewsFeedGroups(currentuser,g));
+        }
+        for(NewsFeedGroups panel:groupPanels){
+            groupsPanel.add(panel);
+        }
+        JScrollPane scrollPane6 = new JScrollPane(groupsPanel);
+        scrollPane6.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane6.setBounds(260,545,150,130);
+        add(scrollPane6);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
@@ -183,6 +212,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
         addStory = new javax.swing.JButton();
         FriendSearch = new javax.swing.JButton();
         GroupSearch = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -211,7 +241,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Friends");
+        jLabel3.setText("My Friends");
 
         addPost.setText("Add Post");
         addPost.addActionListener(new java.awt.event.ActionListener() {
@@ -241,18 +271,12 @@ public class NewsfeedFram extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("My Groups");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(userName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(556, 556, 556))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -268,8 +292,17 @@ public class NewsfeedFram extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(FriendSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(GroupSearch)))
-                .addContainerGap(592, Short.MAX_VALUE))
+                        .addComponent(GroupSearch))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(userName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(userProfile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(263, 263, 263)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(625, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {FriendSearch, addPost, addStory, logout, refresh});
@@ -277,12 +310,16 @@ public class NewsfeedFram extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(userProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(userProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 337, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(4, 4, 4)
                 .addComponent(profile, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -402,6 +439,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JButton logout;
     private javax.swing.JButton profile;
     private javax.swing.JButton refresh;

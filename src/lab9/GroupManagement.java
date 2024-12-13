@@ -30,6 +30,10 @@ public class GroupManagement {
             instances.put(groupId,new GroupManagement(groupId));
         return instances.get(groupId);
     }
+
+    public Group getGroup() {
+        return group;
+    }
     public boolean deleteGroup(String userId) {
         if (group.getPrimaryAdmin().equals(userId)) {
             groupDatabase.deleteRecord(group);
