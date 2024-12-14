@@ -23,6 +23,8 @@ public class ProfileFriendList extends javax.swing.JPanel {
 
     /**
      * Creates new form ProfileFriendList
+     * @param friendManager
+     * @param friendId
      */
     public ProfileFriendList(FriendManagment friendManager, String friendId) {
         initComponents();

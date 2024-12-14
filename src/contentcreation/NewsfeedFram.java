@@ -34,7 +34,7 @@ public class NewsfeedFram extends javax.swing.JFrame {
      */
     public NewsfeedFram(User user) {
         this.currentuser = user;
-        friendManagment = new FriendManagment(user.getUserId());
+        friendManagment =FriendManagment.getInstance(user.getUserId());
         accmanage = new AccountManagement();
         initComponents();
         userProfile.setHorizontalAlignment(JLabel.CENTER);
