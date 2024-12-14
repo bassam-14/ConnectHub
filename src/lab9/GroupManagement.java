@@ -11,7 +11,7 @@ import java.util.*;
 public class GroupManagement {
     private static final Map<String,GroupManagement> instances=new HashMap<>();
     private final GroupDatabase groupDatabase;
-    private Group group;
+    private final Group group;
     private GroupManagement(String groupId) {
      groupDatabase=GroupDatabase.getInstance();
      group=groupDatabase.getRecord(groupId);
