@@ -111,6 +111,9 @@ public class NewsfeedFram extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 user.setStatus("offline");
+            friendDatabase.saveData();
+            contentDatabase.saveData();
+            userDatabase.saveData();
                 dispose();
             }
         });
