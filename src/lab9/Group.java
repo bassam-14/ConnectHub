@@ -4,7 +4,7 @@
  */
 package lab9;
 
-import java.util.ArrayList;
+import java.util.*;
 
 
 /**
@@ -12,15 +12,17 @@ import java.util.ArrayList;
  * @author belal
  */
 public class Group {
+    private final String groupId;
     private String name;
     private String description;
     private String groupPhoto;
-    private User primaryAdmin;
-    private ArrayList<User> admins;
-    private ArrayList<User> members;
-    private ArrayList<User> membershipRequests; // New feature: Membership requests
+    private String primaryAdmin;
+    private ArrayList<String> admins;
+    private ArrayList<String> members;
+    private ArrayList<String> membershipRequests;
 
-    public Group(String name, String description, String groupPhoto, User primaryAdmin) {
+    public Group(String name, String description, String groupPhoto, String primaryAdmin) {
+        groupId=UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
         this.groupPhoto = groupPhoto;
@@ -30,6 +32,10 @@ public class Group {
         this.membershipRequests = new ArrayList<>();
         this.admins.add(primaryAdmin);
         this.members.add(primaryAdmin);
+    }
+    
+    public String getGroupId() {
+        return groupId;
     }
     public String getName() {
         return name;
@@ -55,53 +61,53 @@ public class Group {
         this.groupPhoto = groupPhoto;
     }
 
-    public User getPrimaryAdmin() {
+    public String getPrimaryAdmin() {
         return primaryAdmin;
     }
 
-    public void setPrimaryAdmin(User primaryAdmin) {
+    public void setPrimaryAdmin(String primaryAdmin) {
         this.primaryAdmin = primaryAdmin;
     }
 
-    public ArrayList<User> getAdmins() {
+    public ArrayList<String> getAdmins() {
         return admins;
     }
 
-    public void setAdmins(ArrayList<User> admins) {
+    public void setAdmins(ArrayList<String> admins) {
         this.admins = admins;
     }
 
-    public ArrayList<User> getMembers() {
+    public ArrayList<String> getMembers() {
         return members;
     }
 
-    public void setMembers(ArrayList<User> members) {
+    public void setMembers(ArrayList<String> members) {
         this.members = members;
     }
 
-    public ArrayList<User> getMembershipRequests() {
+    public ArrayList<String> getMembershipRequests() {
         return membershipRequests;
     }
 
-    public void setMembershipRequests(ArrayList<User> membershipRequests) {
+    public void setMembershipRequests(ArrayList<String> membershipRequests) {
         this.membershipRequests = membershipRequests;
     }
-     public void addAdmin(User admin){ 
+     public void addAdmin(String admin){ 
         if (!admins.contains(admin)){
             admins.add(admin);
         } 
     }
-    public void removeAdmin(User admin) { 
+    public void removeAdmin(String admin) { 
         if (!admin.equals(primaryAdmin)){
             admins.remove(admin);
         } 
     }
-    public void addMember(User member) { 
+    public void addMember(String member) { 
         if (!members.contains(member)) {
             members.add(member);
         } 
     }
-    public void removeMember(User member) {
+    public void removeMember(String member) {
         members.remove(member);
         admins.remove(member);
     } 

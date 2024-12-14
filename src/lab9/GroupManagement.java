@@ -3,116 +3,84 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package lab9;
-
-import java.util.ArrayList;
-
+import java.util.*;
 /**
  *
  * @author belal
  */
 public class GroupManagement {
-    private ArrayList<Group> groups = new ArrayList<>();
-
-    public GroupManagement() {
-        this.groups = new ArrayList<>();
+    private static final Map<String,GroupManagement> instances=new HashMap<>();
+    private final GroupDatabase groupDatabase;
+    private Group group;
+    private GroupManagement(String groupId) {
+     groupDatabase=GroupDatabase.getInstance();
+     group=groupDatabase.getRecord(groupId);
     }
-
-    public ArrayList<Group> getGroups() {
-        return groups;
+    public static GroupManagement getInstance(String groupId){
+        if(!instances.containsKey(groupId))
+            instances.put(groupId,new GroupManagement(groupId));
+        return instances.get(groupId);
     }
-
-    public boolean createGroup(String name, String description, String groupPhoto, User primaryAdmin) {
-         for (int i = 0; i < groups.size(); i++) {
-            if (groups.get(i).getName().equals(name)) {
-                return false; 
-            }
-        }
-        Group group = new Group(name, description, groupPhoto, primaryAdmin);
-        groups.add(group);
-        return true;
-    }
-         
-
-    public Group getGroupByName(String name) {
-        for (Group group : groups) {
-            if (group.getName().equals(name)) {
-                return group;
-            }
-        }
-        return null;
-    }
-    
-    public boolean deleteGroup(String name, User user) {
-        Group group = getGroupByName(name);
-        if (group.getPrimaryAdmin().equals(user)) {
-            groups.remove(group);
+    public boolean deleteGroup(String userId) {
+        if (group.getPrimaryAdmin().equals(userId)) {
+            groupDatabase.deleteRecord(group);
             return true;
         }
         return false;
     }
-    public void clearGroups() {
-        groups.clear();
-    }
-    public boolean promoteToAdmin(String groupName, User admin, User user) {
-        Group group = getGroupByName(groupName);
-        if (group != null && group.getPrimaryAdmin().equals(admin) && group.getMembers().contains(user)) {
-            group.addAdmin(user);
+    public boolean promoteToAdmin(String adminId,String userId) {
+        if (group != null && group.getPrimaryAdmin().equals(adminId) && group.getMembers().contains(userId)) {
+            group.addAdmin(userId);
             return true;
         }
         return false;
     }
-    public boolean demoteAdmin(String groupName, User admin, User user) {
-        Group group = getGroupByName(groupName);
-        if (group != null && group.getPrimaryAdmin().equals(admin) && group.getAdmins().contains(user)) {
-            group.removeAdmin(user);
+    public boolean demoteAdmin(String adminId,String userId) {
+        if (group != null && group.getPrimaryAdmin().equals(adminId) && group.getAdmins().contains(userId)) {
+            group.removeAdmin(userId);
             return true;
         }
         return false;
     }
-    public boolean removeMember(String groupName, User admin, User user) {
-        Group group = getGroupByName(groupName);
-        if (group != null && group.getAdmins().contains(admin)) {
-            group.removeMember(user);
+    public boolean removeMember(String adminId,String userId) {
+        if (group != null && group.getAdmins().contains(adminId)) {
+            group.removeMember(userId);
             return true;
         }
         return false;
     }
-    public boolean leaveGroup(String groupName, User user) {
-        Group group = getGroupByName(groupName);
-        if (group != null && group.getMembers().contains(user)) {
-            group.removeMember(user);
-            if (group.getPrimaryAdmin().equals(user)) {
+    public boolean leaveGroup(String userId) {
+        if (group != null && group.getMembers().contains(userId)) {
+            group.removeMember(userId);
+            if (group.getPrimaryAdmin().equals(userId)) {
                 if (!group.getAdmins().isEmpty()) {
                     group.setPrimaryAdmin(group.getAdmins().get(0));
                 } else if (!group.getMembers().isEmpty()) {
                     group.setPrimaryAdmin(group.getMembers().get(0));
                 } else {
-                    groups.remove(group);
+                    groupDatabase.deleteRecord(group);
                 }
             }
             return true;
         }
         return false;
     }
-    public void requestMembership(String groupName, User user) {
-        Group group = getGroupByName(groupName);
-        if (group != null && !group.getMembers().contains(user) && !group.getMembershipRequests().contains(user)) {
-            group.getMembershipRequests().add(user);
+    public void requestMembership(String userId) {
+        if (group != null && !group.getMembers().contains(userId) && !group.getMembershipRequests().contains(userId)) {
+            group.getMembershipRequests().add(userId);
         }
     }
-    public boolean approveMembershipRequest(String groupName, User admin, User user) {
-        Group group = getGroupByName(groupName);
-        if (group != null && group.getAdmins().contains(admin) && group.getMembershipRequests().contains(user)) {
-            group.getMembershipRequests().remove(user);
-            group.addMember(user);
+    public boolean approveMembershipRequest(String adminId,String userId) {
+        if (group != null && group.getAdmins().contains(adminId) && group.getMembershipRequests().contains(userId)) {
+            group.getMembershipRequests().remove(userId);
+            group.addMember(userId);
             return true;
         }
         return false;
     }
-    public boolean declineMembershipRequest(String groupName, User admin, User user) {
-        Group group = getGroupByName(groupName);
-        if (group != null && group.getAdmins().contains(admin)) {
-            group.getMembershipRequests().remove(user);
+    public boolean declineMembershipRequest(String adminId,String userId) {
+        if (group != null && group.getAdmins().contains(adminId)) {
+            group.getMembershipRequests().remove(userId);
             return true;
         }
         return false;
